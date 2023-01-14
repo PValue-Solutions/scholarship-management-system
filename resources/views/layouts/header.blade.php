@@ -8,7 +8,7 @@
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
+        {{--  <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                 <i class="far fa-bell"></i>
                 @if ($notifications)
@@ -29,7 +29,7 @@
                     </a>
                 @endif
             </div>
-        </li>
+        </li>  --}}
 
         <!-- Company Name -->
         <li class="nav-item dropdown nav-margin">
@@ -58,7 +58,7 @@
 
         <!-- flag -->
 
-        <li class="nav-item dropdown">
+        {{--  <li class="nav-item dropdown">
 
             @php
                 $locale = App::getLocale();
@@ -74,7 +74,7 @@
                        <a class="dropdown-item" href="{{ route('lang.index', ['language' => $key]) }}" @if ($key == $locale) style="background-color : #ddd" @endif><span class="flag-icon {{ $flag[$key] }}"> </span>  {{ $value }}</a>
                 @endforeach
             </div>
-        </li>
+        </li>  --}}
 
         <!-- flag -->
 

@@ -4,10 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-
-                    <h3><a href="{{ route('company.create') }}" class="btn btn-outline btn-info">+ @lang('Add Company')</a>
-                        <span class="pull-right"></span>
-                    </h3>
+                    @can('company-create')
+                        <h3>
+                            <a href="{{ route('company.create') }}" class="btn btn-outline btn-info">+ @lang('Add Company')</a>
+                            <span class="pull-right"></span>
+                        </h3>
+                    @endcan
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -91,8 +93,12 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @can('company-update')
                                         <a href=" {{ route('company.edit', $company) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="Edit"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
+                                        @endcan
+                                        @can('company-delete')
                                         <a href="#" data-href="{{ route('company.destroy', $company) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash ambitious-padding-btn"></i></a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

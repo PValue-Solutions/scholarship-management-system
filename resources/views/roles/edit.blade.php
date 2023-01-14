@@ -40,7 +40,7 @@
                         <div class="col-md-8">
                             <select class="form-control ambitious-form-loading @error('role_for') is-invalid @enderror" name="role_for" id="role_for">
                                 <option value="1" {{ old('role_for', $role->role_for) == 1 ? 'selected' : ''  }}>@lang('General User')</option>
-                                <option value="0" {{ old('role_for', $role->role_for) == 0 ? 'selected' : ''  }}>@lang('System User')</option>
+                                {{--  <option value="0" {{ old('role_for', $role->role_for) == 0 ? 'selected' : ''  }}>@lang('System User')</option>  --}}
                             </select>
                             @error('role_for')
                                 <div class="invalid-feedback">

@@ -18,6 +18,21 @@ use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
+    /**
+     * load constructor method
+     *
+     * @access public
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware('permission:company-read|company-create|company-update|company-delete', ['only' => ['index']]);
+        $this->middleware('permission:company-create', ['only' => ['create','store']]);
+        $this->middleware('permission:company-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:company-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:company-export', ['only' => ['doExport']]);
+    }
+
     public function companyAccountSwitch(Request $request)
     {
         $companySwitch = $request->company_switch;
@@ -71,7 +86,8 @@ class CompanyController extends Controller
             "USD"=>"US Dollar",
             "EUR"=>"Euro",
             "GBP"=>"British Pound",
-            "TRY"=>"Turkish Lira"
+            "TRY"=>"Turkish Lira",
+            "INR"=>"Indian Rupee"
         );
         return view('companies.create', compact('currencies'));
     }
@@ -216,6 +232,18 @@ class CompanyController extends Controller
         }
 
         $currencyRows = [
+            [
+                'company_id' => $company->id,
+                'name' => 'Indian Rupee',
+                'code' => 'INR',
+                'rate' => '1.00',
+                'enabled' => '1',
+                'precision' => config('money.INR.precision'),
+                'symbol' => config('money.INR.symbol'),
+                'symbol_first' => config('money.INR.symbol_first'),
+                'decimal_mark' => config('money.INR.decimal_mark'),
+                'thousands_separator' => config('money.INR.thousands_separator'),
+            ],
             [
                 'company_id' => $company->id,
                 'name' => 'US Dollar',

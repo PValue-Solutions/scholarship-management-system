@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "akaunting/money": "^1.2",
-        "consoletvs/charts": "7.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -21,6 +20,7 @@
         "milon/barcode": "^8.0",
         "moneyphp/money": "v3.3.1",
         "spatie/laravel-permission": "^4.0",
+        "tabacitu/consoletvs-charts-temp": "6.*",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {

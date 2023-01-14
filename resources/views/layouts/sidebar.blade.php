@@ -3,7 +3,7 @@
 
 $c = Request::segment(1);
 $m = Request::segment(2);
-$RoleName = Auth::user()->getRoleNames();
+$roleName = Auth::user()->getRoleNames();
 
 @endphp
 
@@ -11,7 +11,7 @@ $RoleName = Auth::user()->getRoleNames();
     <!-- Brand Logo -->
     <a href="{{ route('dashboard')  }}" class="brand-link navbar-info">
         <img src="{{ asset('img/favicon.png') }}" alt="{{ $ApplicationSetting->item_name }}" class="brand-image" style="opacity: .8; width :32px; height : 32px">
-        <span class="brand-text font-weight-light">{{ $ApplicationSetting->item_name }}</span>
+        <span class="brand-text font-weight-light">{{ $ApplicationSetting->item_short_name }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -271,27 +271,27 @@ $RoleName = Auth::user()->getRoleNames();
                                     </a>
                                 </li>
                             @endcanany
-                            @if ($roleName['0'] = "Super Admin")
+                            @if ($roleName['0'] == "Super Admin")
                                 <li class="nav-item">
                                     <a href="{{ route('apsetting') }}" class="nav-link @if($c == 'apsetting' && $m == null) active @endif ">
                                         <i class="fa fa-globe nav-icon"></i>
                                         <p>@lang('Application Settings')</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{--  <li class="nav-item">
                                     <a href="{{ route('smtp.index') }}" class="nav-link @if($c == 'smtp') active @endif ">
                                         <i class="fas fa-mail-bulk nav-icon"></i>
                                         <p>@lang('Smtp Settings')</p>
                                     </a>
-                                </li>
+                                </li>  --}}
                             @endif
                             @canany(['offline-payment-read', 'offline-payment-create', 'offline-payment-update', 'offline-payment-delete'])
-                                <li class="nav-item">
+                                {{--  <li class="nav-item">
                                     <a href="{{ route('offline-payment.index') }}" class="nav-link @if($c == 'offline-payment') active @endif ">
                                         <i class="fas fa-money-check nav-icon"></i>
                                         <p>@lang('Offline Payments')</p>
                                     </a>
-                                </li>
+                                </li>  --}}
                             @endcanany
                         </ul>
                     </li>

@@ -22,21 +22,33 @@ class RolesTableSeeder extends Seeder
             'validity' => '1825',
             'is_default' => '1',
         ]);
-        $permissions = Permission::select('id')->get()->pluck('id');
+        $permissions = Permission::select('id')
+        ->where('name', 'not like', 'tax-rate-%')
+        ->get()->pluck('id');
         $role->syncPermissions($permissions);
 
         $role = Role::create([
-            'name' => 'Doctor',
+            'name' => 'Admin',
             'guard_name' => 'web',
             'role_for' => '1',
             'is_default' => '1',
         ]);
         $permissions = Permission::select('id')
-            ->where('name', 'like', 'doctor-detail-%')->get()->pluck('id');
+            ->where('name', 'not like', 'role-%')
+            ->where('name', 'not like', 'company-%')
+            ->where('name', 'not like', 'tax-rate-%')
+            ->get()->pluck('id');
         $role->syncPermissions($permissions);
 
         $role = Role::create([
-            'name' => 'Patient',
+            'name' => 'Employee',
+            'guard_name' => 'web',
+            'role_for' => '1',
+            'is_default' => '1',
+        ]);
+
+        $role = Role::create([
+            'name' => 'Student',
             'guard_name' => 'web',
             'role_for' => '1',
             'is_default' => '1',

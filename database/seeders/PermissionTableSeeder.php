@@ -32,10 +32,10 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'offline-payment-update','display_name' => 'Offline Payment']);
         Permission::firstOrCreate(['name' => 'offline-payment-delete','display_name' => 'Offline Payment']);
         Permission::firstOrCreate(['name' => 'company-read','display_name' => 'Company']);
-        Permission::firstOrCreate(['name' => 'company-create','display_name' => 'Company']);
+        // Permission::firstOrCreate(['name' => 'company-create','display_name' => 'Company']);
         Permission::firstOrCreate(['name' => 'company-update','display_name' => 'Company']);
-        Permission::firstOrCreate(['name' => 'company-delete','display_name' => 'Company']);
-        Permission::firstOrCreate(['name' => 'company-export','display_name' => 'Company']);
+        // Permission::firstOrCreate(['name' => 'company-delete','display_name' => 'Company']);
+        // Permission::firstOrCreate(['name' => 'company-export','display_name' => 'Company']);
         Permission::firstOrCreate(['name' => 'category-read','display_name' => 'Category']);
         Permission::firstOrCreate(['name' => 'category-create','display_name' => 'Category']);
         Permission::firstOrCreate(['name' => 'category-update','display_name' => 'Category']);

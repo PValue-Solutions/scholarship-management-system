@@ -20,8 +20,8 @@ class CreateInitialUserSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123456789'),
-            'phone' => '01712340889',
-            'address' => 'Natore',
+            'phone' => '+91 9188305778',
+            'address' => 'Bangalore',
             'status' => '1',
 
         ]);

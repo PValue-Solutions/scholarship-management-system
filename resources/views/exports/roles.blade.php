@@ -4,8 +4,6 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Price</th>
-            <th>Validity</th>
             <th>Role For</th>
             <th>Default</th>
         </tr>
@@ -15,8 +13,6 @@
             <tr>
                 <td>{{ $role->id }}</td>
                 <td>{{ $role->name }}</td>
-                <td>{{ $role->price }}</td>
-                <td>{{ $role->validity }}</td>
                 @php
                     ($role->role_for == '0') ? $rFor = "System User" : $rFor = "General User";
                 @endphp

@@ -72,8 +72,8 @@
                             <tr>
                                 <th>@lang('Id')</th>
                                 <th>@lang('Name')</th>
-                                <th>{{ __('Price') }}</th>
-                                <th>{{ __('Validity') }}</th>
+                                {{--  <th>{{ __('Price') }}</th>
+                                <th>{{ __('Validity') }}</th>  --}}
                                 <th>{{ __('Role For') }}</th>
                                 <th>@lang('Default')</th>
                                 @canany(['role-update', 'role-delete'])
@@ -86,8 +86,8 @@
                                 <tr>
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
-                                    <td>{{ $role->price }}</td>
-                                    <td>{{ $role->validity }}</td>
+                                    {{--  <td>{{ $role->price }}</td>
+                                    <td>{{ $role->validity }}</td>  --}}
                                     <td>
                                         @if($role->role_for == '1')
                                             <span class="badge badge-pill badge-success">@lang('General User')</span>

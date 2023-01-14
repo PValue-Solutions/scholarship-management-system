@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "279dfff1e9bd6baa687ad0f1e0fbffd0",
+    "content-hash": "0aee5a31e285138c5795571d98e4c18e",
     "packages": [
         {
             "name": "akaunting/money",
@@ -128,6 +128,52 @@
             "time": "2020-10-29T16:03:21+00:00"
         },
         {
+            "name": "balping/json-raw-encoder",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/balping/json-raw-encoder.git",
+                "reference": "e2b0ab888342b0716f1f0628e2fa13b345c5f276"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/balping%2Fjson-raw-encoder/repository/archive.zip?sha=e2b0ab888342b0716f1f0628e2fa13b345c5f276",
+                "reference": "e2b0ab888342b0716f1f0628e2fa13b345c5f276",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Balping\\JsonRaw\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Balázs Dura-Kovács"
+                }
+            ],
+            "description": "Encode arrays to json with raw JS objects (eg. callbacks) in them",
+            "keywords": [
+                "callback",
+                "encode",
+                "json"
+            ],
+            "support": {
+                "issues": "https://gitlab.com/api/v4/projects/6731265/issues"
+            },
+            "time": "2020-06-06T16:24:31+00:00"
+        },
+        {
             "name": "brick/math",
             "version": "0.9.2",
             "source": {
@@ -182,108 +228,6 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
-        },
-        {
-            "name": "chartisan/php",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Chartisan/PHP.git",
-                "reference": "85d2352077800e9bcb411aec1ff7e4d23eef93a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Chartisan/PHP/zipball/85d2352077800e9bcb411aec1ff7e4d23eef93a1",
-                "reference": "85d2352077800e9bcb411aec1ff7e4d23eef93a1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Chartisan\\PHP\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Èrik Campobadal Forés",
-                    "email": "soc@erik.cat"
-                }
-            ],
-            "description": "Chartisan's PHP backend",
-            "support": {
-                "issues": "https://github.com/Chartisan/PHP/issues",
-                "source": "https://github.com/Chartisan/PHP/tree/1.2.1"
-            },
-            "time": "2020-11-05T13:13:58+00:00"
-        },
-        {
-            "name": "consoletvs/charts",
-            "version": "7.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Chartisan/Charts.git",
-                "reference": "b6c47dedeebf95c690f3604355ddb002677b6ae6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Chartisan/Charts/zipball/b6c47dedeebf95c690f3604355ddb002677b6ae6",
-                "reference": "b6c47dedeebf95c690f3604355ddb002677b6ae6",
-                "shasum": ""
-            },
-            "require": {
-                "chartisan/php": "^1.2.0",
-                "illuminate/console": "^7.14.1|^8.0|^9.0",
-                "illuminate/contracts": "^7.14.1|^8.0|^9.0",
-                "illuminate/http": "^7.14.1|^8.0|^9.0",
-                "illuminate/support": "^7.14.1|^8.0|^9.0",
-                "php": ">=7.4"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ConsoleTVs\\Charts\\ChartsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ConsoleTVs\\Charts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Èrik C. Forés",
-                    "email": "soc@erik.cat"
-                }
-            ],
-            "description": "The missing charting library on laravel, powered by Chartisan",
-            "support": {
-                "issues": "https://github.com/Chartisan/Charts/issues",
-                "source": "https://github.com/Chartisan/Charts/tree/7.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ConsoleTVs",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/ErikCampobadal",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2022-02-09T15:10:47+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -5593,6 +5537,61 @@
             "time": "2021-01-27T10:15:41+00:00"
         },
         {
+            "name": "tabacitu/consoletvs-charts-temp",
+            "version": "6.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tabacitu/consoletvs-charts-temp.git",
+                "reference": "64408f15cda0ea4dd75071048c569ddfb9c919c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tabacitu/consoletvs-charts-temp/zipball/64408f15cda0ea4dd75071048c569ddfb9c919c9",
+                "reference": "64408f15cda0ea4dd75071048c569ddfb9c919c9",
+                "shasum": ""
+            },
+            "require": {
+                "balping/json-raw-encoder": "^1.0",
+                "illuminate/console": "^5.0|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ConsoleTVs\\Charts\\ChartsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ConsoleTVs\\Charts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Èrik Campobadal Forés",
+                    "email": "soc@erik.cat"
+                }
+            ],
+            "description": "Temporary Archive of ConsoleTVs/Charts (aka Chartisan/Charts) v6.5.6",
+            "support": {
+                "source": "https://github.com/tabacitu/consoletvs-charts-temp/tree/6.5.6"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/ErikCampobadal",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-08-04T06:32:26+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.3",
             "source": {
@@ -8435,5 +8434,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }

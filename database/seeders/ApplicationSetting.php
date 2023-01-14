@@ -15,20 +15,20 @@ class ApplicationSetting extends Seeder
     public function run()
     {
         \App\Models\ApplicationSetting::create([
-            'item_name' => 'Accounting',
-            'item_short_name' => 'Accounting',
+            'item_name' => 'Scholarship Management System',
+            'item_short_name' => 'SSMS',
             'item_version' => 'V 1.0',
-            'company_name' => 'ambitiousitbd',
-            'company_email' => 'ambitiousitbd@gmail.com',
-            'company_address' => 'Natore, Bangladesh',
-            'developed_by' => 'Ambitiousitbd',
-            'developed_by_href' => 'http://ambitiousit.net/',
-            'developed_by_title' => 'Your hope our goal',
-            'developed_by_prefix' => 'Developed by',
-            'support_email' => 'ambitiousitbd@gmail.com',
+            'company_name' => 'PValue Solutions Private Limited',
+            'company_email' => 'info@pvalue.co.in',
+            'company_address' => '03, Ground Floor, 22nd Main Rd, Opp. to PES College Road, Hanumanthnagar, Banashankari 1st Stage, Bengaluru, Karnataka 560050',
+            'developed_by' => 'PValue Solutions',
+            'developed_by_href' => 'https://pvalue.co.in',
+            'developed_by_title' => 'Complete Business Automation Solutions',
+            'developed_by_prefix' => 'Design & Developed by',
+            'support_email' => 'support@pvalue.co.in',
             'language' => 'en',
             'is_demo' => '0',
-            'time_zone' => 'Asia/Dhaka',
+            'time_zone' => 'Asia/Kolkata',
         ]);
     }
 }
