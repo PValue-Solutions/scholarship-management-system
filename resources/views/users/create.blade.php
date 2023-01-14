@@ -105,7 +105,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <input id="role_for" type="hidden" name="role_for" value="1">
+                        {{--  <div class="col-md-6 ">
                             <div class="form-group">
                                 <label class="col-md-12 col-form-label"><h4>@lang('User For')</h4></label>
                                 <div class="input-group mb-3">
@@ -114,7 +115,7 @@
                                     </div>
                                     <select class="form-control ambitious-form-loading @error('role_for') is-invalid @enderror" name="role_for" id="role_for">
                                         <option value="0" {{ old('role_for') == 0 ? 'selected' : '' }}>@lang('System User')</option>
-                                        <option value="1" {{ old('role_for') == 1 ? 'selected' : '' }}>@lang('General User')</option>
+                                        <option value="1" {{ old('role_for') == 1 ? 'selected' : 'selected' }}>@lang('General User')</option>
                                     </select>
                                     @error('role_for')
                                         <div class="invalid-feedback">
@@ -123,8 +124,11 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div>  --}}
 
+
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-md-12 col-form-label"><h4>@lang('Phone')</h4></label>
@@ -141,13 +145,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-12 col-form-label"><h4>@lang('Status')</h4></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-bell"></i></span>
+                                    </div>
+                                    <select class="form-control ambitious-form-loading @error('status') is-invalid @enderror" required="required" name="status" id="status">
+                                        <option value="1" {{ old('status') === 1 ? 'selected' : '' }}>@lang('Active')</option>
+                                        <option value="0" {{ old('status') === 0 ? 'selected' : '' }}>@lang('Inactive')</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="staff_block">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="col-md-12 col-form-label"><h4>@lang('Staff Role')</h4></label>
+                                    <label class="col-md-12 col-form-label"><h4>@lang('User Role')</h4></label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
@@ -165,14 +188,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{--  <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-md-12 col-form-label"><h4>@lang('Staff Company')</h4></label>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-building"></i></span>
                                         </div>
-                                        <select class="form-control select2bs4 @error('staff_company') is-invalid @enderror" id="staff_company" name="staff_company" data-placeholder="Select a company">
+                                        <select class="form-control select2bs4 @error('staff_company') is-invalid @enderror" id="staff_company" name="staff_company" data-placeholder="Select a company" readonly>
                                             @foreach ($companies as $value)
                                                 <option value="{{ $value->id }}" {{ old('staff_company') == $value->id ? 'selected' : '' }} >{{ $value->company_name }}</option>
                                             @endforeach
@@ -184,7 +207,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
+                            </div>  --}}
+                            @foreach ($companies as $value)
+                            <input type="hidden" id="staff_company" name="staff_company" value="{{ $value->id }}">
+                            @endforeach
                         </div>
                     </div>
 
@@ -257,28 +283,6 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-md-12 col-form-label"><h4>@lang('Status')</h4></label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-bell"></i></span>
-                                    </div>
-                                    <select class="form-control ambitious-form-loading @error('status') is-invalid @enderror" required="required" name="status" id="status">
-                                        <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>@lang('Active')</option>
-                                        <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>@lang('Inactive')</option>
-                                    </select>
-                                    @error('status')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
                     <div class="form-group">
                         <label class="col-md-3 col-form-label"></label>
                         <div class="col-md-8">
