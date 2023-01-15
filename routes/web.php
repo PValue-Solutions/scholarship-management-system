@@ -115,6 +115,8 @@ Route::group(['middleware' => ['auth']], function() {
         'transfer' => App\Http\Controllers\TransferController::class,
         'transaction' => App\Http\Controllers\TransactionController::class,
         'offline-payment' => App\Http\Controllers\OfflinePaymentController::class,
+
+        'scholarship-class' => App\Http\Controllers\ScholarshipClassController::class,
     ]);
 
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');

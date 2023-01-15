@@ -68,21 +68,6 @@ class User extends Authenticatable
         return $this->morphToMany(Company::class, 'user', 'user_companies', 'user_id', 'company_id');
     }
 
-    public function doctorSchedules()
-    {
-        return $this->hasMany(DoctorSchedule::class);
-    }
-
-    public function patientAppointments()
-    {
-        return $this->hasMany(PatientAppointment::class);
-    }
-
-    public function doctorAppointments()
-    {
-        return $this->hasMany(PatientAppointment::class, 'doctor_id');
-    }
-
     public function getPhotoUrlAttribute()
     {
         if ($this->photo)
@@ -91,13 +76,8 @@ class User extends Authenticatable
             return asset('img/placeholder.jpg');
     }
 
-    public function patientCaseStudy()
+    public function scholarshipClasses()
     {
-        return $this->hasOne(PatientCaseStudy::class);
-    }
-
-    public function labReports()
-    {
-        return $this->hasMany(LabReport::class);
+        return $this->hasMany(ScholarshipClass::class);
     }
 }
