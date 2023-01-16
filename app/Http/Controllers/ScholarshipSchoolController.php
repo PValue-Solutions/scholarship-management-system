@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Session;
+use App\Models\Company;
+use App\Exports\SchoolsExport;
 use App\Models\ScholarshipSchool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ScholarshipSchoolController extends Controller
 {
@@ -30,6 +34,8 @@ class ScholarshipSchoolController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->export)
+            return $this->doExport($request);
         $schools = $this->filter($request)->paginate(10);
         return view('schools.index', compact('schools'));
     }
@@ -48,6 +54,17 @@ class ScholarshipSchoolController extends Controller
             $query->where('status', $request->enabled);
 
         return $query;
+    }
+
+    /**
+     * Performs exporting
+     *
+     * @param Request $request
+     * @return void
+     */
+    private function doExport(Request $request)
+    {
+        return Excel::download(new SchoolsExport($request, session('company_id')), 'schools.xlsx');
     }
 
     /**
@@ -99,7 +116,7 @@ class ScholarshipSchoolController extends Controller
      */
     public function edit(ScholarshipSchool $scholarshipSchool)
     {
-        //
+        return view('schools.edit', compact('scholarshipSchool'));
     }
 
     /**
@@ -111,7 +128,15 @@ class ScholarshipSchoolController extends Controller
      */
     public function update(Request $request, ScholarshipSchool $scholarshipSchool)
     {
-        //
+        $this->validation($request, $scholarshipSchool->id);
+        $data = $request->only(['name','school_type','website','email','village','district','description','status']);
+        if ($request->picture) {
+            $data['picture'] = $request->picture->store('item-images');
+        }
+        DB::transaction(function () use ($data, $scholarshipSchool) {
+            $scholarshipSchool->update($data);
+        });
+        return redirect()->route('scholarship-school.index')->with('success', trans('School Update Successfully'));
     }
 
     /**
@@ -122,7 +147,8 @@ class ScholarshipSchoolController extends Controller
      */
     public function destroy(ScholarshipSchool $scholarshipSchool)
     {
-        //
+        $scholarshipSchool->delete();
+        return redirect()->route('scholarship-school.index')->with('success', trans('School Deleted Successfully'));
     }
 
     private function validation(Request $request, $id = 0)
