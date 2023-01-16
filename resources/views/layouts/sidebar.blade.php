@@ -44,12 +44,16 @@ $roleName = Auth::user()->getRoleNames();
                     </a>
                 </li>
 
+                @canany(['item-read', 'item-create', 'item-update', 'item-delete'])
                 <li class="nav-item">
                     <a href="{{ route('item.index') }}" class="nav-link @if($c == 'item') active @endif ">
                         <i class="fab fa-buffer nav-icon"></i>
                         <p>@lang('Items')</p>
                     </a>
                 </li>
+                @endcan
+
+                @canany(['customer-read', 'customer-create', 'customer-update', 'customer-delete'])
 
                 <li class="nav-item has-treeview @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') active @endif">
@@ -80,7 +84,8 @@ $roleName = Auth::user()->getRoleNames();
                         </li>
                     </ul>
                 </li>
-
+                @endcan
+                @canany(['vendor-read', 'vendor-create', 'vendor-update', 'vendor-delete'])
                 <li class="nav-item has-treeview @if($c == 'vendor' || $c == 'payment' || $c == 'bill') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'vendor' || $c == 'payment' || $c == 'bill') active @endif">
                         <i class="nav-icon fas fa-minus"></i>
@@ -110,6 +115,7 @@ $roleName = Auth::user()->getRoleNames();
                         </li>
                     </ul>
                 </li>
+                @endcan
                 @canany(['account-read', 'account-create', 'account-update', 'account-delete', 'account-export', 'transfer-read', 'transfer-create', 'transfer-update', 'transfer-delete', 'transfer-export', 'transaction-read', 'transaction-export'])
                     <li class="nav-item has-treeview @if($c == 'account' || $c == 'transfer' || $c == 'transaction') menu-open @endif">
                         <a href="javascript:void(0)" class="nav-link @if($c == 'account' || $c == 'transfer' || $c == 'transaction' ) active @endif">
@@ -200,6 +206,73 @@ $roleName = Auth::user()->getRoleNames();
                         </ul>
                     </li>
                 @endcanany
+
+
+                <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
+                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
+                        <i class="nav-icon fas fa-tools"></i>
+                        <p>
+                            @lang('Basic Configuration')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @canany(['village-read', 'village-create', 'village-update', 'village-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-village.index') }}" class="nav-link @if($c == 'scholarship-village') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Village')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['class-read', 'class-create', 'class-update', 'class-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-class.index') }}" class="nav-link @if($c == 'scholarship-class') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Class')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['year-read', 'year-create', 'year-update', 'year-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-year.index') }}" class="nav-link @if($c == 'scholarship-year') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Year')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['school-read', 'school-create', 'school-update', 'school-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-school.index') }}" class="nav-link @if($c == 'scholarship-school') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('School')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['teacher-read', 'teacher-create', 'teacher-update', 'teacher-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-teacher.index') }}" class="nav-link @if($c == 'scholarship-teacher') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Teacher')</p>
+                                </a>
+                            </li>
+                        @endcanany
+
+                        @canany(['organization-read', 'organization-create', 'organization-update', 'organization-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-organization.index') }}" class="nav-link @if($c == 'scholarship-organization') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Organization')</p>
+                                </a>
+                            </li>
+                        @endcanany
+
+
+
+                    </ul>
+                </li>
+
+
                 @canany(['category-read', 'category-create', 'category-update', 'category-delete', 'category-export', 'category-import', 'currencies-read', 'currencies-create', 'currencies-update', 'currencies-delete', 'currencies-export', 'currencies-import','tax-rate-read', 'tax-rate-create', 'tax-rate-update', 'tax-rate-delete', 'tax-rate-export', 'tax-rate-import'])
                     <li class="nav-item has-treeview @if($c == 'category' || $c == 'currency' || $c == 'tax') menu-open @endif">
                         <a href="javascript:void(0)" class="nav-link @if($c == 'category' || $c == 'currency' || $c == 'tax') active @endif">

@@ -17,8 +17,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('scholarship-class.index') }}">@lang('Category List')</a></li>
-                    <li class="breadcrumb-item active">@lang('Add New')</li>
+                        <a href="{{ route('scholarship-year.index') }}">@lang('Year List')</a></li>
+                    <li class="breadcrumb-item active">@lang('Edit Year')</li>
                 </ol>
             </div>
         </div>
@@ -28,11 +28,12 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@lang('Add New')</h3>
+                <h3 class="card-title">@lang('Edit Year')</h3>
             </div>
             <div class="card-body">
-                <form class="form-material form-horizontal" action="{{ route('scholarship-class.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="form-material form-horizontal" action="{{ route('scholarship-year.update', $scholarshipYear) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-8">
@@ -41,7 +42,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-money-check-alt"></i>
                                   </div>
-                                  <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="@lang('Enter Class Name')" required>
+                                  <input type="number" name="name" value="{{ old('name', $scholarshipYear->name) }}" class="form-control" placeholder="@lang('Enter Year Name')" required>
                               </div>
                             </div>
                         </div>
@@ -55,8 +56,8 @@
                                         <span class="input-group-text"><i class="fas fa-bell"></i></span>
                                     </div>
                                     <select class="form-control ambitious-form-loading @error('status') is-invalid @enderror" required="required" name="status" id="status">
-                                        <option value="1" {{ old('status') === 1 ? 'selected' : '' }}>@lang('Active')</option>
-                                        <option value="0" {{ old('status') === 0 ? 'selected' : '' }}>@lang('Inactive')</option>
+                                        <option value="1" {{ old('status', $scholarshipYear->status) == 1 ? 'selected' : '' }}>@lang('Active')</option>
+                                        <option value="0" {{ old('status', $scholarshipYear->status) == 0 ? 'selected' : '' }}>@lang('Inactive')</option>
                                     </select>
                                     @error('status')
                                         <div class="invalid-feedback">
@@ -68,9 +69,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <label class="col-md-3 col-form-label"></label>
+                        <div class="col-md-8">
                             <input type="submit" value="@lang('Submit')" class="btn btn-outline btn-info btn-lg"/>
-                            <a href="{{ route('scholarship-class.index') }}" class="btn btn-outline btn-warning btn-lg" style="float:right">@lang('Cancel')</a>
+                            <a href="{{ route('scholarship-year.index') }}" class="btn btn-outline btn-warning btn-lg">@lang('Cancel')</a>
                         </div>
                     </div>
                 </form>
@@ -78,5 +80,6 @@
         </div>
     </div>
 </div>
+
 @include('script.category.create.js')
 @endsection

@@ -80,4 +80,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(ScholarshipClass::class);
     }
+
+    public function scholarshipYears()
+    {
+        return $this->hasMany(ScholarshipYears::class);
+    }
+
+    public function scholarshipVillages()
+    {
+        return $this->hasMany(ScholarshipVillage::class);
+    }
+
+    public function ScholarshipSchools()
+    {
+        return $this->hasMany(ScholarshipSchool::class);
+    }
 }

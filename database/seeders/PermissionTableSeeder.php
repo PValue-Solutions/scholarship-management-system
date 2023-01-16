@@ -33,6 +33,37 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'class-update','display_name' => 'Class']);
         Permission::firstOrCreate(['name' => 'class-delete','display_name' => 'Class']);
 
+        Permission::firstOrCreate(['name' => 'year-read','display_name' => 'Year']);
+        Permission::firstOrCreate(['name' => 'year-create','display_name' => 'Year']);
+        Permission::firstOrCreate(['name' => 'year-update','display_name' => 'Year']);
+        Permission::firstOrCreate(['name' => 'year-delete','display_name' => 'Year']);
+
+        Permission::firstOrCreate(['name' => 'village-read','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-create','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-update','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-delete','display_name' => 'Village']);
+
+        Permission::firstOrCreate(['name' => 'school-read','display_name' => 'School']);
+        Permission::firstOrCreate(['name' => 'school-create','display_name' => 'School']);
+        Permission::firstOrCreate(['name' => 'school-update','display_name' => 'School']);
+        Permission::firstOrCreate(['name' => 'school-delete','display_name' => 'School']);
+        Permission::firstOrCreate(['name' => 'school-export','display_name' => 'School']);
+
+        Permission::firstOrCreate(['name' => 'teacher-read','display_name' => 'Teacher']);
+        Permission::firstOrCreate(['name' => 'teacher-create','display_name' => 'Teacher']);
+        Permission::firstOrCreate(['name' => 'teacher-update','display_name' => 'Teacher']);
+        Permission::firstOrCreate(['name' => 'teacher-delete','display_name' => 'Teacher']);
+        Permission::firstOrCreate(['name' => 'teacher-export','display_name' => 'Teacher']);
+
+        Permission::firstOrCreate(['name' => 'organization-read','display_name' => 'Organization']);
+        Permission::firstOrCreate(['name' => 'organization-create','display_name' => 'Organization']);
+        Permission::firstOrCreate(['name' => 'organization-update','display_name' => 'Organization']);
+        Permission::firstOrCreate(['name' => 'organization-delete','display_name' => 'Organization']);
+        Permission::firstOrCreate(['name' => 'organization-export','display_name' => 'Organization']);
+
+
+
+
         Permission::firstOrCreate(['name' => 'offline-payment-read','display_name' => 'Offline Payment']);
         Permission::firstOrCreate(['name' => 'offline-payment-create','display_name' => 'Offline Payment']);
         Permission::firstOrCreate(['name' => 'offline-payment-update','display_name' => 'Offline Payment']);
@@ -66,38 +97,38 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'item-delete','display_name' => 'Item']);
         Permission::firstOrCreate(['name' => 'item-export','display_name' => 'Item']);
         Permission::firstOrCreate(['name' => 'item-import','display_name' => 'Item']);
-        Permission::firstOrCreate(['name' => 'customer-read','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'customer-create','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'customer-update','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'customer-delete','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'customer-export','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'customer-import','display_name' => 'Customer']);
-        Permission::firstOrCreate(['name' => 'invoice-read','display_name' => 'Invoice']);
-        Permission::firstOrCreate(['name' => 'invoice-create','display_name' => 'Invoice']);
-        Permission::firstOrCreate(['name' => 'invoice-update','display_name' => 'Invoice']);
-        Permission::firstOrCreate(['name' => 'invoice-delete','display_name' => 'Invoice']);
-        Permission::firstOrCreate(['name' => 'invoice-export','display_name' => 'Invoice']);
-        Permission::firstOrCreate(['name' => 'revenue-read','display_name' => 'Revenue']);
-        Permission::firstOrCreate(['name' => 'revenue-create','display_name' => 'Revenue']);
-        Permission::firstOrCreate(['name' => 'revenue-update','display_name' => 'Revenue']);
-        Permission::firstOrCreate(['name' => 'revenue-delete','display_name' => 'Revenue']);
-        Permission::firstOrCreate(['name' => 'revenue-export','display_name' => 'Revenue']);
-        Permission::firstOrCreate(['name' => 'vendor-read','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'vendor-create','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'vendor-update','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'vendor-delete','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'vendor-export','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'vendor-import','display_name' => 'Vendor']);
-        Permission::firstOrCreate(['name' => 'bill-read','display_name' => 'Bill']);
-        Permission::firstOrCreate(['name' => 'bill-create','display_name' => 'Bill']);
-        Permission::firstOrCreate(['name' => 'bill-update','display_name' => 'Bill']);
-        Permission::firstOrCreate(['name' => 'bill-delete','display_name' => 'Bill']);
-        Permission::firstOrCreate(['name' => 'bill-export','display_name' => 'Bill']);
-        Permission::firstOrCreate(['name' => 'payment-read','display_name' => 'Payment']);
-        Permission::firstOrCreate(['name' => 'payment-create','display_name' => 'Payment']);
-        Permission::firstOrCreate(['name' => 'payment-update','display_name' => 'Payment']);
-        Permission::firstOrCreate(['name' => 'payment-delete','display_name' => 'Payment']);
-        Permission::firstOrCreate(['name' => 'payment-export','display_name' => 'Payment']);
+        // Permission::firstOrCreate(['name' => 'customer-read','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'customer-create','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'customer-update','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'customer-delete','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'customer-export','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'customer-import','display_name' => 'Customer']);
+        // Permission::firstOrCreate(['name' => 'invoice-read','display_name' => 'Invoice']);
+        // Permission::firstOrCreate(['name' => 'invoice-create','display_name' => 'Invoice']);
+        // Permission::firstOrCreate(['name' => 'invoice-update','display_name' => 'Invoice']);
+        // Permission::firstOrCreate(['name' => 'invoice-delete','display_name' => 'Invoice']);
+        // Permission::firstOrCreate(['name' => 'invoice-export','display_name' => 'Invoice']);
+        // Permission::firstOrCreate(['name' => 'revenue-read','display_name' => 'Revenue']);
+        // Permission::firstOrCreate(['name' => 'revenue-create','display_name' => 'Revenue']);
+        // Permission::firstOrCreate(['name' => 'revenue-update','display_name' => 'Revenue']);
+        // Permission::firstOrCreate(['name' => 'revenue-delete','display_name' => 'Revenue']);
+        // Permission::firstOrCreate(['name' => 'revenue-export','display_name' => 'Revenue']);
+        // Permission::firstOrCreate(['name' => 'vendor-read','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'vendor-create','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'vendor-update','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'vendor-delete','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'vendor-export','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'vendor-import','display_name' => 'Vendor']);
+        // Permission::firstOrCreate(['name' => 'bill-read','display_name' => 'Bill']);
+        // Permission::firstOrCreate(['name' => 'bill-create','display_name' => 'Bill']);
+        // Permission::firstOrCreate(['name' => 'bill-update','display_name' => 'Bill']);
+        // Permission::firstOrCreate(['name' => 'bill-delete','display_name' => 'Bill']);
+        // Permission::firstOrCreate(['name' => 'bill-export','display_name' => 'Bill']);
+        // Permission::firstOrCreate(['name' => 'payment-read','display_name' => 'Payment']);
+        // Permission::firstOrCreate(['name' => 'payment-create','display_name' => 'Payment']);
+        // Permission::firstOrCreate(['name' => 'payment-update','display_name' => 'Payment']);
+        // Permission::firstOrCreate(['name' => 'payment-delete','display_name' => 'Payment']);
+        // Permission::firstOrCreate(['name' => 'payment-export','display_name' => 'Payment']);
         Permission::firstOrCreate(['name' => 'account-read','display_name' => 'Account']);
         Permission::firstOrCreate(['name' => 'account-create','display_name' => 'Account']);
         Permission::firstOrCreate(['name' => 'account-update','display_name' => 'Account']);

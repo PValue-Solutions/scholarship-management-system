@@ -17,7 +17,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('scholarship-class.index') }}">@lang('Category List')</a></li>
+                        <a href="{{ route('scholarship-village.index') }}">@lang('Village List')</a></li>
                     <li class="breadcrumb-item active">@lang('Add New')</li>
                 </ol>
             </div>
@@ -31,7 +31,7 @@
                 <h3 class="card-title">@lang('Add New')</h3>
             </div>
             <div class="card-body">
-                <form class="form-material form-horizontal" action="{{ route('scholarship-class.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="form-material form-horizontal" action="{{ route('scholarship-village.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <div class="row">
@@ -41,7 +41,7 @@
                                   <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-money-check-alt"></i>
                                   </div>
-                                  <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="@lang('Enter Class Name')" required>
+                                  <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="@lang('Enter Village Name')" required>
                               </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <input type="submit" value="@lang('Submit')" class="btn btn-outline btn-info btn-lg"/>
-                            <a href="{{ route('scholarship-class.index') }}" class="btn btn-outline btn-warning btn-lg" style="float:right">@lang('Cancel')</a>
+                            <a href="{{ route('scholarship-village.index') }}" class="btn btn-outline btn-warning btn-lg" style="float:right">@lang('Cancel')</a>
                         </div>
                     </div>
                 </form>

@@ -117,6 +117,11 @@ Route::group(['middleware' => ['auth']], function() {
         'offline-payment' => App\Http\Controllers\OfflinePaymentController::class,
 
         'scholarship-class' => App\Http\Controllers\ScholarshipClassController::class,
+        'scholarship-year' => App\Http\Controllers\ScholarshipYearController::class,
+        'scholarship-village' => App\Http\Controllers\ScholarshipVillageController::class,
+        'scholarship-school' => App\Http\Controllers\ScholarshipSchoolController::class,
+        'scholarship-teacher' => App\Http\Controllers\ScholarshipTeacherController::class,
+        'scholarship-organization' => App\Http\Controllers\ScholarshipOrganizationController::class,
     ]);
 
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');
