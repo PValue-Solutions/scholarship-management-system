@@ -208,8 +208,8 @@ $roleName = Auth::user()->getRoleNames();
                 @endcanany
 
 
-                <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
-                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
+                <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
+                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
                         <i class="nav-icon fas fa-tools"></i>
                         <p>
                             @lang('Basic Configuration')
@@ -246,6 +246,14 @@ $roleName = Auth::user()->getRoleNames();
                                 <a href="{{ route('scholarship-school.index') }}" class="nav-link @if($c == 'scholarship-school') active @endif ">
                                     <i class="far fa-dot-circle nav-icon"></i>
                                     <p>@lang('School')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['college-read', 'college-create', 'college-update', 'college-delete'])
+                            <li class="nav-item">
+                                <a href="{{ route('scholarship-college.index') }}" class="nav-link @if($c == 'scholarship-college') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('College')</p>
                                 </a>
                             </li>
                         @endcanany

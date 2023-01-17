@@ -4,14 +4,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                @can('school-create')
-                    <h3><a href="{{ route('scholarship-school.create') }}" class="btn btn-outline btn-info">+ {{ __('Add New School') }}</a></h3>
+                @can('college-create')
+                    <h3><a href="{{ route('scholarship-college.create') }}" class="btn btn-outline btn-info">+ {{ __('Add New College') }}</a></h3>
                 @endcan
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">@lang('Dashboard')</a></li>
-                    <li class="breadcrumb-item active">{{ __('School List') }}</li>
+                    <li class="breadcrumb-item active">{{ __('College List') }}</li>
                 </ol>
             </div>
         </div>
@@ -21,10 +21,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@lang('Schools') </h3>
+                <h3 class="card-title">@lang('College') </h3>
                 <div class="card-tools">
-                    @can('school-export')
-                        <a class="btn btn-primary" target="_blank" href="{{ route('scholarship-school.index') }}?export=1">
+                    @can('college-export')
+                        <a class="btn btn-primary" target="_blank" href="{{ route('scholarship-college.index') }}?export=1">
                             <i class="fas fa-cloud-download-alt"></i> @lang('Export')
                         </a>
                     @endcan
@@ -56,11 +56,11 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>@lang('Type')</label>
-                                        <select name="school_type" class="form-control">
+                                        <select name="college_type" class="form-control">
                                             <option value="">--@lang('Select')--</option>
-                                            <option value="Govt." {{ old('school_type', request()->school_type) === 'Govt.' ? 'selected' : ''  }}>@lang('Govt.')</option>
-                                            <option value="Govt. Aided" {{ old('school_type', request()->school_type) === 'Govt. Aided' ? 'selected' : ''  }}>@lang('Govt. Aided')</option>
-                                            <option value="Private" {{ old('school_type', request()->school_type) === 'Private' ? 'selected' : ''  }}>@lang('Private')</option>
+                                            <option value="Govt." {{ old('college_type', request()->college_type) === 'Govt.' ? 'selected' : ''  }}>@lang('Govt.')</option>
+                                            <option value="Govt. Aided" {{ old('college_type', request()->college_type) === 'Govt. Aided' ? 'selected' : ''  }}>@lang('Govt. Aided')</option>
+                                            <option value="Private" {{ old('college_type', request()->college_type) === 'Private' ? 'selected' : ''  }}>@lang('Private')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                 <div class="col-sm-6">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                     @if(request()->isFilterActive)
-                                        <a href="{{ route('scholarship-school.index') }}" class="btn btn-secondary">Clear</a>
+                                        <a href="{{ route('scholarship-college.index') }}" class="btn btn-secondary">Clear</a>
                                     @endif
                                 </div>
                             </div>
@@ -84,41 +84,41 @@
                             <th>@lang('Type')</th>
                             <th>@lang('Email')</th>
                             <th>@lang('Status')</th>
-                            @canany(['school-update', 'school-delete'])
+                            @canany(['college-update', 'college-delete'])
                                 <th data-orderable="false">@lang('Actions')</th>
                             @endcanany
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($schools as $school)
+                        @foreach ($colleges as $college)
                         <tr>
-                            @if($school->picture == NULL)
+                            @if($college->picture == NULL)
                             <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('img/no_image.png') }}" alt="" /></td>
                             @else
-                            <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$school->picture) }}" alt="" /></td>
+                            <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$college->picture) }}" alt="" /></td>
                             @endif
 
 
-                            <td>{{ $school->name }}</td>
-                            <td>{{ $school->school_type }}</td>
-                            <td>{{ $school->email }}</td>
+                            <td>{{ $college->name }}</td>
+                            <td>{{ $college->college_type }}</td>
+                            <td>{{ $college->email }}</td>
                             <td>
-                                @if($school->status == '1')
+                                @if($college->status == '1')
                                     <span class="badge badge-pill badge-success">@lang('Active')</span>
                                 @else
                                     <span class="badge badge-pill badge-danger">@lang('Inactive')</span>
                                 @endif
                             </td>
-                            @canany(['school-read','school-update', 'school-delete'])
+                            @canany(['college-read','college-update', 'college-delete'])
                                 <td>
-                                    @can('school-read')
-                                        <a href="{{ route('scholarship-school.show', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
+                                    @can('college-read')
+                                        <a href="{{ route('scholarship-college.show', $college) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-eye ambitious-padding-btn"></i></a>&nbsp;&nbsp;
                                     @endcan
-                                    @can('school-update')
-                                        <a href="{{ route('scholarship-school.edit', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="Edit"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
+                                    @can('college-update')
+                                        <a href="{{ route('scholarship-college.edit', $college) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="Edit"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
                                     @endcan
-                                    @can('school-delete')
-                                        <a href="#" data-href="{{ route('scholarship-school.destroy', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash ambitious-padding-btn"></i></a>
+                                    @can('college-delete')
+                                        <a href="#" data-href="{{ route('scholarship-college.destroy', $college) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash ambitious-padding-btn"></i></a>
                                     @endcan
                                 </td>
                             @endcanany
@@ -126,7 +126,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $schools->links() }}
+                {{ $colleges->links() }}
             </div>
         </div>
     </div>
