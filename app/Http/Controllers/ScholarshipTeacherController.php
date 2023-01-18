@@ -93,7 +93,12 @@ class ScholarshipTeacherController extends Controller
      */
     public function show(ScholarshipTeacher $scholarshipTeacher)
     {
-        //
+        if($scholarshipTeacher->school_or_college == '1'){
+            $info = ScholarshipSchool::find($scholarshipTeacher->scholarship_school_id);
+        } else {
+            $info = ScholarshipCollege::find($scholarshipTeacher->scholarship_college_id);
+        }
+        return view('teachers.show', compact('scholarshipTeacher','info'));
     }
 
     /**
