@@ -69,6 +69,39 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="scholarship_village_id">
+                                    @lang('Village')
+                                </label>
+                                <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
+                                    <option value="">Select Village</option>
+                                    @foreach ($villages as $key => $value)
+                                        <option value="{{ $key }}" @if(old('scholarship_village_id', $scholarshipSchool->scholarship_village_id) == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                @error('scholarship_village_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="district">
+                                    @lang('District')
+                                </label>
+                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipSchool->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}">
+                                @error('district')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="website">
                                     @lang('Website')
                                 </label>
@@ -87,34 +120,6 @@
                                 </label>
                                 <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" value="{{ old('email', $scholarshipSchool->email) }}" id="email" type="email" placeholder="@lang('Type Your Email Here')" required>
                                 @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="village">
-                                    @lang('Village')
-                                </label>
-                                <input class="form-control ambitious-form-loading @error('village') is-invalid @enderror" name="village" value="{{ old('village', $scholarshipSchool->village) }}" id="village" type="text" placeholder="{{ __('Type Your Village Name Here') }}">
-                                @error('village')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="district">
-                                    @lang('District')
-                                </label>
-                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipSchool->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}">
-                                @error('district')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

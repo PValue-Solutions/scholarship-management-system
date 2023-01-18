@@ -16,7 +16,7 @@ class ScholarshipSchool extends Model
         'company_id',
         'name',
         'school_type',
-        'village',
+        'scholarship_village_id',
         'district',
         'email',
         'website',
@@ -29,4 +29,10 @@ class ScholarshipSchool extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scholarshipVillage()
+    {
+        return $this->belongsTo(ScholarshipVillage::class);
+    }
+
 }

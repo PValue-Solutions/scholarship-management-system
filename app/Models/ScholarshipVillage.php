@@ -26,4 +26,9 @@ class ScholarshipVillage extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scholarshipSchools()
+    {
+        return $this->hasMany(ScholarshipSchool::class);
+    }
 }

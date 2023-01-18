@@ -97,8 +97,6 @@
                             @else
                             <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$school->picture) }}" alt="" /></td>
                             @endif
-
-
                             <td>{{ $school->name }}</td>
                             <td>{{ $school->school_type }}</td>
                             <td>{{ $school->email }}</td>
@@ -112,7 +110,7 @@
                             @canany(['school-read','school-update', 'school-delete'])
                                 <td>
                                     @can('school-read')
-                                        <a href="{{ route('scholarship-school.show', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('scholarship-school.show', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-eye ambitious-padding-btn"></i></a>&nbsp;&nbsp;
                                     @endcan
                                     @can('school-update')
                                         <a href="{{ route('scholarship-school.edit', $school) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="Edit"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
