@@ -109,7 +109,9 @@ class ScholarshipTeacherController extends Controller
      */
     public function edit(ScholarshipTeacher $scholarshipTeacher)
     {
-        //
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('teachers.edit', compact('schools','colleges','scholarshipTeacher'));
     }
 
     /**
@@ -121,7 +123,15 @@ class ScholarshipTeacherController extends Controller
      */
     public function update(Request $request, ScholarshipTeacher $scholarshipTeacher)
     {
-        //
+        $this->validation($request);
+        $data = $request->only(['name','email','school_or_college','scholarship_school_id','scholarship_college_id','phone','date_of_birth','gender','blood_group','address','status']);
+        if ($request->picture) {
+            $data['photo'] = $request->picture->store('item-images');
+        }
+        DB::transaction(function () use ($data, $scholarshipTeacher) {
+            $scholarshipTeacher->update($data);
+        });
+        return redirect()->route('scholarship-teacher.index')->with('success', trans('Teacher Update Successfully'));
     }
 
     private function validation(Request $request, $id = 0)
@@ -162,6 +172,7 @@ class ScholarshipTeacherController extends Controller
      */
     public function destroy(ScholarshipTeacher $scholarshipTeacher)
     {
-        //
+        $scholarshipTeacher->delete();
+        return redirect()->route('scholarship-teacher.index')->with('success', trans('Teacher Deleted Successfully'));
     }
 }
