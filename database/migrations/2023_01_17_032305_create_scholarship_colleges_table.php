@@ -18,7 +18,7 @@ class CreateScholarshipCollegesTable extends Migration
             $table->bigInteger('company_id')->default('1');
             $table->string('name');
             $table->enum('college_type', ['Govt.', 'Govt. Aided', 'Private'])->nullable();
-            $table->string('village')->nullable();
+            $table->string('scholarship_village_id')->nullable();
             $table->string('district')->nullable();
             $table->string('email')->nullable();
             $table->text('website')->nullable();

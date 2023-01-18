@@ -6,6 +6,7 @@ use Session;
 use App\Models\Company;
 use App\Exports\CollegesExport;
 use App\Models\ScholarshipCollege;
+use App\Models\ScholarshipVillage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -73,7 +74,8 @@ class ScholarshipCollegeController extends Controller
      */
     public function create()
     {
-        return view('colleges.create');
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('colleges.create', compact('villages'));
     }
 
     /**
@@ -85,7 +87,7 @@ class ScholarshipCollegeController extends Controller
     public function store(Request $request)
     {
         $this->validation($request);
-        $data = $request->only(['name','college_type','website','email','village','district','description','status']);
+        $data = $request->only(['name','college_type','website','email','scholarship_village_id','district','description','status']);
         if ($request->picture) {
             $data['picture'] = $request->picture->store('item-images');
         }
@@ -115,7 +117,8 @@ class ScholarshipCollegeController extends Controller
      */
     public function edit(ScholarshipCollege $scholarshipCollege)
     {
-        return view('colleges.edit', compact('scholarshipCollege'));
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('colleges.edit', compact('scholarshipCollege','villages'));
     }
 
     /**
@@ -128,7 +131,7 @@ class ScholarshipCollegeController extends Controller
     public function update(Request $request, ScholarshipCollege $scholarshipCollege)
     {
         $this->validation($request, $scholarshipCollege->id);
-        $data = $request->only(['name','college_type','website','email','village','district','description','status']);
+        $data = $request->only(['name','college_type','website','email','scholarship_village_id','district','description','status']);
         if ($request->picture) {
             $data['picture'] = $request->picture->store('item-images');
         }
@@ -157,7 +160,7 @@ class ScholarshipCollegeController extends Controller
             'college_type' => ['required', 'in:Govt.,Govt. Aided,Private'],
             'website' => ['nullable', 'url'],
             'email' => ['nullable', 'email'],
-            'village' => ['nullable', 'string', 'max:255'],
+            'scholarship_village_id' => ['nullable', 'string', 'max:255'],
             'district' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:255'],
             'status' => ['nullable', 'in:0,1'],

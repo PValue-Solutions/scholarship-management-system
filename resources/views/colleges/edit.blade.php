@@ -97,11 +97,17 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="village">
+                                <label for="scholarship_village_id">
                                     @lang('Village')
                                 </label>
-                                <input class="form-control ambitious-form-loading @error('village') is-invalid @enderror" name="village" value="{{ old('village', $scholarshipCollege->village) }}" id="village" type="text" placeholder="{{ __('Type Your Village Name Here') }}">
-                                @error('village')
+                                <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
+                                    <option value="">Select Village</option>
+                                    @foreach ($villages as $key => $value)
+                                        <option value="{{ $key }}" @if(old('scholarship_village_id', $scholarshipCollege->scholarship_village_id) == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                {{--  <input class="form-control ambitious-form-loading @error('village') is-invalid @enderror" name="village" value="{{ old('village', $scholarshipCollege->village) }}" id="village" type="text" placeholder="{{ __('Type Your Village Name Here') }}">  --}}
+                                @error('scholarship_village_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

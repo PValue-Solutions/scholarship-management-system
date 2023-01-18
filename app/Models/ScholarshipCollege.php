@@ -11,12 +11,11 @@ class ScholarshipCollege extends Model
     use HasFactory;
     use SoftDeletes;
 
-
     protected $fillable = [
         'company_id',
         'name',
         'college_type',
-        'village',
+        'scholarship_village_id',
         'district',
         'email',
         'website',
@@ -28,5 +27,10 @@ class ScholarshipCollege extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scholarshipVillage()
+    {
+        return $this->belongsTo(ScholarshipVillage::class);
     }
 }

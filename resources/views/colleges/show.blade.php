@@ -64,7 +64,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="phone">@lang('Village')</label>
-                            <p>{{ $scholarshipCollege->village}}</p>
+                            <p>{{ $scholarshipCollege->scholarshipVillage->name}}</p>
                         </div>
                     </div>
                     <div class="col-md-4">
