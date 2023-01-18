@@ -70,7 +70,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="scholarship_village_id">
-                                    @lang('Village')
+                                    @lang('Village') <b class="ambitious-crimson">*</b>
                                 </label>
                                 <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
                                     <option value="">Select Village</option>
@@ -118,7 +118,7 @@
                                 <label for="website">
                                     @lang('Email')
                                 </label>
-                                <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" value="{{ old('email', $scholarshipSchool->email) }}" id="email" type="email" placeholder="@lang('Type Your Email Here')" required>
+                                <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" value="{{ old('email', $scholarshipSchool->email) }}" id="email" type="email" placeholder="@lang('Type Your Email Here')">
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}

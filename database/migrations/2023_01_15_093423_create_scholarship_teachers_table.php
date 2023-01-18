@@ -15,9 +15,9 @@ class CreateScholarshipTeachersTable extends Migration
     {
         Schema::create('scholarship_teachers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('company_id')->default('1');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->enum('school_or_college',['1','2'])->default('1');
             $table->bigInteger('scholarship_school_id')->nullable();
             $table->bigInteger('scholarship_college_id')->nullable();

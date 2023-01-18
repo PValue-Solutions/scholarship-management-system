@@ -208,8 +208,8 @@ $roleName = Auth::user()->getRoleNames();
                 @endcanany
 
 
-                <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
-                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
+                <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c =='scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
+                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
                         <i class="nav-icon fas fa-tools"></i>
                         <p>
                             @lang('Basic Configuration')

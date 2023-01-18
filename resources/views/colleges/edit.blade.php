@@ -98,7 +98,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="scholarship_village_id">
-                                    @lang('Village')
+                                    @lang('Village') <b class="ambitious-crimson">*</b>
                                 </label>
                                 <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
                                     <option value="">Select Village</option>
