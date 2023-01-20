@@ -42,16 +42,16 @@ class ScholarshipTeacherController extends Controller
         return $query;
     }
 
-        /**
+    /**
      * Performs exporting
      *
      * @param Request $request
      * @return void
      */
-    // private function doExport(Request $request)
-    // {
-    //     return Excel::download(new TeachersExport($request, session('company_id')), 'schools.xlsx');
-    // }
+    private function doExport(Request $request)
+    {
+        return Excel::download(new TeachersExport($request, session('company_id')), 'teachers.xlsx');
+    }
 
     /**
      * Show the form for creating a new resource.
