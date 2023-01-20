@@ -51,7 +51,7 @@
                 @endforeach
 
                 <div class="dropdown-divider"></div>
-                <a href="{{ route('company.index') }}" class="dropdown-item"><i class="fa fa-sliders-h mr-2"></i> @lang('Manage Company')</a>
+                <a href="{{ route('company.index') }}" class="dropdown-item"><i class="fa fa-sliders-h mr-2"></i> @lang('Manage Organization')</a>
             </div>
         </li>
         <!-- Company Name // -->

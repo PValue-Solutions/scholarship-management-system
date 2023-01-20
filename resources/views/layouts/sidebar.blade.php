@@ -266,15 +266,6 @@ $roleName = Auth::user()->getRoleNames();
                             </li>
                         @endcanany
 
-                        @canany(['organization-read', 'organization-create', 'organization-update', 'organization-delete'])
-                            <li class="nav-item">
-                                <a href="{{ route('scholarship-organization.index') }}" class="nav-link @if($c == 'scholarship-organization') active @endif ">
-                                    <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>@lang('Organization')</p>
-                                </a>
-                            </li>
-                        @endcanany
-
 
 
                     </ul>

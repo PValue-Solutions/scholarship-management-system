@@ -122,7 +122,6 @@ Route::group(['middleware' => ['auth']], function() {
         'scholarship-school' => App\Http\Controllers\ScholarshipSchoolController::class,
         'scholarship-college' => App\Http\Controllers\ScholarshipCollegeController::class,
         'scholarship-teacher' => App\Http\Controllers\ScholarshipTeacherController::class,
-        'scholarship-organization' => App\Http\Controllers\ScholarshipOrganizationController::class,
     ]);
 
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');

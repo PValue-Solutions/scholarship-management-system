@@ -18,8 +18,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('company.index') }}">@lang('Company List')</a></li>
-                    <li class="breadcrumb-item active">@lang('Edit Company')</li>
+                        <a href="{{ route('company.index') }}">@lang('Organization List')</a></li>
+                    <li class="breadcrumb-item active">@lang('Organization Company')</li>
                 </ol>
             </div>
         </div>
@@ -30,7 +30,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3>@lang('Edit Company')</h3>
+                <h3>@lang('Edit Organization')</h3>
             </div>
 
             <div class="card-body">
@@ -40,7 +40,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label class="col-md-12">
-                                <h4>@lang('Company Name') <b class="ambitious-crimson">*</b></h4>
+                                <h4>@lang('Organization Name') <b class="ambitious-crimson">*</b></h4>
                             </label>
                             <div class="col-md-12">
                                 <input class="form-control ambitious-form-loading @error('company_name') is-invalid @enderror" name="company_name" id="company_name" type="text" value="{{ old('company_name',$company->company_name) }}" placeholder="@lang('Enter Name')" required>
@@ -56,10 +56,10 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label class="col-md-12">
-                                <h4>@lang('Company Email') <b class="ambitious-crimson">*</b></h4>
+                                <h4>@lang('Organization Email') <b class="ambitious-crimson">*</b></h4>
                             </label>
                             <div class="col-md-12">
-                                <input class="form-control ambitious-form-loading @error('company_email') is-invalid @enderror" name="company_email" id="company_email" type="email" value="{{ old('company_email', $company->company_email) }}" placeholder="@lang('Enter Company Email')" required>
+                                <input class="form-control ambitious-form-loading @error('company_email') is-invalid @enderror" name="company_email" id="company_email" type="email" value="{{ old('company_email', $company->company_email) }}" placeholder="@lang('Enter Organization Email')" required>
                                 @error('company_email')
                                     <div class="invalid-feedback">
                                         {{ $message }}

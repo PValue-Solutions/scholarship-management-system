@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">@lang('Dashboard')</a></li>
-                        <li class="breadcrumb-item active">@lang('Company List')</li>
+                        <li class="breadcrumb-item active">@lang('Organization List')</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">@lang('Company List')</h3>
+                    <h3 class="card-title">@lang('Organization List')</h3>
                     <div class="card-tools">
                         <button class="btn btn-default" data-toggle="collapse" href="#filter"><i class="fas fa-filter"></i> @lang('Filter')</button>
                     </div>
@@ -37,20 +37,20 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>@lang('Company Name')</label>
-                                            <input type="text" name="company_name" class="form-control" value="{{ request()->company_name }}" placeholder="@lang('Company Name')">
+                                            <label>@lang('Organization Name')</label>
+                                            <input type="text" name="company_name" class="form-control" value="{{ request()->company_name }}" placeholder="@lang('Organization Name')">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>@lang('Company Domain')</label>
-                                            <input type="text" name="company_domain" class="form-control" value="{{ request()->company_domain }}" placeholder="@lang('Company Domain')">
+                                            <label>@lang('Organization Domain')</label>
+                                            <input type="text" name="company_domain" class="form-control" value="{{ request()->company_domain }}" placeholder="@lang('Organization Domain')">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>@lang('Company Email')</label>
-                                            <input type="text" name="company_email" class="form-control" value="{{ request()->company_email }}" placeholder="@lang('Company Email')">
+                                            <label>@lang('Organization Email')</label>
+                                            <input type="text" name="company_email" class="form-control" value="{{ request()->company_email }}" placeholder="@lang('Organization Email')">
                                         </div>
                                     </div>
                                 </div>
