@@ -81,7 +81,7 @@
                             <th>@lang('Picture')</th>
                             <th>@lang('Name')</th>
                             <th>@lang('Email')</th>
-                            <th>@lang('Type')</th>
+                            <th>@lang('Institution')</th>
                             <th>@lang('Status')</th>
                             @canany(['teacher-update', 'teacher-delete'])
                                 <th data-orderable="false">@lang('Actions')</th>

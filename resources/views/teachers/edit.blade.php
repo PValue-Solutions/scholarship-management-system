@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="school_or_college">@lang('Type') <b class="ambitious-crimson">*</b></label>
+                                <label for="school_or_college">@lang('Institution') <b class="ambitious-crimson">*</b></label>
                                 <select class="form-control ambitious-form-loading @error('school_or_college') is-invalid @enderror" required="required" name="school_or_college" id="school_or_college">
                                     <option value="1" @if(old('school_or_college', $scholarshipTeacher->school_or_college) == '1') selected @endif>@lang('School')</option>
                                     <option value="2" @if(old('school_or_college', $scholarshipTeacher->school_or_college) == '2') selected @endif>@lang('College')</option>

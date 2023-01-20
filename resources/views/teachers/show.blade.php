@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="type">@lang('Type')</label>
+                            <label for="type">@lang('Institution')</label>
                             @if($scholarshipTeacher->school_or_college == '1')
                                 <p>School</p>
                             @else

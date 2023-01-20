@@ -4,7 +4,7 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Teacher Type</th>
+            <th>Institution</th>
             <th>Phone</th>
             <th>Address</th>
             <th>Gender</th>
