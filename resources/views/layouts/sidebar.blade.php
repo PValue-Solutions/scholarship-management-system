@@ -207,6 +207,15 @@ $roleName = Auth::user()->getRoleNames();
                     </li>
                 @endcanany
 
+                @canany(['scholarship-read', 'scholarship-create', 'scholarship-update', 'scholarship-delete'])
+                <li class="nav-item">
+                    <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship') active @endif ">
+                        <i class="fas fa-graduation-cap nav-icon"></i>
+                        <p>@lang('Scholarship')</p>
+                    </a>
+                </li>
+                @endcan
+
 
                 <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c =='scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
@@ -265,9 +274,6 @@ $roleName = Auth::user()->getRoleNames();
                                 </a>
                             </li>
                         @endcanany
-
-
-
                     </ul>
                 </li>
 
