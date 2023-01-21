@@ -21,9 +21,22 @@ class CreateStudentDetailsTable extends Migration
             $table->string('father_occupation')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('mother_occupation')->nullable();
+            $table->string('house_no')->nullable();
+            $table->bigInteger('scholarship_village_id')->nullable();
+            $table->string('street')->nullable();
+            $table->string('post_office')->nullable();
+            $table->string('taluk')->nullable();
+            $table->string('district')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('state')->nullable();
+            $table->string('contact_no_1')->nullable();
+            $table->string('contact_no_2')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('age')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('aadhar_no')->nullable();
             $table->index('company_id','type');
             $table->unique(['company_id', 'name']);
-            $table->
             $table->timestamps();
             $table->softDeletes();
         });

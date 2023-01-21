@@ -91,8 +91,18 @@ class User extends Authenticatable
         return $this->hasMany(ScholarshipVillage::class);
     }
 
-    public function ScholarshipSchools()
+    public function scholarshipSchools()
     {
         return $this->hasMany(ScholarshipSchool::class);
+    }
+
+    public function scholarshipBankDetails()
+    {
+        return $this->hasMany(ScholarshipBankDetail::class);
+    }
+
+    public function studentDetail()
+    {
+        return $this->belongsTo(StudentDetail::class);
     }
 }

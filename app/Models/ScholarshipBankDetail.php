@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StudentDetail extends Model
+class ScholarshipBankDetail extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,24 +19,11 @@ class StudentDetail extends Model
     protected $fillable = [
         'company_id',
         'user_id',
-        'father_name',
-        'father_occupation',
-        'mother_name',
-        'mother_occupation',
-        'house_no',
-        'scholarship_village_id',
-        'street',
-        'post_office',
-        'taluk',
-        'district',
-        'pincode',
-        'state',
-        'contact_no_1',
-        'contact_no_2',
-        'date_of_birth',
-        'age',
-        'gender',
-        'aadhar_no'
+        'bank_name',
+        'account_no',
+        'ifsc_code',
+        'branch',
+        'status'
     ];
 
     public function user()
