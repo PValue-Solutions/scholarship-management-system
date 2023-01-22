@@ -230,12 +230,12 @@ class CompanySeeder extends Seeder
             [
                 'company_id' => $company->id,
                 'key' => 'general.invoice_number_prefix',
-                'value' => 'INV-',
+                'value' => 'SAN-',
             ],
             [
                 'company_id' => $company->id,
                 'key' => 'general.invoice_number_digit',
-                'value' => '5',
+                'value' => '6',
             ],
             [
                 'company_id' => $company->id,

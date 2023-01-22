@@ -23,7 +23,7 @@ class CreateScholarshipBankDetailsTable extends Migration
             $table->string('branch')->nullable();
             $table->enum('status', ['Self','Father', 'Mother', 'Teacher'])->nullable();
             $table->index('company_id','type');
-            $table->unique(['company_id', 'name']);
+            $table->unique(['company_id']);
             $table->timestamps();
             $table->softDeletes();
         });

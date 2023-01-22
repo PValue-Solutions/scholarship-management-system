@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Scholarship;
+use App\Models\ScholarshipYear;
 use Illuminate\Http\Request;
 
 class ScholarshipController extends Controller
@@ -24,7 +25,8 @@ class ScholarshipController extends Controller
      */
     public function create()
     {
-        //
+        $years = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.create', compact('years'));
     }
 
     /**
