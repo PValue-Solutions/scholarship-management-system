@@ -5,14 +5,14 @@
     <script src="{{ asset('plugins/steps/js/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('plugins/steps/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('plugins/validation/additional-methods.min.js') }}"></script>
-    <script src="{{ asset('js/flatpickr.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 @endsection
 
 @section('one_page_css')
     <link href="{{ asset('plugins/dropify/dist/css/dropify.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/steps/css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/steps/css/steps.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/flatpickr.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 @section('content')
 <section class="content-header">
@@ -46,7 +46,7 @@
                                     <label for="application_no">
                                         {{ __('Application No') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="application_no" class="form-control @if($errors->has('application_no')) is-invalid @endif" name="application_no" type="text" value="{{ old('application_no') }}" required >
+                                    <input id="application_no" class="form-control @if($errors->has('application_no')) is-invalid @endif" name="application_no" type="text" value="{{ old('application_no', $number) }}" required readonly>
                                     @error('application_no')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -93,90 +93,230 @@
                         </div>
                     </section>
 
-                    <h6>{{ __('Company Information') }}</h6>
+                    <h6>{{ __('Personal Details') }}</h6>
                     <section>
-                        <input type="hidden" id="company" name="company" value="{{Session::get('companyInfo')}}">
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="branch"><b>{{ __('Branch') }}</b> <b class="ambitious-crimson">*</b></div>
-                            <div class="col-md-4">
-                                <select id="branch" class="custom-select form-control required" name="branch" value="{{ old('branch') }}">
-                                    <option value="">{{ __('Select Branch') }}</option>
-
-                                </select>
-                                @if ($errors->has('branch'))
-                                    {{ Session::flash('error',$errors->first('branch')) }}
-                                @endif
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="father_name">
+                                        {{ __('Father Name') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="father_name" class="form-control @if($errors->has('father_name')) is-invalid @endif" name="father_name" type="text" value="{{ old('father_name') }}" placeholder="Type Your Father Name" required>
+                                    @if ($errors->has('father_name'))
+                                        {{ Session::flash('error',$errors->first('father_name')) }}
+                                    @endif
+                                </div>
                             </div>
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="gender"><b>{{ __('Department') }}</b> <b class="ambitious-crimson">*</b></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="father_occupation">
+                                        {{ __('Father Occupation') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="father_occupation" class="form-control @if($errors->has('father_occupation')) is-invalid @endif" name="father_occupation" type="text" value="{{ old('father_occupation') }}" placeholder="Type Your Father Occupation" required>
+                                    @if ($errors->has('father_occupation'))
+                                        {{ Session::flash('error',$errors->first('father_occupation')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mother_name">
+                                        {{ __('Mother Name') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="mother_name" class="form-control @if($errors->has('mother_name')) is-invalid @endif" name="mother_name" type="text" value="{{ old('mother_name') }}" placeholder="Type Your Mother Name" required>
+                                    @if ($errors->has('mother_name'))
+                                        {{ Session::flash('error',$errors->first('mother_name')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="mother_occupation">
+                                        {{ __('Father Occupation') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="mother_occupation" class="form-control @if($errors->has('mother_occupation')) is-invalid @endif" name="mother_occupation" type="text" value="{{ old('mother_occupation') }}" placeholder="Type Your Mother Occupation" required>
+                                    @if ($errors->has('mother_occupation'))
+                                        {{ Session::flash('error',$errors->first('mother_occupation')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="house_no">
+                                        {{ __('House No.') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="house_no" class="form-control @if($errors->has('house_no')) is-invalid @endif" name="house_no" type="text" value="{{ old('house_no') }}" placeholder="Type Your House No" required>
+                                    @if ($errors->has('house_no'))
+                                        {{ Session::flash('error',$errors->first('house_no')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="scholarship_village_id">
+                                        {{ __('Village') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
+                                        <option value="">Select Village</option>
+                                        @foreach ($villages as $key => $value)
+                                            <option value="{{ $key }}" {{ old('scholarship_village_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('scholarship_village_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="street">
+                                        {{ __('Street') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="street" class="form-control @if($errors->has('street')) is-invalid @endif" name="street" type="text" value="{{ old('street') }}" placeholder="Type Your Street" required>
+                                    @if ($errors->has('street'))
+                                        {{ Session::flash('error',$errors->first('street')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="post_office">
+                                        {{ __('Post Office') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="post_office" class="form-control @if($errors->has('post_office')) is-invalid @endif" name="post_office" type="text" value="{{ old('post_office') }}" placeholder="Type Your Post Office" required>
+                                    @if ($errors->has('post_office'))
+                                        {{ Session::flash('error',$errors->first('post_office')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="taluk">
+                                        {{ __('Taluk') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="taluk" class="form-control @if($errors->has('taluk')) is-invalid @endif" name="taluk" type="text" value="{{ old('taluk') }}" placeholder="Type Your Taluk" required>
+                                    @if ($errors->has('taluk'))
+                                        {{ Session::flash('error',$errors->first('taluk')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="district">
+                                        {{ __('District') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="district" class="form-control @if($errors->has('district')) is-invalid @endif" name="district" type="text" value="{{ old('district') }}" placeholder="Type Your District" required>
+                                    @if ($errors->has('district'))
+                                        {{ Session::flash('error',$errors->first('district')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="pincode">
+                                        {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="text" value="{{ old('pincode') }}" placeholder="Type Your Pincode" required>
+                                    @if ($errors->has('pincode'))
+                                        {{ Session::flash('error',$errors->first('pincode')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="state">
+                                        {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="state" class="form-control @if($errors->has('state')) is-invalid @endif" name="state" type="text" value="{{ old('state') }}" placeholder="Type Your State" required>
+                                    @if ($errors->has('state'))
+                                        {{ Session::flash('error',$errors->first('state')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
                             <div class="col-md-4">
-                                <select id="department" class="custom-select form-control required" name="department" value="{{ old('department') }}">
-                                    <option value="">{{ __('Select Department') }}</option>
-
-                                </select>
-                                @if ($errors->has('department'))
-                                    {{ Session::flash('error',$errors->first('department')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="date_of_birth">@lang('Date of Birth') <b class="ambitious-crimson">*</b></label>
+                                    <input type="text" name="date_of_birth" id="date_of_birth" class="form-control flatpickr @error('date_of_birth') is-invalid @enderror" placeholder="@lang('Date of Birth')" required>
+                                    @if ($errors->has('date_of_birth'))
+                                        {{ Session::flash('error',$errors->first('date_of_birth')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="contact_no_1">
+                                        {{ __('Contact No 1') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="text" value="{{ old('contact_no_1') }}" placeholder="Type Your Contact No 1" required>
+                                    @if ($errors->has('contact_no_1'))
+                                        {{ Session::flash('error',$errors->first('contact_no_1')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="contact_no_2">
+                                        {{ __('Contact No 2') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="text" value="{{ old('contact_no_2') }}" placeholder="Type Your Contact No 2" required>
+                                    @if ($errors->has('contact_no_2'))
+                                        {{ Session::flash('error',$errors->first('contact_no_2')) }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="gender"><b>{{ __('Designation') }}</b> <b class="ambitious-crimson">*</b></div>
+                        <div class="row mb-2">
                             <div class="col-md-4">
-                                <select id="designation" class="custom-select form-control required" name="designation" value="{{ old('designation') }}">
-                                    <option value="">{{ __('Select Designation') }}</option>
-
-                                </select>
-                                @if ($errors->has('designation'))
-                                    {{ Session::flash('error',$errors->first('designation')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="gender">@lang('Gender') <b class="ambitious-crimson">*</b></label>
+                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror" id="gender" required>
+                                        <option value="">--@lang('Select')--</option>
+                                        <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>@lang('Male')</option>
+                                        <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>@lang('Female')</option>
+                                    </select>
+                                    @if ($errors->has('gender'))
+                                        {{ Session::flash('error',$errors->first('gender')) }}
+                                    @endif
+                                </div>
                             </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="e_id"><b>{{ __('Employee Id') }}</b> <b class="ambitious-crimson">*</b></div>
                             <div class="col-md-4">
-                                <input id="e_id" class="form-control" name="e_id" type="text" value="{{ old('e_id') }}" autocomplete="off" required>
-                                @if ($errors->has('e_id'))
-                                    {{ Session::flash('error',$errors->first('e_id')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="age">
+                                        {{ __('Age') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="age" class="form-control @if($errors->has('age')) is-invalid @endif" name="age" type="text" value="{{ old('age') }}" placeholder="Type Your Age" required>
+                                    @if ($errors->has('age'))
+                                        {{ Session::flash('error',$errors->first('age')) }}
+                                    @endif
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="form-group row">
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="job_type"><b>{{ __('Job Type') }}</b> <b class="ambitious-crimson">*</b></div>
                             <div class="col-md-4">
-                                <select id="job_type" class="custom-select form-control required" name="job_type" value="{{ old('job_type') }}">
-                                    <option value="Permanent">{{ __('Permanent') }}</option>
-                                    <option value="Part Time">{{ __('Part Time') }}</option>
-                                    <option value="Contract">{{ __('Contract') }}</option>
-                                </select>
-                                @if ($errors->has('job_type'))
-                                    {{ Session::flash('error',$errors->first('job_type')) }}
-                                @endif
-                            </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="joining_date"><b>{{ __('Joining Date') }}</b> <b class="ambitious-crimson">*</b></div>
-                            <div class="col-md-4">
-                                <input id="joining_date" class="form-control datepicker ambitious-background-white" name="joining_date" type="text" value="{{ old('joining_date') }}" autocomplete="off" placeholder="04-11-2019" required>
-                                @if ($errors->has('joining_date'))
-                                    {{ Session::flash('error',$errors->first('joining_date')) }}
-                                @endif
-                            </div>
-
-                        </div>
-
-                        <div class="form-group row">
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="sallary"><b>{{ __('Salary') }}</b> <b class="ambitious-crimson">*</b></div>
-                            <div class="col-md-4">
-                                <select id="sallary" class="custom-select form-control required" name="sallary" value="{{ old('sallary') }}">
-                                    <option value="">{{ __('Select Salary') }}</option>
-                                </select>
-                                @if ($errors->has('sallary'))
-                                    {{ Session::flash('error',$errors->first('sallary')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="aadhar_no">
+                                        {{ __('Aadhar No') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="aadhar_no" class="form-control @if($errors->has('aadhar_no')) is-invalid @endif" name="aadhar_no" type="text" value="{{ old('aadhar_no') }}" placeholder="Type Aadhar No" required>
+                                    @if ($errors->has('aadhar_no'))
+                                        {{ Session::flash('error',$errors->first('aadhar_no')) }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
+
+
+
+
                     </section>
                     <!-- Step 4 -->
 
@@ -371,6 +511,12 @@
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 <script>
 
+    $(document).ready(function() {
+        $(".flatpickr").flatpickr({
+            enableTime: false
+        });
+    });
+
 
     var form = $(".validation-wizard").show();
 
@@ -386,8 +532,18 @@
             var itemName = "{{ $ApplicationSetting->item_name  }}";
             if(currentIndex == 0) {
                 var percentage_marks_obtained = $("#percentage_marks_obtained").val();
+
                 var marks = Number(percentage_marks_obtained);
-                if(marks < 65 && marks <= 100) {
+
+                if(marks == 0) {
+                    Swal.fire(
+                        itemName,
+                        '{{ __('Please Give Your Last Examination Marks') }}',
+                        'warning'
+                    );
+                }
+
+                if(marks > 0 && marks < 65 && marks <= 100) {
                     Swal.fire(
                             itemName,
                             '{{ __('You Are Not Eligible For The Scholarship') }}',
