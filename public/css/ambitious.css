@@ -485,7 +485,7 @@ input[type=checkbox], input[type=radio] {
 /* Label */
 
 label h4, .form-group label {
-    color :black !important;
+    color :black;
     font-size: 15px;
     font-weight: normal;
 }
