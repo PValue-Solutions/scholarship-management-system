@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Session;
 use App\Models\Company;
 use App\Models\Scholarship;
+use App\Models\ScholarshipClass;
 use App\Models\ScholarshipYear;
 use App\Models\ScholarshipVillage;
+use App\Models\ScholarshipSchool;
+use App\Models\ScholarshipCollege;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,8 +36,11 @@ class ScholarshipController extends Controller
         $company->setSettings();
         $number = $this->getNextInvoiceNumber($company);
         $years = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $classes = ScholarshipClass::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.create', compact('number','years','villages'));
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.create', compact('number','years','classes','villages','schools','colleges'));
     }
 
         /**

@@ -37,7 +37,6 @@
             </div>
             <div class="card-body wizard-content">
                 <form enctype="multipart/form-data" action="#" id="scholarship_create_form" class="validation-wizard wizard-circle mt-5" method="post">
-                    <!-- Step 1 -->
                     <h6>{{ __('Basic') }}</h6>
                     <section>
                         <div class="row mb-2">
@@ -66,7 +65,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -92,7 +90,6 @@
                             </div>
                         </div>
                     </section>
-
                     <h6>{{ __('Personal Details') }}</h6>
                     <section>
                         <div class="row mb-2">
@@ -134,7 +131,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="mother_occupation">
-                                        {{ __('Father Occupation') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Mother Occupation') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="mother_occupation" class="form-control @if($errors->has('mother_occupation')) is-invalid @endif" name="mother_occupation" type="text" value="{{ old('mother_occupation') }}" placeholder="Type Your Mother Occupation" required>
                                     @if ($errors->has('mother_occupation'))
@@ -275,7 +272,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row mb-2">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -295,7 +291,7 @@
                                     <label for="age">
                                         {{ __('Age') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="age" class="form-control @if($errors->has('age')) is-invalid @endif" name="age" type="text" value="{{ old('age') }}" placeholder="Type Your Age" required>
+                                    <input id="age" class="form-control @if($errors->has('age')) is-invalid @endif" name="age" type="number" value="{{ old('age') }}" placeholder="Type Your Age" required>
                                     @if ($errors->has('age'))
                                         {{ Session::flash('error',$errors->first('age')) }}
                                     @endif
@@ -313,207 +309,545 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </section>
-                    <!-- Step 4 -->
-
-
-                    <!-- Step 3 -->
-                    <h6>{{ __('Emergency Contact') }}</h6>
+                    <h6>{{ __('Studied Details') }}</h6>
                     <section>
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="emergency_contact_name"><b>{{ __('Contact Name') }}</b></div>
-                            <div class="col-md-10">
-                                <input id="emergency_contact_name" class="form-control" name="emergency_contact_name" type="text"  value="{{ old('emergency_contact_name') }}" autocomplete="off" placeholder="Emergency Contact Name">
-                                @if ($errors->has('emergency_contact_name'))
-                                    {{ Session::flash('error',$errors->first('emergency_contact_name')) }}
-                                @endif
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="school_or_college">@lang('Institution') <b class="ambitious-crimson">*</b></label>
+                                    <select class="form-control ambitious-form-loading @error('school_or_college') is-invalid @enderror" required="required" name="school_or_college" id="school_or_college">
+                                        <option value="1" {{ old('school_or_college') === 1 ? 'selected' : '' }}>@lang('School')</option>
+                                        <option value="2" {{ old('school_or_college') === 2 ? 'selected' : '' }}>@lang('College')</option>
+                                    </select>
+                                    @error('school_or_college')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div id="school_block" class="col-md-6">
+                                <div class="form-group">
+                                    <label for="scholarship_school_id">
+                                        @lang('School') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="scholarship_school_id" id="scholarship_school_id">
+                                        <option value="">Select School</option>
+                                        @foreach ($schools as $key => $value)
+                                            <option value="{{ $key }}" {{ old('scholarship_school_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('scholarship_school_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div id="college_block" class="col-md-6">
+                                <div class="form-group">
+                                    <label for="scholarship_college_id">
+                                        @lang('College') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="scholarship_college_id" id="scholarship_college_id">
+                                        <option value="">Select College</option>
+                                        @foreach ($colleges as $key => $value)
+                                            <option value="{{ $key }}" {{ old('scholarship_college_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('scholarship_college_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="emergency_contact_number"><b>{{ __('Contact Number') }}</b></div>
+                        <div class="row mb-2">
                             <div class="col-md-4">
-                                <input id="emergency_contact_number" class="form-control" name="emergency_contact_number" type="text"  value="{{ old('emergency_contact_number') }}" autocomplete="off" placeholder="Emergency Contact Number">
-                                @if ($errors->has('emergency_contact_number'))
-                                    {{ Session::flash('error',$errors->first('emergency_contact_number')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="school_year">
+                                        @lang('Year') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="school_year" id="school_year">
+                                        <option value="">Select Year</option>
+                                        @foreach ($years as $key => $value)
+                                            <option value="{{ $key }}" {{ old('school_year') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('school_year')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="emergency_contact_relation"><b>{{ __('Contact Relation') }}</b></div>
                             <div class="col-md-4">
-                                <input id="emergency_contact_relation" class="form-control" name="emergency_contact_relation" type="text" value="{{ old('emergency_contact_relation') }}" autocomplete="off" placeholder="Emergency Contact Relation">
-                                @if ($errors->has('emergency_contact_relation'))
-                                    {{ Session::flash('error',$errors->first('emergency_contact_relation')) }}
-                                @endif
+                                <div class="form-group">
+                                    <label for="school_grade">
+                                        @lang('Class') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="school_grade" id="school_grade">
+                                        <option value="">Select Class</option>
+                                        @foreach ($classes as $key => $value)
+                                            <option value="{{ $key }}" {{ old('school_grade') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('school_grade')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="school_designation">
+                                        {{ __('Designation') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="school_designation" class="form-control @if($errors->has('school_designation')) is-invalid @endif" name="school_designation" type="text" value="{{ old('school_designation') }}" required>
+                                    @error('school_designation')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="emergency_contact_note"><b>{{ __('Contact Note') }}</b></div>
-                            <div class="col-md-10">
-                                <textarea id="emergency_contact_note" class="form-control" name="emergency_contact_note" rows="5" placeholder="Emergency contact note">{{ old('emergency_contact_note') }}</textarea>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="school_contact_person">
+                                        {{ __('Contact Person') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="school_contact_person" class="form-control @if($errors->has('school_contact_person')) is-invalid @endif" name="school_contact_person" type="text" value="{{ old('school_contact_person') }}" placeholder="Type Your Contact Person" required>
+                                    @if ($errors->has('school_contact_person'))
+                                        {{ Session::flash('error',$errors->first('school_contact_person')) }}
+                                    @endif
+                                </div>
                             </div>
-                            @if ($errors->has('emergency_contact_note'))
-                                {{ Session::flash('error',$errors->first('emergency_contact_note')) }}
-                            @endif
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="school_contact_number">
+                                        {{ __('Contact Number') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="school_contact_number" class="form-control @if($errors->has('school_contact_number')) is-invalid @endif" name="school_contact_number" type="text" value="{{ old('school_contact_number') }}" placeholder="Type Your Contact Number" required>
+                                    @if ($errors->has('school_contact_number'))
+                                        {{ Session::flash('error',$errors->first('school_contact_number')) }}
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="marks_obtained_type">@lang('Examination Type') <b class="ambitious-crimson">*</b></label>
+                                    <select name="marks_obtained_type" class="form-control @error('marks_obtained_type') is-invalid @enderror" id="marks_obtained_type" required>
+                                        <option value="">--@lang('Select')--</option>
+                                        <option value="SSLC" {{ old('marks_obtained_type') === 'SSLC' ? 'selected' : '' }}>@lang('SSLC')</option>
+                                        <option value="PUC" {{ old('marks_obtained_type') === 'PUC' ? 'selected' : '' }}>@lang('PUC')</option>
+                                        <option value="Degree" {{ old('marks_obtained_type') === 'Degree' ? 'selected' : '' }}>@lang('Degree')</option>
+                                    </select>
+                                    @if ($errors->has('marks_obtained_type'))
+                                        {{ Session::flash('error',$errors->first('marks_obtained_type')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="examination_subject_block" class="col-md-4">
+                                <div class="form-group">
+                                    <label for="marks_subject">
+                                        {{ __('Subject') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="marks_subject" class="form-control @if($errors->has('marks_subject')) is-invalid @endif" name="marks_subject" type="text" value="{{ old('marks_subject') }}" placeholder="Type Your subject">
+                                    @if ($errors->has('marks_obtained'))
+                                        {{ Session::flash('error',$errors->first('marks_obtained')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="marks_obtained">
+                                        {{ __('Last Examination Marks') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="marks_obtained" class="form-control @if($errors->has('marks_obtained')) is-invalid @endif" name="marks_obtained" type="text" value="{{ old('marks_obtained') }}" placeholder="Type Your Marks" required>
+                                    @if ($errors->has('marks_obtained'))
+                                        {{ Session::flash('error',$errors->first('marks_obtained')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="further_education_details_school_or_college">@lang('Further Education Institution') <b class="ambitious-crimson">*</b></label>
+                                    <select class="form-control ambitious-form-loading @error('further_education_details_school_or_college') is-invalid @enderror" required="required" name="further_education_details_school_or_college" id="further_education_details_school_or_college">
+                                        <option value="1" {{ old('further_education_details_school_or_college') === 1 ? 'selected' : '' }}>@lang('School')</option>
+                                        <option value="2" {{ old('further_education_details_school_or_college') === 2 ? 'selected' : '' }}>@lang('College')</option>
+                                    </select>
+                                    @error('further_education_details_school_or_college')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div id="further_education_details_school_block" class="col-md-4">
+                                <div class="form-group">
+                                    <label for="further_education_details_scholarship_school_id">
+                                        @lang('Further Education School') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="further_education_details_scholarship_school_id" id="further_education_details_scholarship_school_id">
+                                        <option value="">Select School</option>
+                                        @foreach ($schools as $key => $value)
+                                            <option value="{{ $key }}" {{ old('further_education_details_scholarship_school_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('further_education_details_scholarship_school_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div id="further_education_details_college_block" class="col-md-4">
+                                <div class="form-group">
+                                    <label for="further_education_details_scholarship_college_id">
+                                        @lang('Further Education College') <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="further_education_details_scholarship_college_id" id="further_education_details_scholarship_college_id">
+                                        <option value="">Select College</option>
+                                        @foreach ($colleges as $key => $value)
+                                            <option value="{{ $key }}" {{ old('further_education_details_scholarship_college_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('further_education_details_scholarship_college_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="further_education_details_course_joined">
+                                        {{ __('Further Education Course') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="further_education_details_course_joined" class="form-control @if($errors->has('further_education_details_course_joined')) is-invalid @endif" name="further_education_details_course_joined" type="text" value="{{ old('further_education_details_course_joined') }}" placeholder="Type Your Course Joined" required>
+                                    @if ($errors->has('further_education_details_course_joined'))
+                                        {{ Session::flash('error',$errors->first('further_education_details_course_joined')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </section>
-                    <h6>{{ __('Files') }}</h6>
+                    <h6>{{ __('Bank Details') }}</h6>
                     <section>
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt"><b>{{ __('Resume') }}</b></div>
-                            <div class="col-md-4">
-                                {{ __('Max Size 250kb') }}
-                                <input id="resume" class="dropify" name="resume" type="file" value="{{ old('resume') }}" data-allowed-file-extensions="pdf doc docx" data-max-file-size="250K"/>
-                                @if ($errors->has('resume'))
-                                    <div class="error ambitious-red">{{ $errors->first('resume') }}</div>
-                                @endif
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="bank_name">
+                                        {{ __('Bank Name') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="bank_name" class="form-control @if($errors->has('bank_name')) is-invalid @endif" name="bank_name" type="text" value="{{ old('bank_name') }}" placeholder="Type Your Bank Name" required>
+                                    @if ($errors->has('bank_name'))
+                                        {{ Session::flash('error',$errors->first('bank_name')) }}
+                                    @endif
+                                </div>
                             </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt"><b>{{ __('Offer Letter') }}</b></div>
-                            <div class="col-md-4">
-                                {{ __('Max Size 250kb') }}
-                                <input id="offer_letter" class="dropify" name="offer_letter" type="file" value="{{ old('offer_letter') }}" data-allowed-file-extensions="pdf doc docx" data-max-file-size="250K"/>
-                                @if ($errors->has('offer_letter'))
-                                    <div class="error ambitious-red">{{ $errors->first('offer_letter') }}</div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt"><b>{{ __('Joining Letter') }}</b></div>
-                            <div class="col-md-4">
-                                {{ __('Max Size 250kb') }}
-                                <input id="joining_letter" class="dropify" name="joining_letter" type="file" value="{{ old('joining_letter') }}" data-allowed-file-extensions="pdf doc docx" data-max-file-size="250K"/>
-                                @if ($errors->has('joining_letter'))
-                                    <div class="error ambitious-red">{{ $errors->first('joining_letter') }}</div>
-                                @endif
-                            </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt"><b>{{ __('Contract Agreement') }}</b></div>
-                            <div class="col-md-4">
-                                {{ __('Max Size 250kb') }}
-                                <input id="contract_and_agreement" class="dropify" name="contract_and_agreement" type="file" value="{{ old('contract_and_agreement') }}" data-allowed-file-extensions="pdf doc docx" data-max-file-size="250K"/>
-                                @if ($errors->has('contract_and_agreement'))
-                                    <div class="error ambitious-red">{{ $errors->first('contract_and_agreement') }}</div>
-                                @endif
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account_no">
+                                        {{ __('Account No') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="account_no" class="form-control @if($errors->has('account_no')) is-invalid @endif" name="account_no" type="text" value="{{ old('account_no') }}" placeholder="Type Your Account No" required>
+                                    @if ($errors->has('account_no'))
+                                        {{ Session::flash('error',$errors->first('account_no')) }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt"><b>{{ __('Identity Proof') }}</b></div>
-                            <div class="col-md-4">
-                                {{ __('Max Size 250kb') }}
-                                <input id="identity_proof" class="dropify" name="identity_proof" type="file" value="{{ old('identity_proof') }}" data-allowed-file-extensions="pdf doc docx" data-max-file-size="250K"/>
-                                @if ($errors->has('identity_proof'))
-                                    <div class="error ambitious-red">{{ $errors->first('identity_proof') }}</div>
-                                @endif
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="ifsc_code">
+                                        {{ __('IFSC Code') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="ifsc_code" class="form-control @if($errors->has('ifsc_code')) is-invalid @endif" name="ifsc_code" type="text" value="{{ old('ifsc_code') }}" placeholder="Type Your IFSC Code" required>
+                                    @if ($errors->has('ifsc_code'))
+                                        {{ Session::flash('error',$errors->first('ifsc_code')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="branch">
+                                        {{ __('Branch') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="branch" class="form-control @if($errors->has('branch')) is-invalid @endif" name="branch" type="text" value="{{ old('branch') }}" placeholder="Type Your Branch" required>
+                                    @if ($errors->has('branch'))
+                                        {{ Session::flash('error',$errors->first('branch')) }}
+                                    @endif
+                                </div>
                             </div>
                         </div>
-
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">@lang('Status') <b class="ambitious-crimson">*</b></label>
+                                    <select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
+                                        <option value="">--@lang('Select')--</option>
+                                        <option value="Self" {{ old('status') === 'Self' ? 'selected' : '' }}>@lang('Self')</option>
+                                        <option value="Father" {{ old('status') === 'Father' ? 'selected' : '' }}>@lang('Father')</option>
+                                        <option value="Mother" {{ old('status') === 'Mother' ? 'selected' : '' }}>@lang('Mother')</option>
+                                        <option value="Teacher" {{ old('status') === 'Teacher' ? 'selected' : '' }}>@lang('Teacher')</option>
+                                    </select>
+                                    @if ($errors->has('status'))
+                                        {{ Session::flash('error',$errors->first('status')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <!-- Step 5 -->
-                    <h6>{{ __('Account Information') }}</h6>
+                    <h6>{{ __('Documents & Declaration') }}</h6>
                     <section>
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="email"><b>{{ __('Email') }} </b><b class="ambitious-crimson"> *</b></div>
-                            <div class="col-md-10">
-                                <input id="email" class="form-control" name="email" type="email" value="{{ old('email') }}" autocomplete="off" required>
-                                @if ($errors->has('email'))
-                                    {{ Session::flash('error',$errors->first('email')) }}
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="password"><b>{{ __('Password') }} </b><b class="ambitious-crimson"> *</b></div>
-                            <div class="col-md-10">
-                                <input id="password" class="form-control" name="password" type="password" value="{{ old('password') }}" autocomplete="off" required>
-                                @if ($errors->has('password'))
-                                    {{ Session::flash('error',$errors->first('password')) }}
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="confirm_password"><b>{{ __('Confirm Password') }} </b><b class="ambitious-crimson"> *</b></div>
-                            <div class="col-md-10">
-                                <input id="confirm_password" class="form-control" name="confirm_password" type="password" value="{{ old('confirm_password') }}" autocomplete="off" required>
-                                @if ($errors->has('confirm_password'))
-                                    {{ Session::flash('error',$errors->first('confirm_password')) }}
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="roles"><b>{{ __('Role') }}</b></div>
-                            <div class="col-md-10">
-                                <select id="roles" class="form-control required" name="roles" value="{{ old('roles') }}">
-
-                                </select>
-                                @if ($errors->has('roles'))
-                                    {{ Session::flash('error',$errors->first('roles')) }}
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="bank_name"><b>{{ __('Bank Name') }}</b></div>
+                        <div class="row mb-2">
                             <div class="col-md-4">
-                                <input id="bank_name" class="form-control" name="bank_name" type="text" value="{{ old('bank_name') }}" autocomplete="off">
-                                @if ($errors->has('bank_name'))
-                                    {{ Session::flash('error',$errors->first('bank_name')) }}
+                                <div class="form-group">
+                                    <label for="photo">
+                                        {{ __('Photo') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: png, jpg, jpeg')</p>
+                                </div>
+                                @if ($errors->has('photo'))
+                                    {{ Session::flash('error',$errors->first('photo')) }}
                                 @endif
                             </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="branch_name"><b>{{ __('Branch Name') }}</b></div>
                             <div class="col-md-4">
-                                <input id="branch_name" class="form-control" name="branch_name" type="text" value="{{ old('branch_name') }}" autocomplete="off">
-                                @if ($errors->has('branch_name'))
-                                    {{ Session::flash('error',$errors->first('branch_name')) }}
+                                <div class="form-group">
+                                    <label for="income_certificate">
+                                        {{ __('Income certificate of Parents/ Guardian') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="income_certificate" class="dropify" name="income_certificate" value="{{ old('income_certificate') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
+                                </div>
+                                @if ($errors->has('income_certificate'))
+                                    {{ Session::flash('error',$errors->first('income_certificate')) }}
+                                @endif
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="id_proof">
+                                        {{ __('Govt. ID proof (Aadhar, Ration card etc.)') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="id_proof" class="dropify" name="id_proof" value="{{ old('id_proof') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
+                                </div>
+                                @if ($errors->has('id_proof'))
+                                    {{ Session::flash('error',$errors->first('id_proof')) }}
                                 @endif
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="account_name"><b>{{ __('Account Name') }}</b></div>
+                        <div class="row mb-2">
                             <div class="col-md-4">
-                                <input id="account_name" class="form-control" name="account_name" type="text" value="{{ old('account_name') }}" autocomplete="off">
-                                @if ($errors->has('account_name'))
-                                    {{ Session::flash('error',$errors->first('account_name')) }}
+                                <div class="form-group">
+                                    <label for="previous_educational_marks_card">
+                                        {{ __('Previous Educational Marks Card)') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="previous_educational_marks_card" class="dropify" name="previous_educational_marks_card" value="{{ old('previous_educational_marks_card') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
+                                </div>
+                                @if ($errors->has('previous_educational_marks_card'))
+                                    {{ Session::flash('error',$errors->first('previous_educational_marks_card')) }}
                                 @endif
                             </div>
-
-                            <div class="col-md-2 ambitious-model-from-tc-pt" for="account_number"><b>{{ __('Account Number') }}</b></div>
                             <div class="col-md-4">
-                                <input id="account_number" class="form-control" name="account_number" type="text" value="{{ old('account_number') }}" autocomplete="off">
-                                @if ($errors->has('account_number'))
-                                    {{ Session::flash('error',$errors->first('account_number')) }}
+                                <div class="form-group">
+                                    <label for="bank_passbook">
+                                        {{ __('Bank passbook copy') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="bank_passbook" class="dropify" name="bank_passbook" value="{{ old('bank_passbook') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
+                                </div>
+                                @if ($errors->has('bank_passbook'))
+                                    {{ Session::flash('error',$errors->first('bank_passbook')) }}
                                 @endif
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="original_fee_receipt">
+                                        {{ __('Original fee receipt') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="original_fee_receipt" class="dropify" name="original_fee_receipt" value="{{ old('original_fee_receipt') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
+                                </div>
+                                @if ($errors->has('original_fee_receipt'))
+                                    {{ Session::flash('error',$errors->first('id_proof')) }}
+                                @endif
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fee_amount">
+                                        {{ __('Fee amount') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="text" value="{{ old('fee_amount') }}" placeholder="Type Fee Amount" required>
+                                    @if ($errors->has('fee_amount'))
+                                        {{ Session::flash('error',$errors->first('fee_amount')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date">@lang('Date') <b class="ambitious-crimson">*</b></label>
+                                    <input type="text" name="date" id="date" class="form-control flatpickr @error('date') is-invalid @enderror" placeholder="@lang('Date')" required>
+                                    @if ($errors->has('date'))
+                                        {{ Session::flash('error',$errors->first('date')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="role-form-ambi checkbox checkbox-primary">
+                                        <input name="given_information" id="given_information" type="checkbox" value="1">
+                                        <label class="ambitious-capital" for="given_information">
+                                            I certified that the information given in above is true and correct. <b class="ambitious-crimson">*</b>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="role-form-ambi checkbox checkbox-primary">
+                                        <input name="any_other_scholarship" id="any_other_scholarship" type="checkbox" value="1">
+                                        <label class="ambitious-capital" for="any_other_scholarship">
+                                            I am not availing any other scholarship for this purpose from any NGO/State/Central Govt. <b class="ambitious-crimson">*</b>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="role-form-ambi checkbox checkbox-primary">
+                                        <input name="scholarship_refunded" id="scholarship_refunded" type="checkbox" value="1">
+                                        <label class="ambitious-capital" for="scholarship_refunded">
+                                            If the information given by me is found to be false/incorrect, the scholarship sanction to me may be cancelled <br>
+                                            and the amount of scholarship refunded by me. <b class="ambitious-crimson">*</b>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
                 </form>
             </div>
         </div>
-
-
-
-
-
     </div>
 </div>
 <script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 <script>
 
     $(document).ready(function() {
+        "use strict";
+        $('.dropify').dropify();
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: {
+                    'fileSize': 'The file size is too big  max.',
+                    'fileFormat': 'The image format is not allowed only.'
+                }
+            }
+        });
+        var drEvent = $('#input-file-events').dropify();
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+
+    $(document).ready(function() {
         $(".flatpickr").flatpickr({
             enableTime: false
+        });
+
+        var marks_obtained_type = $('#marks_obtained_type').val();
+        if(marks_obtained_type == 'PUC' || marks_obtained_type == 'Degree') {
+            $('#examination_subject_block').show();
+        } else {
+            $('#examination_subject_block').hide();
+        }
+
+        $('#marks_obtained_type').change(function(){
+            if($('#marks_obtained_type').val() == 'PUC' || $('#marks_obtained_type').val() == 'Degree') {
+                $('#examination_subject_block').show();
+            } else {
+                $('#examination_subject_block').hide();
+            }
+        });
+
+        var further_education_details_school_or_college = $('#further_education_details_school_or_college').val();
+        if(further_education_details_school_or_college == '1') {
+            $('#further_education_details_school_block').show();
+            $('#further_education_details_college_block').hide();
+        } else {
+            $('#further_education_details_school_block').hide();
+            $('#further_education_details_college_block').show();
+        }
+
+        $('#further_education_details_school_or_college').change(function(){
+            if($('#further_education_details_school_or_college').val() == '1') {
+                $('#further_education_details_school_block').show();
+                $('#further_education_details_college_block').hide();
+            } else {
+                $('#further_education_details_school_block').hide();
+                $('#further_education_details_college_block').show();
+            }
+        });
+
+        var school_or_college = $('#school_or_college').val();
+        if(school_or_college == '1') {
+            $('#school_block').show();
+            $('#college_block').hide();
+        } else {
+            $('#school_block').hide();
+            $('#college_block').show();
+        }
+
+        $('#school_or_college').change(function(){
+            if($('#school_or_college').val() == '1') {
+                $('#school_block').show();
+                $('#college_block').hide();
+            } else {
+                $('#school_block').hide();
+                $('#college_block').show();
+            }
         });
     });
 
@@ -532,17 +866,15 @@
             var itemName = "{{ $ApplicationSetting->item_name  }}";
             if(currentIndex == 0) {
                 var percentage_marks_obtained = $("#percentage_marks_obtained").val();
-
                 var marks = Number(percentage_marks_obtained);
-
                 if(marks == 0) {
                     Swal.fire(
                         itemName,
                         '{{ __('Please Give Your Last Examination Marks') }}',
                         'warning'
                     );
+                    return false;
                 }
-
                 if(marks > 0 && marks < 65 && marks <= 100) {
                     Swal.fire(
                             itemName,
@@ -555,6 +887,67 @@
                 }
             }
 
+            if(currentIndex == 2) {
+                var marks_obtained_type = $('#marks_obtained_type').val();
+                if(marks_obtained_type == 'PUC' || marks_obtained_type == 'Degree') {
+                    var marks_subject = $('#marks_subject').val();
+                    if(marks_subject == "" || marks_subject== undefined){
+                        Swal.fire(
+                            itemName,
+                            '{{ __('Please Type Subject') }}',
+                            'warning'
+                        );
+                        return false;
+                    }
+                }
+
+                var further_education_details_school_or_college = $('#further_education_details_school_or_college').val();
+                if(further_education_details_school_or_college == '1') {
+                    var further_education_details_scholarship_school_id = $('#further_education_details_scholarship_school_id').val();
+                    if(further_education_details_scholarship_school_id == "" || further_education_details_scholarship_school_id== undefined){
+                        Swal.fire(
+                            itemName,
+                            '{{ __('Please Select Further Education School First') }}',
+                            'warning'
+                        );
+                        return false;
+                    }
+                } else {
+                    var further_education_details_scholarship_college_id = $('#further_education_details_scholarship_college_id').val();
+                    if(further_education_details_scholarship_college_id == "" || further_education_details_scholarship_college_id== undefined){
+                        Swal.fire(
+                            itemName,
+                            '{{ __('Please Select Further Education College First') }}',
+                            'warning'
+                        );
+                        return false;
+                    }
+                }
+
+                var school_or_college = $('#school_or_college').val();
+                if(school_or_college == '1') {
+                    var scholarship_school_id = $('#scholarship_school_id').val();
+                    if(scholarship_school_id == "" || scholarship_school_id== undefined){
+                        Swal.fire(
+                            itemName,
+                            '{{ __('Please Select A School First') }}',
+                            'warning'
+                        );
+                        return false;
+                    }
+                } else {
+                    var scholarship_college_id = $('#scholarship_college_id').val();
+                    if(scholarship_college_id == "" || scholarship_college_id== undefined){
+                        Swal.fire(
+                            itemName,
+                            '{{ __('Please Select A College First') }}',
+                            'warning'
+                        );
+                        return false;
+                    }
+                }
+            }
+
             return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
         },
         onFinishing: function(event, currentIndex) {
@@ -562,6 +955,47 @@
         },
         onFinished: function(event, currentIndex) {
             var itemName = "{{ $ApplicationSetting->item_name  }}";
+
+            var given_information = $('#given_information').val();
+            var given_information = document.getElementById('given_information');
+            if(given_information.checked) {
+                return true;
+            } else {
+                Swal.fire(
+                    itemName,
+                    '{{ __('Given In Above Is True not checked!') }}',
+                    'warning'
+                );
+                return false;
+            }
+
+            var any_other_scholarship = $('#any_other_scholarship').val();
+            var any_other_scholarship = document.getElementById('any_other_scholarship');
+            if(any_other_scholarship.checked) {
+                return true;
+            } else {
+                Swal.fire(
+                    itemName,
+                    '{{ __('I Am Not Availing Any Other not checked!') }}',
+                    'warning'
+                );
+                return false;
+            }
+
+            var scholarship_refunded = $('#scholarship_refunded').val();
+            var scholarship_refunded = document.getElementById('scholarship_refunded');
+            if(scholarship_refunded.checked) {
+                return true;
+            } else {
+                Swal.fire(
+                    itemName,
+                    '{{ __('If The Information Given By Me Is Found To Be False/Incorrect') }}',
+                    'warning'
+                );
+                return false;
+            }
+
+
             var queryString = new FormData($("#scholarship_create_form")[0]);
             $.ajax({
                 url: '#',

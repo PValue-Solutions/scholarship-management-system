@@ -21,9 +21,12 @@ class CreateScholarshipsTable extends Migration
             $table->string('annual_income')->nullable();
             $table->string('percentage_marks_obtained')->nullable();
             $table->bigInteger('student_detail_id')->nullable();
+            $table->enum('school_or_college',['1','2'])->default('1');
             $table->bigInteger('scholarship_school_id')->nullable();
+            $table->bigInteger('scholarship_college_id')->nullable();
             $table->enum('marks_obtained_type', ['SSLC', 'PUC', 'Degree'])->nullable();
             $table->string('marks_obtained')->nullable();
+            $table->string('marks_subject')->nullable();
             $table->string('school_year')->nullable();
             $table->string('school_subject')->nullable();
             $table->string('school_grade')->nullable();
@@ -31,6 +34,9 @@ class CreateScholarshipsTable extends Migration
             $table->string('school_contact_number')->nullable();
             $table->string('school_designation')->nullable();
             $table->string('school_seal_signature')->nullable();
+            $table->enum('further_education_details_school_or_college',['1','2'])->default('1');
+            $table->bigInteger('further_education_details_scholarship_school_id')->nullable();
+            $table->bigInteger('further_education_details_scholarship_college_id')->nullable();
             $table->string('further_education_details_course_joined')->nullable();
             $table->string('further_education_details_course_school_college')->nullable();
             $table->enum('given_information', ['1','0'])->default('0');
