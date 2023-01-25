@@ -230,7 +230,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="state">
-                                        {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('State') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="state" class="form-control @if($errors->has('state')) is-invalid @endif" name="state" type="text" value="{{ old('state') }}" placeholder="Type Your State" required>
                                     @if ($errors->has('state'))
