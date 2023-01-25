@@ -80,7 +80,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="percentage_marks_obtained">
-                                        {{ __('Last Examination Marks') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Percentage Of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="percentage_marks_obtained" class="form-control @if($errors->has('percentage_marks_obtained')) is-invalid @endif" name="percentage_marks_obtained" type="number" value="{{ old('percentage_marks_obtained') }}" placeholder="Percentage Marks In Your Last Examination" required>
                                     @if ($errors->has('percentage_marks_obtained'))
@@ -875,7 +875,15 @@
                     );
                     return false;
                 }
-                if(marks > 0 && marks < 65 && marks <= 100) {
+                if(marks > 100) {
+                    Swal.fire(
+                        itemName,
+                        '{{ __('Please Give Percentage Marks Of Your Last Examination ') }}',
+                        'warning'
+                    );
+                    return false;
+                }
+                if(marks > 0 && marks < 65) {
                     Swal.fire(
                             itemName,
                             '{{ __('You Are Not Eligible For The Scholarship') }}',
