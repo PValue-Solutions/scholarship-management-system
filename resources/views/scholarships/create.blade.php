@@ -956,45 +956,20 @@
         onFinished: function(event, currentIndex) {
             var itemName = "{{ $ApplicationSetting->item_name  }}";
 
-            var given_information = $('#given_information').val();
-            var given_information = document.getElementById('given_information');
-            if(given_information.checked) {
+            var veryyes = document.getElementById("given_information");
+            var veryno = document.getElementById("any_other_scholarship");
+            var verygood = document.getElementById("scholarship_refunded");
+
+            if (veryyes.checked == true && veryno.checked == true && verygood.checked){
                 return true;
-            } else {
+            } else{
                 Swal.fire(
                     itemName,
-                    '{{ __('Given In Above Is True not checked!') }}',
+                    '{{ __('All Declaration checkbox not checked!') }}',
                     'warning'
                 );
                 return false;
             }
-
-            var any_other_scholarship = $('#any_other_scholarship').val();
-            var any_other_scholarship = document.getElementById('any_other_scholarship');
-            if(any_other_scholarship.checked) {
-                return true;
-            } else {
-                Swal.fire(
-                    itemName,
-                    '{{ __('I Am Not Availing Any Other not checked!') }}',
-                    'warning'
-                );
-                return false;
-            }
-
-            var scholarship_refunded = $('#scholarship_refunded').val();
-            var scholarship_refunded = document.getElementById('scholarship_refunded');
-            if(scholarship_refunded.checked) {
-                return true;
-            } else {
-                Swal.fire(
-                    itemName,
-                    '{{ __('If The Information Given By Me Is Found To Be False/Incorrect') }}',
-                    'warning'
-                );
-                return false;
-            }
-
 
             var queryString = new FormData($("#scholarship_create_form")[0]);
             $.ajax({
