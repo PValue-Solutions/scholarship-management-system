@@ -22,7 +22,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('scholarship.index') }}">@lang('Scholarship List')</a></li>
-                    <li class="breadcrumb-item active">@lang('Create Scholarship')</li>
+                    <li class="breadcrumb-item active">@lang('Apply Scholarship')</li>
                 </ol>
             </div>
         </div>
@@ -33,7 +33,7 @@
     <div class="col-12">
         <div class="material-card card">
             <div class="card-header">
-                <h3>@lang('Create Scholarship')</h3>
+                <h3>@lang('Apply Scholarship')</h3>
             </div>
             <div class="card-body wizard-content">
                 <form enctype="multipart/form-data" action="#" id="scholarship_create_form" class="validation-wizard wizard-circle mt-5" method="post">
@@ -92,6 +92,19 @@
                     </section>
                     <h6>{{ __('Personal Details') }}</h6>
                     <section>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="full_name">
+                                        {{ __('Full Name') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="full_name" class="form-control @if($errors->has('full_name')) is-invalid @endif" name="full_name" type="text" value="{{ old('full_name') }}" placeholder="Type Your Full Name" required>
+                                    @if ($errors->has('full_name'))
+                                        {{ Session::flash('error',$errors->first('full_name')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -365,7 +378,7 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="school_year">
                                         @lang('Year') <b class="ambitious-crimson">*</b>
@@ -383,7 +396,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="school_grade">
                                         @lang('Class') <b class="ambitious-crimson">*</b>
@@ -401,22 +414,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="school_designation">
-                                        {{ __('Designation') }} <b class="ambitious-crimson">*</b>
-                                    </label>
-                                    <input id="school_designation" class="form-control @if($errors->has('school_designation')) is-invalid @endif" name="school_designation" type="text" value="{{ old('school_designation') }}" required>
-                                    @error('school_designation')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="school_contact_person">
                                         {{ __('Contact Person') }} <b class="ambitious-crimson">*</b>
@@ -427,7 +427,26 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="school_designation">
+                                        {{ __('Contact Person Designation') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select name="school_designation" class="form-control @error('school_designation') is-invalid @enderror" id="school_designation" required>
+                                        <option value="">--@lang('Select')--</option>
+                                        <option value="Principal" {{ old('school_designation') === 'Principal' ? 'selected' : '' }}>@lang('Principal')</option>
+                                        <option value="Head" {{ old('school_designation') === 'Head' ? 'selected' : '' }}>@lang('Head')</option>
+                                        <option value="Teacher" {{ old('school_designation') === 'Teacher' ? 'selected' : '' }}>@lang('Teacher')</option>
+                                    </select>
+                                    @error('school_designation')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="school_contact_number">
                                         {{ __('Contact Number') }} <b class="ambitious-crimson">*</b>
@@ -557,10 +576,34 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="branch">
+                                        {{ __('Branch') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="branch" class="form-control @if($errors->has('branch')) is-invalid @endif" name="branch" type="text" value="{{ old('branch') }}" placeholder="Type Your Branch" required>
+                                    @if ($errors->has('branch'))
+                                        {{ Session::flash('error',$errors->first('branch')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="account_holder_name">
+                                        {{ __('Account Holder Name') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <input id="account_holder_name" class="form-control @if($errors->has('account_holder_name')) is-invalid @endif" name="account_holder_name" type="text" value="{{ old('account_holder_name') }}" placeholder="Type Your Account Holder Name" required>
+                                    @if ($errors->has('account_holder_name'))
+                                        {{ Session::flash('error',$errors->first('account_holder_name')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="account_no">
                                         {{ __('Account No') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="account_no" class="form-control @if($errors->has('account_no')) is-invalid @endif" name="account_no" type="text" value="{{ old('account_no') }}" placeholder="Type Your Account No" required>
+                                    <input id="account_no" class="form-control @if($errors->has('account_no')) is-invalid @endif" name="account_no" type="number" value="{{ old('account_no') }}" placeholder="Type Your Account No" required>
                                     @if ($errors->has('account_no'))
                                         {{ Session::flash('error',$errors->first('account_no')) }}
                                     @endif
@@ -579,19 +622,6 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="branch">
-                                        {{ __('Branch') }} <b class="ambitious-crimson">*</b>
-                                    </label>
-                                    <input id="branch" class="form-control @if($errors->has('branch')) is-invalid @endif" name="branch" type="text" value="{{ old('branch') }}" placeholder="Type Your Branch" required>
-                                    @if ($errors->has('branch'))
-                                        {{ Session::flash('error',$errors->first('branch')) }}
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="status">@lang('Status') <b class="ambitious-crimson">*</b></label>
@@ -616,7 +646,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="photo">
-                                        {{ __('Photo') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Student Photo') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="5500K" required />
                                     <p>@lang('Max Size: 5mb, Allowed Format: png, jpg, jpeg')</p>
@@ -654,7 +684,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="previous_educational_marks_card">
-                                        {{ __('Previous Educational Marks Card)') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Previous Educational Marks Card') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="previous_educational_marks_card" class="dropify" name="previous_educational_marks_card" value="{{ old('previous_educational_marks_card') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
@@ -715,7 +745,7 @@
                                 <div class="form-group">
                                     <div class="role-form-ambi checkbox checkbox-primary">
                                         <input name="given_information" id="given_information" type="checkbox" value="1">
-                                        <label class="ambitious-capital" for="given_information">
+                                        <label for="given_information">
                                             I certified that the information given in above is true and correct. <b class="ambitious-crimson">*</b>
                                         </label>
                                     </div>
@@ -727,7 +757,7 @@
                                 <div class="form-group">
                                     <div class="role-form-ambi checkbox checkbox-primary">
                                         <input name="any_other_scholarship" id="any_other_scholarship" type="checkbox" value="1">
-                                        <label class="ambitious-capital" for="any_other_scholarship">
+                                        <label for="any_other_scholarship">
                                             I am not availing any other scholarship for this purpose from any NGO/State/Central Govt. <b class="ambitious-crimson">*</b>
                                         </label>
                                     </div>
@@ -739,7 +769,7 @@
                                 <div class="form-group">
                                     <div class="role-form-ambi checkbox checkbox-primary">
                                         <input name="scholarship_refunded" id="scholarship_refunded" type="checkbox" value="1">
-                                        <label class="ambitious-capital" for="scholarship_refunded">
+                                        <label for="scholarship_refunded">
                                             If the information given by me is found to be false/incorrect, the scholarship sanction to me may be cancelled <br>
                                             and the amount of scholarship refunded by me. <b class="ambitious-crimson">*</b>
                                         </label>

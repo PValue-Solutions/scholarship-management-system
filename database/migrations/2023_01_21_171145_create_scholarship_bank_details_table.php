@@ -18,6 +18,7 @@ class CreateScholarshipBankDetailsTable extends Migration
             $table->bigInteger('company_id')->default('1');
             $table->bigInteger('user_id');
             $table->string('bank_name')->nullable();
+            $table->string('account_holder_name')->nullable();
             $table->string('account_no')->nullable();
             $table->string('ifsc_code')->nullable();
             $table->string('branch')->nullable();

@@ -19,6 +19,7 @@ class StudentDetail extends Model
     protected $fillable = [
         'company_id',
         'user_id',
+        'full_name',
         'father_name',
         'father_occupation',
         'mother_name',

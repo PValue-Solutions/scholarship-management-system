@@ -17,6 +17,7 @@ class CreateStudentDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('company_id')->default('1');
             $table->bigInteger('user_id');
+            $table->string('full_name')->nullable();
             $table->string('father_name')->nullable();
             $table->string('father_occupation')->nullable();
             $table->string('mother_name')->nullable();

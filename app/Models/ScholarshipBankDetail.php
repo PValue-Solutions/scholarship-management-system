@@ -21,6 +21,7 @@ class ScholarshipBankDetail extends Model
         'user_id',
         'bank_name',
         'account_no',
+        'account_holder_name',
         'ifsc_code',
         'branch',
         'status'

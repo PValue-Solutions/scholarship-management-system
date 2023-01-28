@@ -55,6 +55,7 @@ class CreateScholarshipsTable extends Migration
             $table->string('bank_passbook')->nullable();
             $table->bigInteger('scholarship_bank_detail_id')->nullable();
             $table->bigInteger('print_form')->nullable();
+            $table->enum('status', ['pending','approved', 'successful','rejected'])->default('pending');
             $table->index('company_id');
             $table->unique(['company_id']);
             $table->timestamps();
