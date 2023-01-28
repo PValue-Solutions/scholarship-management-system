@@ -117,9 +117,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="district">
-                                    @lang('District')
+                                    @lang('District') <b class="ambitious-crimson">*</b>
                                 </label>
-                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipCollege->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}">
+                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipCollege->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}" required>
                                 @error('district')
                                     <div class="invalid-feedback">
                                         {{ $message }}
