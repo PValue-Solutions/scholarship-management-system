@@ -15,6 +15,7 @@ class CreateScholarshipsTable extends Migration
     {
         Schema::create('scholarships', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->nullable();
             $table->bigInteger('company_id')->default('1');
             $table->string('application_no')->nullable();
             $table->string('year')->nullable();

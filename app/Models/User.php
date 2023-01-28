@@ -76,6 +76,11 @@ class User extends Authenticatable
             return asset('img/placeholder.jpg');
     }
 
+    public function scholarships()
+    {
+        return $this->hasMany(Scholarship::class);
+    }
+
     public function scholarshipClasses()
     {
         return $this->hasMany(ScholarshipClass::class);

@@ -17,6 +17,7 @@ class Scholarship extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'company_id',
         'application_no',
         'year',
@@ -59,5 +60,20 @@ class Scholarship extends Model
         'print_form',
         'status'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scholarshipBankDetail()
+    {
+        return $this->belongsTo(ScholarshipBankDetail::class);
+    }
+
+    public function studentDetail()
+    {
+        return $this->belongsTo(StudentDetail::class);
+    }
 
 }
