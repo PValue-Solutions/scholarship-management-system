@@ -37,7 +37,6 @@ class CreateStudentDetailsTable extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('aadhar_no')->nullable();
             $table->index('company_id');
-            $table->unique(['company_id']);
             $table->timestamps();
             $table->softDeletes();
         });

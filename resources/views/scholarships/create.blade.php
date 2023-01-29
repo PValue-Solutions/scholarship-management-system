@@ -998,9 +998,7 @@
             var veryno = document.getElementById("any_other_scholarship");
             var verygood = document.getElementById("scholarship_refunded");
 
-            if (veryyes.checked == true && veryno.checked == true && verygood.checked){
-                return true;
-            } else{
+            if (veryyes.checked == false || veryno.checked == false || verygood.checked == false){
                 Swal.fire(
                     itemName,
                     '{{ __('All Declaration checkbox not checked!') }}',
@@ -1011,7 +1009,7 @@
 
             var queryString = new FormData($("#scholarship_create_form")[0]);
             $.ajax({
-                url: '#',
+                url: '{{ url('scholarship/store') }}',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
@@ -1034,10 +1032,10 @@
                     else {
                         Swal.fire(
                           itemName,
-                          '{{ __('User Created Successfully') }}',
+                          '{{ __('Apply Scholarship Successfully') }}',
                           'success'
                         ).then(function() {
-                            document.location.href="#";
+                            document.location.href="{{ route('scholarship.index') }}";
                         });
                     }
                 }
@@ -1070,8 +1068,6 @@
                 minlength: 6,
                 equalTo: "#password"
             }
-
-
         }
     })
 </script>

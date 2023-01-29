@@ -58,7 +58,6 @@ class CreateScholarshipsTable extends Migration
             $table->bigInteger('print_form')->nullable();
             $table->enum('status', ['pending','approved', 'successful','rejected'])->default('pending');
             $table->index('company_id');
-            $table->unique(['company_id']);
             $table->timestamps();
             $table->softDeletes();
         });

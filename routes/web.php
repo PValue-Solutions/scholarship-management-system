@@ -116,13 +116,28 @@ Route::group(['middleware' => ['auth']], function() {
         'transaction' => App\Http\Controllers\TransactionController::class,
         'offline-payment' => App\Http\Controllers\OfflinePaymentController::class,
 
-        'scholarship' => App\Http\Controllers\ScholarshipController::class,
+        // 'scholarship' => App\Http\Controllers\ScholarshipController::class,
         'scholarship-class' => App\Http\Controllers\ScholarshipClassController::class,
         'scholarship-year' => App\Http\Controllers\ScholarshipYearController::class,
         'scholarship-village' => App\Http\Controllers\ScholarshipVillageController::class,
         'scholarship-school' => App\Http\Controllers\ScholarshipSchoolController::class,
         'scholarship-college' => App\Http\Controllers\ScholarshipCollegeController::class,
         'scholarship-teacher' => App\Http\Controllers\ScholarshipTeacherController::class,
+    ]);
+
+    Route::get('/scholarship/index',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@index',
+        'as' => 'scholarship.index'
+    ]);
+
+    Route::get('/scholarship/create',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@create',
+        'as' => 'scholarship.create'
+    ]);
+
+    Route::post('/scholarship/store',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@store',
+        'as' => 'scholarship.store'
     ]);
 
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');
