@@ -123,7 +123,7 @@ class ScholarshipYearController extends Controller
      */
     public function destroy(ScholarshipYear $scholarshipYear)
     {
-        $scholarshipClass->delete();
+        $scholarshipYear->delete();
         return redirect()->route('scholarship-year.index')->with('success', trans('Year Deleted Successfully'));
     }
 }

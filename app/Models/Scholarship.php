@@ -76,4 +76,9 @@ class Scholarship extends Model
         return $this->belongsTo(StudentDetail::class);
     }
 
+    public function scholarshipVillage()
+    {
+        return $this->belongsTo(ScholarshipVillage::class);
+    }
+
 }

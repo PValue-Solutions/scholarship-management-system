@@ -23,9 +23,24 @@ class ScholarshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filter($request)->paginate(10);
+        return view('scholarships.index', compact('scholarships'));
+    }
+
+    private function filter(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->vId)
+                $q->where('scholarship_village_id', 'like', $request->vId . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+        return $query;
     }
 
     /**
