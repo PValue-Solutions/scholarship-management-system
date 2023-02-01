@@ -282,9 +282,22 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function edit(Scholarship $scholarship)
+    public function edit($id = 0)
     {
-        //
+        if($id != 0){
+            $scholarship = Scholarship::findOrFail($id);
+            $company = Company::findOrFail(Session::get('company_id'));
+            $company->setSettings();
+            $number = $this->getNextInvoiceNumber($company);
+            $years = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $classes = ScholarshipClass::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            return view('scholarships.edit', compact('scholarship','number','years','classes','villages','schools','colleges'));
+        } else {
+            return false;
+        }
     }
 
     /**
