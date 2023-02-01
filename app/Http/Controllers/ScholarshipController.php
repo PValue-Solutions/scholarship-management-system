@@ -15,6 +15,7 @@ use App\Models\ScholarshipBankDetail;
 use App\Models\StudentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ScholarshipController extends Controller
 {
@@ -321,5 +322,29 @@ class ScholarshipController extends Controller
     public function destroy(Scholarship $scholarship)
     {
         //
+    }
+
+    /**
+     * Genrate pdf the specified resource from storage.
+     *
+     * @param  \App\Models\Scholarship  $scholarship
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id){
+        $data = Scholarship::find($id);
+        //dd($data);
+        //return view('scholarships.pdf', compact('data'));
+        $pdf = Pdf::loadView('scholarships.pdf', compact('data'));
+        //dd($pdf->loadHTML(''));
+        /* $pdf->getDomPDF()->setHttpContext(
+            stream_context_create([
+                'ssl' => [
+                    'allow_self_signed'=> TRUE,
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                ]
+            ])
+                ); */
+        return $pdf->download('scholarships.pdf');
     }
 }
