@@ -43,6 +43,18 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
         return $query;
     }
 

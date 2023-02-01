@@ -66,8 +66,8 @@
                                     <div class="form-group">
                                         <label>@lang('Institution')</label>
                                         <select class="form-control ambitious-form-loading" name="school_or_college" id="school_or_college">
-                                            <option value="1" {{ old('school_or_college') === 1 ? 'selected' : '' }}>@lang('School')</option>
-                                            <option value="2" {{ old('school_or_college') === 2 ? 'selected' : '' }}>@lang('College')</option>
+                                            <option value="1" {{ old('school_or_college', request()->school_or_college) == '1' ? 'selected' : ''  }}>@lang('School')</option>
+                                            <option value="2" {{ old('school_or_college', request()->school_or_college) == '2' ? 'selected' : ''  }}>@lang('College')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                         <select class="form-control select2" name="scholarship_school_id" id="scholarship_school_id">
                                             <option value="">Select School</option>
                                             @foreach ($schools as $key => $value)
-                                                <option value="{{ $key }}" {{ old('scholarship_school_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                <option value="{{ $key }}" {{ old('scholarship_school_id', request()->scholarship_school_id) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -88,7 +88,7 @@
                                         <select class="form-control select2" name="scholarship_college_id" id="scholarship_college_id">
                                             <option value="">Select College</option>
                                             @foreach ($colleges as $key => $value)
-                                                <option value="{{ $key }}" {{ old('scholarship_college_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                <option value="{{ $key }}" {{ old('scholarship_college_id', request()->scholarship_college_id) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
