@@ -28,7 +28,10 @@ class ScholarshipController extends Controller
         if ($request->export)
             return $this->doExport($request);
         $scholarships = $this->filter($request)->paginate(10);
-        return view('scholarships.index', compact('scholarships'));
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
     }
 
     private function filter(Request $request)
@@ -36,8 +39,8 @@ class ScholarshipController extends Controller
         $query = Scholarship::with(['studentDetail'])
         ->whereHas('studentDetail', function ($q) use ($request) {
             $q->where('company_id', session('company_id'));
-            if ($request->vId)
-                $q->where('scholarship_village_id', 'like', $request->vId . '%');
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
         return $query;
@@ -167,6 +170,8 @@ class ScholarshipController extends Controller
         DB::beginTransaction();
         try
         {
+            $company = Company::findOrFail(Session::get('company_id'));
+            $company->setSettings();
             $studentDetail = StudentDetail::create([
                 'user_id' => Auth::user()->id,
                 'full_name' => $request->full_name,
@@ -235,6 +240,8 @@ class ScholarshipController extends Controller
                 'bank_passbook' => $request->bank_passbook->store('scholarship'),
                 'original_fee_receipt' => $request->original_fee_receipt->store('scholarship'),
             ]);
+            // Update next invoice number
+            $this->increaseNextInvoiceNumber($company);
             DB::commit();
             Session::flash('successMessage', 1);
             echo json_encode(array("status" => 1));

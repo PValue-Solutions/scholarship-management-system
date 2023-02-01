@@ -140,20 +140,34 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'scholarship.store'
     ]);
 
+    Route::get('/scholarship/{id}/show',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@show',
+        'as' => 'scholarship.show'
+    ]);
+
+    Route::get('/scholarship/{id}/download',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@download',
+        'as' => 'scholarship.download'
+    ]);
+
+    Route::get('/scholarship/edit/{id}',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@edit',
+        'as' => 'scholarship.edit'
+    ]);
+
+    Route::get('/scholarship/{id}/destroy',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@destroy',
+        'as' => 'scholarship.destroy'
+    ]);
+
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');
     Route::get('/getBillItems', 'App\Http\Controllers\BillController@getBillItems')->name('bill.getBillItems');
     //Route::get('/getProduct', 'App\Http\Controllers\ProductController@getProduct')->name('product.getProduct');
 
-    Route::get('patient-appointments/get-schedule/doctorwise', [App\Http\Controllers\PatientAppointmentController::class, 'getScheduleDoctorWise'])->name('patient-appointments.getScheduleDoctorWise');
 
     Route::post('/invoice/generateItemData',[
         'uses' => 'App\Http\Controllers\InvoiceController@generateItemData',
         'as' => 'invoice.generateItemData'
-    ]);
-
-    Route::post('/labreport/generateTemplateData',[
-        'uses' => 'App\Http\Controllers\LabReportController@generateTemplateData',
-        'as' => 'labreport.generateTemplateData'
     ]);
 
     Route::get('/c/c', [App\Http\Controllers\CurrencyController::class, 'code'])->name('currency.code');

@@ -45,6 +45,11 @@ class StudentDetail extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function  scholarshipVillage()
+    {
+        return $this->belongsTo(ScholarshipVillage::class);
+    }
+
     public function scholarship()
     {
         return $this->belongsTo(Scholarship::class);
