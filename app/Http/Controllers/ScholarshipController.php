@@ -285,7 +285,7 @@ class ScholarshipController extends Controller
     public function edit($id = 0)
     {
         if($id != 0){
-            $scholarship = Scholarship::findOrFail($id);
+            $scholarship = Scholarship::with(['studentDetail', 'scholarshipBankDetail','scholarshipVillage'])->findOrFail($id);
             $company = Company::findOrFail(Session::get('company_id'));
             $company->setSettings();
             $number = $this->getNextInvoiceNumber($company);
