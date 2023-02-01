@@ -82,7 +82,7 @@
                                     <label for="percentage_marks_obtained">
                                         {{ __('Percentage Of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="percentage_marks_obtained" class="form-control @if($errors->has('percentage_marks_obtained')) is-invalid @endif" name="percentage_marks_obtained" type="number" value="{{ old('percentage_marks_obtained', $scholarship->percentage_marks_obtained) }}" placeholder="Percentage Marks In Your Last Examination" required>
+                                    <input id="percentage_marks_obtained" class="form-control @if($errors->has('percentage_marks_obtained')) is-invalid @endif" name="percentage_marks_obtained" type="number" value="{{ old('percentage_marks_obtained', $scholarship->percentage_marks_obtained) }}" placeholder="Percentage Marks In Your Last Examination" required readonly>
                                     @if ($errors->has('percentage_marks_obtained'))
                                         {{ Session::flash('error',$errors->first('percentage_marks_obtained')) }}
                                     @endif
@@ -98,7 +98,7 @@
                                     <label for="full_name">
                                         {{ __('Full Name') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="full_name" class="form-control @if($errors->has('full_name')) is-invalid @endif" name="full_name" type="text" value="{{ old('full_name',$scholarship->studentDetail->full_name) }}" placeholder="Type Your Full Name" required>
+                                    <input id="full_name" class="form-control @if($errors->has('full_name')) is-invalid @endif" name="full_name" type="text" value="{{ old('full_name',$scholarship->studentDetail->full_name) }}" placeholder="Type Your Full Name" required readonly>
                                     @if ($errors->has('full_name'))
                                         {{ Session::flash('error',$errors->first('full_name')) }}
                                     @endif
@@ -159,7 +159,7 @@
                                     <label for="house_no">
                                         {{ __('House No.') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="house_no" class="form-control @if($errors->has('house_no')) is-invalid @endif" name="house_no" type="text" value="{{ old('house_no',$scholarship->studentDetail->house_no) }}" placeholder="Type Your House No" required>
+                                    <input id="house_no" class="form-control @if($errors->has('house_no')) is-invalid @endif" name="house_no" type="text" value="{{ old('house_no',$scholarship->studentDetail->house_no) }}" placeholder="Type Your House No" required readonly>
                                     @if ($errors->has('house_no'))
                                         {{ Session::flash('error',$errors->first('house_no')) }}
                                     @endif
@@ -173,8 +173,7 @@
                                     <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
                                         <option value="">Select Village</option>
                                         @foreach ($villages as $key => $value)
-                                            {{--  <option value="{{ $key }}" {{ old('scholarship_village_id') == $key ? 'selected' : '' }}>{{ $value }}</option>  --}}
-                                            <option value="{{ $key }}" @if(old('scholarship_village_id', $scholarship->studentDetail->scholarship_village_id) == $key) selected @endif>{{ $value }}</option>
+                                            <option value="{{ $key }}" @if(old('scholarship_village_id', $scholarship->studentDetail->scholarship_village_id) == $key) selected @else disabled @endif>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('scholarship_village_id')
@@ -189,7 +188,7 @@
                                     <label for="street">
                                         {{ __('Street') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="street" class="form-control @if($errors->has('street')) is-invalid @endif" name="street" type="text" value="{{ old('street',$scholarship->studentDetail->street) }}" placeholder="Type Your Street" required>
+                                    <input id="street" class="form-control @if($errors->has('street')) is-invalid @endif" name="street" type="text" value="{{ old('street',$scholarship->studentDetail->street) }}" placeholder="Type Your Street" required readonly>
                                     @if ($errors->has('street'))
                                         {{ Session::flash('error',$errors->first('street')) }}
                                     @endif
@@ -200,7 +199,7 @@
                                     <label for="post_office">
                                         {{ __('Post Office') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="post_office" class="form-control @if($errors->has('post_office')) is-invalid @endif" name="post_office" type="text" value="{{ old('post_office',$scholarship->studentDetail->post_office) }}" placeholder="Type Your Post Office" required>
+                                    <input id="post_office" class="form-control @if($errors->has('post_office')) is-invalid @endif" name="post_office" type="text" value="{{ old('post_office',$scholarship->studentDetail->post_office) }}" placeholder="Type Your Post Office" required readonly>
                                     @if ($errors->has('post_office'))
                                         {{ Session::flash('error',$errors->first('post_office')) }}
                                     @endif
@@ -213,7 +212,7 @@
                                     <label for="taluk">
                                         {{ __('Taluk') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="taluk" class="form-control @if($errors->has('taluk')) is-invalid @endif" name="taluk" type="text" value="{{ old('taluk',$scholarship->studentDetail->taluk) }}" placeholder="Type Your Taluk" required>
+                                    <input id="taluk" class="form-control @if($errors->has('taluk')) is-invalid @endif" name="taluk" type="text" value="{{ old('taluk',$scholarship->studentDetail->taluk) }}" placeholder="Type Your Taluk" required readonly>
                                     @if ($errors->has('taluk'))
                                         {{ Session::flash('error',$errors->first('taluk')) }}
                                     @endif
@@ -224,7 +223,7 @@
                                     <label for="district">
                                         {{ __('District') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="district" class="form-control @if($errors->has('district')) is-invalid @endif" name="district" type="text" value="{{ old('district',$scholarship->studentDetail->district) }}" placeholder="Type Your District" required>
+                                    <input id="district" class="form-control @if($errors->has('district')) is-invalid @endif" name="district" type="text" value="{{ old('district',$scholarship->studentDetail->district) }}" placeholder="Type Your District" required readonly>
                                     @if ($errors->has('district'))
                                         {{ Session::flash('error',$errors->first('district')) }}
                                     @endif
@@ -235,7 +234,7 @@
                                     <label for="pincode">
                                         {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="text" value="{{ old('pincode',$scholarship->studentDetail->pincode) }}" placeholder="Type Your Pincode" required>
+                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="text" value="{{ old('pincode',$scholarship->studentDetail->pincode) }}" placeholder="Type Your Pincode" required readonly>
                                     @if ($errors->has('pincode'))
                                         {{ Session::flash('error',$errors->first('pincode')) }}
                                     @endif
@@ -246,7 +245,7 @@
                                     <label for="state">
                                         {{ __('State') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="state" class="form-control @if($errors->has('state')) is-invalid @endif" name="state" type="text" value="{{ old('state',$scholarship->studentDetail->state) }}" placeholder="Type Your State" required>
+                                    <input id="state" class="form-control @if($errors->has('state')) is-invalid @endif" name="state" type="text" value="{{ old('state',$scholarship->studentDetail->state) }}" placeholder="Type Your State" required readonly>
                                     @if ($errors->has('state'))
                                         {{ Session::flash('error',$errors->first('state')) }}
                                     @endif
@@ -268,7 +267,7 @@
                                     <label for="contact_no_1">
                                         {{ __('Contact No 1') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="text" value="{{ old('contact_no_1',$scholarship->studentDetail->contact_no_1) }}" placeholder="Type Your Contact No 1" required>
+                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="text" value="{{ old('contact_no_1',$scholarship->studentDetail->contact_no_1) }}" placeholder="Type Your Contact No 1" required readonly>
                                     @if ($errors->has('contact_no_1'))
                                         {{ Session::flash('error',$errors->first('contact_no_1')) }}
                                     @endif
@@ -279,7 +278,7 @@
                                     <label for="contact_no_2">
                                         {{ __('Contact No 2') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="text" value="{{ old('contact_no_2',$scholarship->studentDetail->contact_no_2) }}" placeholder="Type Your Contact No 2" required>
+                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="text" value="{{ old('contact_no_2',$scholarship->studentDetail->contact_no_2) }}" placeholder="Type Your Contact No 2" required readonly>
                                     @if ($errors->has('contact_no_2'))
                                         {{ Session::flash('error',$errors->first('contact_no_2')) }}
                                     @endif
@@ -292,8 +291,8 @@
                                     <label for="gender">@lang('Gender') <b class="ambitious-crimson">*</b></label>
                                     <select name="gender" class="form-control @error('gender') is-invalid @enderror" id="gender" required>
                                         <option value="">--@lang('Select')--</option>
-                                        <option value="male" {{ old('gender',$scholarship->studentDetail->gender) === 'male' ? 'selected' : '' }}>@lang('Male')</option>
-                                        <option value="female" {{ old('gender',$scholarship->studentDetail->gender) === 'female' ? 'selected' : '' }}>@lang('Female')</option>
+                                        <option value="male" {{ old('gender',$scholarship->studentDetail->gender) === 'male' ? 'selected' : 'disabled' }}>@lang('Male')</option>
+                                        <option value="female" {{ old('gender',$scholarship->studentDetail->gender) === 'female' ? 'selected' : 'disabled' }}>@lang('Female')</option>
                                     </select>
                                     @if ($errors->has('gender'))
                                         {{ Session::flash('error',$errors->first('gender')) }}
@@ -331,8 +330,8 @@
                                 <div class="form-group">
                                     <label for="school_or_college">@lang('Institution') <b class="ambitious-crimson">*</b></label>
                                     <select class="form-control ambitious-form-loading @error('school_or_college') is-invalid @enderror" required="required" name="school_or_college" id="school_or_college">
-                                        <option value="1" @if(old('school_or_college', $scholarship->school_or_college) == '1') selected @endif>@lang('School')</option>
-                                        <option value="2" @if(old('school_or_college', $scholarship->school_or_college) == '2') selected @endif>@lang('College')</option>
+                                        <option value="1" @if(old('school_or_college', $scholarship->school_or_college) == '1') selected @else disabled @endif>@lang('School')</option>
+                                        <option value="2" @if(old('school_or_college', $scholarship->school_or_college) == '2') selected @else disabled @endif>@lang('College')</option>
                                     </select>
                                     @error('school_or_college')
                                         <div class="invalid-feedback">
@@ -349,7 +348,7 @@
                                     <select class="form-control select2" name="scholarship_school_id" id="scholarship_school_id">
                                         <option value="">Select School</option>
                                         @foreach ($schools as $key => $value)
-                                            <option value="{{ $key }}" @if(old('scholarship_school_id', $scholarship->scholarship_school_id) == $key) selected @endif>{{ $value }}</option>
+                                            <option value="{{ $key }}" @if(old('scholarship_school_id', $scholarship->scholarship_school_id) == $key) selected @else disabled @endif>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('scholarship_school_id')
@@ -367,7 +366,7 @@
                                     <select class="form-control select2" name="scholarship_college_id" id="scholarship_college_id">
                                         <option value="">Select College</option>
                                         @foreach ($colleges as $key => $value)
-                                            <option value="{{ $key }}" @if(old('scholarship_college_id', $scholarship->scholarship_college_id) == $key) selected @endif>{{ $value }}</option>
+                                            <option value="{{ $key }}" @if(old('scholarship_college_id', $scholarship->scholarship_college_id) == $key) selected @else disabled @endif>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('scholarship_college_id')
@@ -406,7 +405,7 @@
                                         <option value="">Select Class</option>
                                         @foreach ($classes as $key => $value)
                                             {{--  <option value="{{ $key }}" {{ old('school_grade') == $key ? 'selected' : '' }}>{{ $value }}</option>  --}}
-                                            <option value="{{ $key }}" @if(old('school_grade', $scholarship->school_grade) == $key) selected @endif>{{ $value }}</option>
+                                            <option value="{{ $key }}" @if(old('school_grade', $scholarship->school_grade) == $key) selected @else disabled @endif>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('school_grade')
@@ -570,7 +569,7 @@
                                     <label for="bank_name">
                                         {{ __('Bank Name') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="bank_name" class="form-control @if($errors->has('bank_name')) is-invalid @endif" name="bank_name" type="text" value="{{ old('bank_name',$scholarship->scholarshipBankDetail->bank_name) }}" placeholder="Type Your Bank Name" required>
+                                    <input id="bank_name" class="form-control @if($errors->has('bank_name')) is-invalid @endif" name="bank_name" type="text" value="{{ old('bank_name',$scholarship->scholarshipBankDetail->bank_name) }}" placeholder="Type Your Bank Name" required readonly>
                                     @if ($errors->has('bank_name'))
                                         {{ Session::flash('error',$errors->first('bank_name')) }}
                                     @endif
@@ -581,7 +580,7 @@
                                     <label for="branch">
                                         {{ __('Branch') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="branch" class="form-control @if($errors->has('branch')) is-invalid @endif" name="branch" type="text" value="{{ old('branch',$scholarship->scholarshipBankDetail->branch) }}" placeholder="Type Your Branch" required>
+                                    <input id="branch" class="form-control @if($errors->has('branch')) is-invalid @endif" name="branch" type="text" value="{{ old('branch',$scholarship->scholarshipBankDetail->branch) }}" placeholder="Type Your Branch" required readonly>
                                     @if ($errors->has('branch'))
                                         {{ Session::flash('error',$errors->first('branch')) }}
                                     @endif
@@ -594,7 +593,7 @@
                                     <label for="account_holder_name">
                                         {{ __('Account Holder Name') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="account_holder_name" class="form-control @if($errors->has('account_holder_name')) is-invalid @endif" name="account_holder_name" type="text" value="{{ old('account_holder_name',$scholarship->scholarshipBankDetail->account_holder_name) }}" placeholder="Type Your Account Holder Name" required>
+                                    <input id="account_holder_name" class="form-control @if($errors->has('account_holder_name')) is-invalid @endif" name="account_holder_name" type="text" value="{{ old('account_holder_name',$scholarship->scholarshipBankDetail->account_holder_name) }}" placeholder="Type Your Account Holder Name" required readonly>
                                     @if ($errors->has('account_holder_name'))
                                         {{ Session::flash('error',$errors->first('account_holder_name')) }}
                                     @endif
@@ -605,7 +604,7 @@
                                     <label for="account_no">
                                         {{ __('Account No') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="account_no" class="form-control @if($errors->has('account_no')) is-invalid @endif" name="account_no" type="number" value="{{ old('account_no',$scholarship->scholarshipBankDetail->account_no) }}" placeholder="Type Your Account No" required>
+                                    <input id="account_no" class="form-control @if($errors->has('account_no')) is-invalid @endif" name="account_no" type="number" value="{{ old('account_no',$scholarship->scholarshipBankDetail->account_no) }}" placeholder="Type Your Account No" required readonly>
                                     @if ($errors->has('account_no'))
                                         {{ Session::flash('error',$errors->first('account_no')) }}
                                     @endif
@@ -618,7 +617,7 @@
                                     <label for="ifsc_code">
                                         {{ __('IFSC Code') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="ifsc_code" class="form-control @if($errors->has('ifsc_code')) is-invalid @endif" name="ifsc_code" type="text" value="{{ old('ifsc_code',$scholarship->scholarshipBankDetail->ifsc_code) }}" placeholder="Type Your IFSC Code" required>
+                                    <input id="ifsc_code" class="form-control @if($errors->has('ifsc_code')) is-invalid @endif" name="ifsc_code" type="text" value="{{ old('ifsc_code',$scholarship->scholarshipBankDetail->ifsc_code) }}" placeholder="Type Your IFSC Code" required readonly>
                                     @if ($errors->has('ifsc_code'))
                                         {{ Session::flash('error',$errors->first('ifsc_code')) }}
                                     @endif
@@ -629,10 +628,10 @@
                                     <label for="status">@lang('Status') <b class="ambitious-crimson">*</b></label>
                                     <select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
                                         <option value="">--@lang('Select')--</option>
-                                        <option value="Self" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Self' ? 'selected' : '' }}>@lang('Self')</option>
-                                        <option value="Father" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Father' ? 'selected' : '' }}>@lang('Father')</option>
-                                        <option value="Mother" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Mother' ? 'selected' : '' }}>@lang('Mother')</option>
-                                        <option value="Teacher" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Teacher' ? 'selected' : '' }}>@lang('Teacher')</option>
+                                        <option value="Self" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Self' ? 'selected' : 'disabled' }}>@lang('Self')</option>
+                                        <option value="Father" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Father' ? 'selected' : 'disabled' }}>@lang('Father')</option>
+                                        <option value="Mother" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Mother' ? 'selected' : 'disabled' }}>@lang('Mother')</option>
+                                        <option value="Teacher" {{ old('status',$scholarship->scholarshipBankDetail->status) === 'Teacher' ? 'selected' : 'disabled' }}>@lang('Teacher')</option>
                                     </select>
                                     @if ($errors->has('status'))
                                         {{ Session::flash('error',$errors->first('status')) }}
@@ -732,7 +731,7 @@
                                     <label for="fee_amount">
                                         {{ __('Fee amount') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" max="10000" type="text" value="{{ old('fee_amount',$scholarship->fee_amount) }}" placeholder="Type Fee Amount" required>
+                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" max="10000" type="text" value="{{ old('fee_amount',$scholarship->fee_amount) }}" placeholder="Type Fee Amount" required readonly>
                                     <small id="maximum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 20000')</small>
                                     <small id="average-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 15000')</small>
                                     <small id="minimum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 10000')</small>
@@ -842,36 +841,36 @@
         $('#average-scholarship-amount').hide();
         $('#minimum-scholarship-amount').hide();
 
-        $('#percentage_marks_obtained').change(function(){
-            var percentage_marks_obtained = $("#percentage_marks_obtained").val();
-            var marks = Number(percentage_marks_obtained);
 
-            if(marks > 85 && marks <=101){
+        var percentage_marks_obtained = $("#percentage_marks_obtained").val();
+        var marks = Number(percentage_marks_obtained);
 
-                var input_fee_amount = document.getElementById("fee_amount");
-                input_fee_amount.setAttribute("max",20000);
+        if(marks > 85 && marks <=101){
 
-                $('#maximum-scholarship-amount').show();
-                $('#average-scholarship-amount').hide();
-                $('#minimum-scholarship-amount').hide();
-            } else if( marks > 75 && marks <=85) {
+            var input_fee_amount = document.getElementById("fee_amount");
+            input_fee_amount.setAttribute("max",20000);
 
-                var input_fee_amount = document.getElementById("fee_amount");
-                input_fee_amount.setAttribute("max",15000);
+            $('#maximum-scholarship-amount').show();
+            $('#average-scholarship-amount').hide();
+            $('#minimum-scholarship-amount').hide();
+        } else if( marks > 75 && marks <=85) {
 
-                $('#maximum-scholarship-amount').hide();
-                $('#average-scholarship-amount').show();
-                $('#minimum-scholarship-amount').hide();
-            } else {
+            var input_fee_amount = document.getElementById("fee_amount");
+            input_fee_amount.setAttribute("max",15000);
 
-                var input_fee_amount = document.getElementById("fee_amount");
-                input_fee_amount.setAttribute("max",10000);
+            $('#maximum-scholarship-amount').hide();
+            $('#average-scholarship-amount').show();
+            $('#minimum-scholarship-amount').hide();
+        } else {
 
-                $('#maximum-scholarship-amount').hide();
-                $('#average-scholarship-amount').hide();
-                $('#minimum-scholarship-amount').show();
-            }
-        });
+            var input_fee_amount = document.getElementById("fee_amount");
+            input_fee_amount.setAttribute("max",10000);
+
+            $('#maximum-scholarship-amount').hide();
+            $('#average-scholarship-amount').hide();
+            $('#minimum-scholarship-amount').show();
+        }
+
 
         var marks_obtained_type = $('#marks_obtained_type').val();
         if(marks_obtained_type == 'PUC' || marks_obtained_type == 'Degree') {
