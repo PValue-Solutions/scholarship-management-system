@@ -309,6 +309,44 @@ class ScholarshipController extends Controller
      */
     public function update(Request $request)
     {
+        $id = $request->scholarship_id;
+        $request->validate([
+            'year' => ['required', 'string', 'max:255'],
+            'annual_income' => ['required', 'numeric'],
+            'father_name' => ['required', 'string', 'max:255'],
+            'father_occupation' => ['required', 'string', 'max:255'],
+            'mother_name' => ['required', 'string', 'max:255'],
+            'mother_occupation' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['required', 'date'],
+            'age' => ['required', 'numeric'],
+            'aadhar_no' => ['required', 'string', 'max:255'],
+            'school_year' => ['required', 'numeric'],
+            'school_contact_person' => ['required', 'string', 'max:255'],
+            'school_designation' => ['required', 'in:Principal,Head,Teacher'],
+            'school_contact_number' => ['required', 'string', 'max:255'],
+            'marks_obtained_type' => ['required', 'in:SSLC,PUC,Degree'],
+            'marks_obtained' => ['required', 'string', 'max:255'],
+            'further_education_details_school_or_college' => ['required', 'in:1,2'],
+            'further_education_details_course_joined' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
+            'income_certificate' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'id_proof' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'previous_educational_marks_card' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'bank_passbook' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'original_fee_receipt' => ['nullable', 'mimes:pdf', 'max:6048'],
+            's_status' => ['nullable', 'in:pending,approved,payment_in_progress,payment_done,rejected'],
+            'payment_date' => ['nullable', 'date'],
+        ]);
+        if ($request->marks_obtained_type == 'PUC' || $request->marks_obtained_type == 'Degree') {
+            $request->validate(['marks_subject' => ['required', 'string','max:255'],]);
+        }
+        if ($request->further_education_details_school_or_college == '1') {
+            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string','max:255'],]);
+        }
+        if ($request->further_education_details_school_or_college == '2') {
+            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string','max:255'],]);
+        }
         dd($request->all());
     }
 
