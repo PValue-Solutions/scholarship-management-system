@@ -54,7 +54,8 @@ class ScholarshipController extends Controller
             $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
-
+        if ($request->status)
+            $query->where('status', 'like', $request->status);
         return $query;
     }
 
