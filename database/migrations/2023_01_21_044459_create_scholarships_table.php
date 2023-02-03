@@ -57,6 +57,7 @@ class CreateScholarshipsTable extends Migration
             $table->bigInteger('scholarship_bank_detail_id')->nullable();
             $table->bigInteger('print_form')->nullable();
             $table->enum('status', ['pending','approved','payment_in_progress','payment_done','rejected'])->default('pending');
+            $table->date('payment_date')->nullable();
             $table->index('company_id');
             $table->timestamps();
             $table->softDeletes();

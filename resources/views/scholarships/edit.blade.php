@@ -1,3 +1,6 @@
+@php
+$roleName = Auth::user()->getRoleNames();
+@endphp
 @extends('layouts.layout')
 @section('one_page_js')
     <script src="{{ asset('plugins/dropify/dist/js/dropify.min.js') }}"></script>
@@ -37,6 +40,7 @@
             </div>
             <div class="card-body wizard-content">
                 <form enctype="multipart/form-data" action="#" id="scholarship_edit_form" class="validation-wizard wizard-circle mt-5" method="post">
+                    <input type="hidden" id="scholarship_id" name="scholarship_id" value="{{ $scholarship->id }}" required>
                     <h6>{{ __('Basic') }}</h6>
                     <section>
                         <div class="row mb-2">
@@ -649,7 +653,7 @@
                                     <label for="photo">
                                         {{ __('Student Photo') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="5500K" required />
+                                    <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: png, jpg, jpeg')</p>
                                 </div>
@@ -662,7 +666,7 @@
                                     <label for="income_certificate">
                                         {{ __('Income certificate of Parents/ Guardian') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="income_certificate" class="dropify" name="income_certificate" value="{{ old('income_certificate') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <input id="income_certificate" class="dropify" name="income_certificate" value="{{ old('income_certificate') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
                                 </div>
@@ -675,7 +679,7 @@
                                     <label for="id_proof">
                                         {{ __('Govt. ID proof (Aadhar, Ration card etc.)') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="id_proof" class="dropify" name="id_proof" value="{{ old('id_proof') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <input id="id_proof" class="dropify" name="id_proof" value="{{ old('id_proof') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
                                 </div>
@@ -690,7 +694,7 @@
                                     <label for="previous_educational_marks_card">
                                         {{ __('Previous Educational Marks Card') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="previous_educational_marks_card" class="dropify" name="previous_educational_marks_card" value="{{ old('previous_educational_marks_card') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <input id="previous_educational_marks_card" class="dropify" name="previous_educational_marks_card" value="{{ old('previous_educational_marks_card') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
                                 </div>
@@ -703,7 +707,7 @@
                                     <label for="bank_passbook">
                                         {{ __('Bank passbook copy') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="bank_passbook" class="dropify" name="bank_passbook" value="{{ old('bank_passbook') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <input id="bank_passbook" class="dropify" name="bank_passbook" value="{{ old('bank_passbook') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
                                 </div>
@@ -716,7 +720,7 @@
                                     <label for="original_fee_receipt">
                                         {{ __('Original fee receipt') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="original_fee_receipt" class="dropify" name="original_fee_receipt" value="{{ old('original_fee_receipt') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" required />
+                                    <input id="original_fee_receipt" class="dropify" name="original_fee_receipt" value="{{ old('original_fee_receipt') }}" type="file" data-allowed-file-extensions="pdf" data-max-file-size="5500K" />
                                     <small class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                                     <p>@lang('Max Size: 5mb, Allowed Format: pdf')</p>
                                 </div>
@@ -787,6 +791,35 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($roleName['0'] != "Student")
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="s_status">@lang('Status') <b class="ambitious-crimson">*</b></label>
+                                    <select name="s_status" class="form-control @error('s_status') is-invalid @enderror" id="s_status">
+                                        <option value="">--@lang('Select')--</option>
+                                        <option value="pending" {{ old('s_status',$scholarship->status) === 'pending' ? 'selected' : '' }}>@lang('Under Verification')</option>
+                                        <option value="approved" {{ old('s_status',$scholarship->status) === 'approved' ? 'selected' : '' }}>@lang('Approved')</option>
+                                        <option value="payment_in_progress" {{ old('s_status',$scholarship->status) === 'payment_in_progress' ? 'selected' : '' }}>@lang('Payment In Progress')</option>
+                                        <option value="payment_done" {{ old('s_status',$scholarship->status) === 'payment_done' ? 'selected' : '' }}>@lang('Payment Done')</option>
+                                        <option value="rejected" {{ old('s_status',$scholarship->status) === 'rejected' ? 'selected' : '' }}>@lang('Rejected')</option>
+                                    </select>
+                                    @if ($errors->has('gender'))
+                                        {{ Session::flash('error',$errors->first('gender')) }}
+                                    @endif
+                                </div>
+                            </div>
+                            <div id="payment_date_block" class="col-md-6">
+                                <div class="form-group">
+                                    <label for="payment_date">@lang('Payment Date') <b class="ambitious-crimson">*</b></label>
+                                    <input type="text" name="payment_date" id="payment_date" class="form-control flatpickr @error('payment_date') is-invalid @enderror" placeholder="@lang('Payment Date')" value="{{ old('payment_date',$scholarship->payment_date) }}">
+                                    @if ($errors->has('payment_date'))
+                                        {{ Session::flash('error',$errors->first('payment_date')) }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </section>
                 </form>
             </div>
@@ -798,6 +831,22 @@
 
     $(document).ready(function() {
         "use strict";
+
+        var s_status = $('#s_status').val();
+        if(s_status == 'payment_in_progress' || s_status == 'payment_done') {
+            $('#payment_date_block').show();
+        } else {
+            $('#payment_date_block').hide();
+        }
+
+        $('#s_status').change(function(){
+            if($('#s_status').val() == 'payment_in_progress' || $('#s_status').val() == 'payment_done') {
+                $('#payment_date_block').show();
+            } else {
+                $('#payment_date_block').hide();
+            }
+        });
+
         $('.dropify').dropify();
         $('.dropify-fr').dropify({
             messages: {
@@ -1054,11 +1103,24 @@
 
             var percentage_marks_obtained = $("#percentage_marks_obtained").val();
             var marks = Number(percentage_marks_obtained);
-            alert(marks);
+
+
+            var s_status = $('#s_status').val();
+            if(s_status == 'payment_in_progress' || s_status == 'payment_done') {
+                var payment_date = $('#payment_date').val();
+                if(payment_date == "" || payment_date== undefined){
+                    Swal.fire(
+                        itemName,
+                        '{{ __('Please Select Payment Date') }}',
+                        'warning'
+                    );
+                    return false;
+                }
+            }
 
             var queryString = new FormData($("#scholarship_edit_form")[0]);
             $.ajax({
-                url: '{{ url('scholarship/store') }}',
+                url: '{{ url('scholarship/update') }}',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
@@ -1081,7 +1143,7 @@
                     else {
                         Swal.fire(
                           itemName,
-                          '{{ __('Apply Scholarship Successfully') }}',
+                          '{{ __('Edit Applied Scholarship Successfully') }}',
                           'success'
                         ).then(function() {
                             document.location.href="{{ route('scholarship.index') }}";

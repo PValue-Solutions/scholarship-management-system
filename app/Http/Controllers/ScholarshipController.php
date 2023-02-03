@@ -307,9 +307,9 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Scholarship $scholarship)
+    public function update(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
