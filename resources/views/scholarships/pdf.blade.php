@@ -6,88 +6,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+<style>
+    /* .c-row{
+        widows: 793.92px !important;
+    }
+    .c-col-4{
+        width: 200px !important;
+    }
+    .c-col-8{
+        width: 500px !important;
+    } */
+  </style>
 </head>
 <body>
 
 
-<div class="container">
-  <div class="row mt-5">
+<div class="container-fluid">
+  <div class="row c-row">
         <div class="col-sm-12">
             <div class="text-center">
-                {{-- <img src="{{asset('pdf/img/logo.png')}}" class="img-fluid" alt="logo"> --}}
+                <img src="{{public_path('pdf/img/logo.png')}}" class="img-fluid" alt="logo">
             </div>
             <p class="font-weight-bold text-justify text-center"><u>The Rotary Bangalore Midtown in association with Sansera Foundation invites application
                 from Students who have secured marks in excess of 60% in 10th standard exam last held.</u></p>
         </div>
     </div>
 
-    <div class="row mt-2">
-        <div class="col-sm-4">
-            <div>
-                <span><small>Application No.:</small>{{$data->application_no}}</span>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div>
-                <span><small>Year :</small>{{$data->year}}</span>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div>
-                <span><small>Annual Income:</small>{{$data->annual_income}}</span>
-            </div>
-        </div>
+    <div class="row c-row mt-2">
+        <table class="table table-borderless">
+            <tr>
+                <td><span><small>Application No.:</small>{{$data->application_no}}</span></td>
+                <td><span><small>Year :</small>{{$data->year}}</span></td>
+                <td><span><small>Annual Income:</small>{{$data->annual_income}}</span></td>
+            </tr>
+        </table>
         
     </div>
 
-    <div class="row mt-5">
+    <div class="row c-row">
         <div class="col-sm-12">
             <h6 class="font-weight-bold">PERSONAL DETAILS:</h6>
         </div>
-        <div class="col-sm-4">
-            <p>1. Full Name :</p>
-            <p>2. Father Name :</p>
-            <p>Occupation :</p>
-            <p>3. Mother Name:</p>
-            <p>4. Full Address :</p>
-            <p>House no.  :</p>
-            <p>Village :</p>
-            <p>Taluk :</p>
-            <p>Pin code :</p>
-            <p>5. Contact no. 1  :</p>
-            <p>6. Date of Birth :</p>
-            <p>7. Male/ Female: :</p>
-            <p>8. Aadhar no. :</p>
-           
-          
-
-
-        </div>
-
-        <div class="col-sm-8">
-            <div class="row">
-                <div class="col-sm-12 mb-5">
-                    <div class="text-right">
-                        {{-- <img style="width: 200px; height: 150px;" src="{{asset('pdf/img/pro.png')}}" class="img-fluid" alt="prfile"> --}}
-                    </div>
-                 </div>
-         
-                 <div class="col-sm-12">
-                     <p><small>Street/ Cross :</small></p>
-                     <p><small>Post office :</small></p>
-                     <p><small>District :</small></p>
-                     <p><small>State :</small></p>
-                     <p><small>Contact no. 2 :</small></p>
-                     <p><small>Age :</small></p>
-                 </div>
-            </div>
-        </div>
-        
+        <table>
+            <tr>
+                <td>
+                    <p>1. Full Name :</p>
+                </td>
+                
+                <td colspan="4" rowspan="2" class="align-item-right">
+                    <img style="width: 200px; height: 150px; " src="{{public_path('pdf/img/pro.png')}}" class="img-fluid" alt="prfile">
+                </td>
+            
+            </tr>
+        </table>
     </div>
 
     <div class="row mt-5">
@@ -208,7 +180,7 @@
         <div class="col-sm-12">
             <h6 class="font-weight-bold">SANSERA FOUNDATION</h6>
             <p>No 143/A, Jirani link Road Near OMEX Circle Bengaluru 560099,Mobil No: 9845620096</p>
-          {{--   <img src="{{asset('pdf/img/qr.png')}}" alt=""> --}}
+            <img src="{{public_path('pdf/img/qr.png')}}" alt="">
         </div>
     </div>
 

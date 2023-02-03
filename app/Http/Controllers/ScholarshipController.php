@@ -16,6 +16,7 @@ use App\Models\StudentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+//use Pdf;
 
 class ScholarshipController extends Controller
 {
@@ -320,8 +321,9 @@ class ScholarshipController extends Controller
     public function download($id){
         $data = Scholarship::find($id);
         //dd($data);
-        //return view('scholarships.pdf', compact('data'));
+        return view('scholarships.pdf', compact('data'));
         $pdf = Pdf::loadView('scholarships.pdf', compact('data'));
+        return $pdf->stream();
         //dd($pdf->loadHTML(''));
         /* $pdf->getDomPDF()->setHttpContext(
             stream_context_create([
