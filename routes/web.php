@@ -140,6 +140,11 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'scholarship.store'
     ]);
 
+    Route::post('/scholarship/update',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@update',
+        'as' => 'scholarship.update'
+    ]);
+
     Route::get('/scholarship/{id}/show',[
         'uses' => 'App\Http\Controllers\ScholarshipController@show',
         'as' => 'scholarship.show'
