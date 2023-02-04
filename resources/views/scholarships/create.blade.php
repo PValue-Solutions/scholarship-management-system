@@ -1047,7 +1047,6 @@
 
             var percentage_marks_obtained = $("#percentage_marks_obtained").val();
             var marks = Number(percentage_marks_obtained);
-            alert(marks);
 
             var queryString = new FormData($("#scholarship_create_form")[0]);
             $.ajax({
