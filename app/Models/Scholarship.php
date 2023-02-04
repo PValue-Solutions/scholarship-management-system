@@ -58,7 +58,8 @@ class Scholarship extends Model
         'bank_passbook',
         'scholarship_bank_detail_id',
         'print_form',
-        'status'
+        'status',
+        'payment_date'
     ];
 
     public function user()

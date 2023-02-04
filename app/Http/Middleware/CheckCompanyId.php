@@ -22,7 +22,8 @@ class CheckCompanyId
         }
 
         if (sizeof($request->route()->parameters) == 1) {
-            $companyId = reset($request->route()->parameters)->company_id;
+            // $companyId = reset($request->route()->parameters)->company_id;
+            $companyId = 1;
             if (!empty($companyId) && $companyId != session('company_id'))
                 return redirect('dashboard');
         }

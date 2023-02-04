@@ -93,6 +93,19 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@lang('Status')</label>
+                                        <select class="form-control ambitious-form-loading" name="status" id="status">
+                                            <option value="">Select Status</option>
+                                            <option value="pending" {{ old('status', request()->status) == 'pending' ? 'selected' : ''  }}>@lang('Under Verification')</option>
+                                            <option value="approved" {{ old('status', request()->status) == 'approved' ? 'selected' : ''  }}>@lang('Approved')</option>
+                                            <option value="payment_in_progress" {{ old('status', request()->status) == 'payment_in_progress' ? 'selected' : ''  }}>@lang('Payment In Progress')</option>
+                                            <option value="payment_done" {{ old('status', request()->status) == 'payment_done' ? 'selected' : ''  }}>@lang('Payment Done')</option>
+                                            <option value="rejected" {{ old('status', request()->status) == 'rejected' ? 'selected' : ''  }}>@lang('Rejected')</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">

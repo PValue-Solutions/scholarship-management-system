@@ -56,7 +56,8 @@ class ScholarshipController extends Controller
             $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
-
+        if ($request->status)
+            $query->where('status', 'like', $request->status);
         return $query;
     }
 
@@ -284,9 +285,22 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function edit(Scholarship $scholarship)
+    public function edit($id = 0)
     {
-        //
+        if($id != 0){
+            $scholarship = Scholarship::with(['studentDetail', 'scholarshipBankDetail','scholarshipVillage'])->findOrFail($id);
+            $company = Company::findOrFail(Session::get('company_id'));
+            $company->setSettings();
+            $number = $this->getNextInvoiceNumber($company);
+            $years = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $classes = ScholarshipClass::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+            return view('scholarships.edit', compact('scholarship','number','years','classes','villages','schools','colleges'));
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -296,9 +310,102 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Scholarship $scholarship)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'scholarship_id' => ['required'],
+            'annual_income' => ['required', 'numeric'],
+            'father_name' => ['required', 'string', 'max:255'],
+            'father_occupation' => ['required', 'string', 'max:255'],
+            'mother_name' => ['required', 'string', 'max:255'],
+            'mother_occupation' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['required', 'date'],
+            'age' => ['required', 'numeric'],
+            'aadhar_no' => ['required', 'string', 'max:255'],
+            'school_year' => ['required', 'numeric'],
+            'school_contact_person' => ['required', 'string', 'max:255'],
+            'school_designation' => ['required', 'in:Principal,Head,Teacher'],
+            'school_contact_number' => ['required', 'string', 'max:255'],
+            'marks_obtained_type' => ['required', 'in:SSLC,PUC,Degree'],
+            'marks_obtained' => ['required', 'string', 'max:255'],
+            'further_education_details_school_or_college' => ['required', 'in:1,2'],
+            'further_education_details_course_joined' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:6048'],
+            'income_certificate' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'id_proof' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'previous_educational_marks_card' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'bank_passbook' => ['nullable', 'mimes:pdf', 'max:6048'],
+            'original_fee_receipt' => ['nullable', 'mimes:pdf', 'max:6048'],
+            's_status' => ['nullable', 'in:pending,approved,payment_in_progress,payment_done,rejected'],
+            'payment_date' => ['nullable', 'date'],
+        ]);
+        if ($request->marks_obtained_type == 'PUC' || $request->marks_obtained_type == 'Degree') {
+            $request->validate(['marks_subject' => ['required', 'string','max:255'],]);
+        }
+        if ($request->further_education_details_school_or_college == '1') {
+            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string','max:255'],]);
+        }
+        if ($request->further_education_details_school_or_college == '2') {
+            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string','max:255'],]);
+        }
+
+        $id = $request->scholarship_id;
+
+        DB::beginTransaction();
+        try
+        {
+            $company = Company::findOrFail(Session::get('company_id'));
+            $company->setSettings();
+            $scholarshipInfo = Scholarship::find($id);
+            $scholarshipInfo->school_year = $request->school_year;
+            $scholarshipInfo->school_contact_person = $request->school_contact_person;
+            $scholarshipInfo->school_designation = $request->school_designation;
+            $scholarshipInfo->school_contact_number = $request->school_contact_number;
+            $scholarshipInfo->marks_obtained_type = $request->marks_obtained_type;
+            $scholarshipInfo->marks_subject = $request->marks_subject;
+            $scholarshipInfo->marks_obtained = $request->marks_obtained;
+            $scholarshipInfo->further_education_details_school_or_college = $request->further_education_details_school_or_college;
+            $scholarshipInfo->further_education_details_scholarship_college_id = $request->further_education_details_scholarship_college_id;
+            $scholarshipInfo->further_education_details_course_joined = $request->further_education_details_course_joined;
+            $scholarshipInfo->status = $request->s_status;
+            $scholarshipInfo->payment_date = $request->payment_date;
+            if ($request->photo) {
+                $scholarshipInfo->photo = $request->photo->store('scholarship');
+            }
+            if($request->income_certificate) {
+                $scholarshipInfo->income_certificate = $request->income_certificate->store('scholarship');
+            }
+            if($request->id_proof) {
+                $scholarshipInfo->id_proof = $request->id_proof->store('scholarship');
+            }
+            if($request->previous_educational_marks_card) {
+                $scholarshipInfo->previous_educational_marks_card = $request->previous_educational_marks_card->store('scholarship');
+            }
+            if($request->bank_passbook) {
+                $scholarshipInfo->bank_passbook = $request->bank_passbook->store('scholarship');
+            }
+            if($request->original_fee_receipt) {
+                $scholarshipInfo->original_fee_receipt = $request->original_fee_receipt->store('scholarship');
+            }
+            $scholarshipInfo->save();
+            $studentDetailInfo = StudentDetail::findOrFail($scholarshipInfo->student_detail_id);
+            $studentDetailInfo->father_name = $request->father_name;
+            $studentDetailInfo->father_occupation = $request->father_occupation;
+            $studentDetailInfo->mother_name = $request->mother_name;
+            $studentDetailInfo->mother_occupation = $request->mother_occupation;
+            $studentDetailInfo->gender = $request->gender;
+            $studentDetailInfo->aadhar_no = $request->aadhar_no;
+            $studentDetailInfo->age = $request->age;
+            $studentDetailInfo->save();
+            DB::commit();
+            Session::flash('successMessage', 1);
+            echo json_encode(array("status" => 1));
+        } catch (Exception $e) {
+            DB::rollback();
+            Session::flash('errorMessage', 1);
+            echo json_encode(array("status" => 0));
+        }
     }
 
     /**
