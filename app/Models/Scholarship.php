@@ -77,6 +77,21 @@ class Scholarship extends Model
         return $this->belongsTo(StudentDetail::class);
     }
 
+    public function schollDetail()
+    {
+        return $this->belongsTo(ScholarshipSchool::class,'scholarship_school_id');
+    }
+
+    public function collegeDetail(){
+        return $this->belongsTo(ScholarshipCollege::class, 'scholarship_college_id');
+    }
+
+   /*  public function classDetail(){
+        return $this->belongsTo(ScholarshipClass::class, 'scholarship_college_id');
+    } */
+
+
+
     public function scholarshipVillage()
     {
         return $this->belongsTo(ScholarshipVillage::class);
