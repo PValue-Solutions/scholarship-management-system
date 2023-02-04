@@ -367,7 +367,9 @@ class ScholarshipController extends Controller
             $scholarshipInfo->further_education_details_school_or_college = $request->further_education_details_school_or_college;
             $scholarshipInfo->further_education_details_scholarship_college_id = $request->further_education_details_scholarship_college_id;
             $scholarshipInfo->further_education_details_course_joined = $request->further_education_details_course_joined;
-            $scholarshipInfo->status = $request->s_status;
+            if($request->s_status) {
+                $scholarshipInfo->status = $request->s_status;
+            }
             $scholarshipInfo->payment_date = $request->payment_date;
             if ($request->photo) {
                 $scholarshipInfo->photo = $request->photo->store('scholarship');
