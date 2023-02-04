@@ -274,9 +274,11 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function show(Scholarship $scholarship)
+    public function show($id)
     {
-        //
+        $scholarship = Scholarship::find($id);
+        dd($scholarship);
+        return view('scholarships.show', compact('scholarship'));
     }
 
     /**
@@ -428,7 +430,7 @@ class ScholarshipController extends Controller
     public function download($id){
         $data = Scholarship::find($id);
         //dd($data);
-        return view('scholarships.pdf', compact('data'));
+       // return view('scholarships.pdf', compact('data'));
         $pdf = Pdf::loadView('scholarships.pdf', compact('data'));
         return $pdf->stream();
         //dd($pdf->loadHTML(''));
