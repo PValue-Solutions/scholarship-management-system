@@ -261,34 +261,5 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-sm-12">
-            <h6 class="font-weight-bold text-center text-underline"><u>FOR OFFICE USE</u></h6>
-        </div>
-        <div class="col-sm-12">
-           <p> 1. Applicant Selected / Not selected : </p>
-           <p> 2. If Not selected : </p>
-           <p> 3. Sanctioned amount : </p>
-           <p>I, [Name of Principal], being first duly sworn, hereby state that: I am the principal of [Name of School], located at
-            [Address of School]. [Student's Name], date of birth [Student's Date of Birth], is a student at [Name of School]
-            and is enrolled in the [Grade Level] grade. This affidavit is being executed for the purpose of verifying [Student's
-            Name]'s complete information provided above in the portal is true and attendance for the purpose of applying
-            for a scholarship.
-            <p class="mt-5">I declare under penalty of perjury that the foregoing is true and correct.</p>
-        </p>
-        </div>
-        <div class="col-sm-4"><p>Date: </p></div>
-        <div class="col-sm-4"><p>Signature </p></div>
-        <div class="col-sm-4"><p>Seal </p></div>
-    </div>
-
-    <div class="row my-5">
-        <div class="col-sm-12">
-            <h6 class="font-weight-bold">SANSERA FOUNDATION</h6>
-            <p>No 143/A, Jirani link Road Near OMEX Circle Bengaluru 560099,Mobil No: 9845620096</p>
-            <img src="{{asset('pdf//img/qr.png')}}" alt="">
-        </div>
-    </div>
-
 </div>
 @endsection
