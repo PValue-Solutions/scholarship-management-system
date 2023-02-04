@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <div class="container">
-  <div class="row mt-5">
+  <div class="row mt-1">
         <div class="col-sm-12">
             <div class="text-center">
                 <img src="{{asset('pdf/img/logo.png')}}" class="img-fluid" alt="...">
@@ -34,7 +34,7 @@
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold">PERSONAL DETAILS:</h6>
+            <h6 class="font-weight-bold"><u>PERSONAL DETAILS:</u></h6>
         </div>
         <table class="table table-borderless p-0 m-0" >
             <tr>
@@ -136,78 +136,91 @@
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold"> DETAILS OF STUDIED SCHOOL / COLLEGE :</h6>
+            <h6 class="font-weight-bold"><u> DETAILS OF STUDIED SCHOOL / COLLEGE :</u></h6>
         </div>
-
-        <table>
-            <tbody class="table table-bordered">
-                <tr>
-                    <td>Govt. / Govt. Aided / Private</td>
-                    <td>:</td>
-                    <td colspan="7">sjfisdf sijdfisdjf isjdfilsdf</td>
-                </tr>
-                <tr>
-                    <td> Village </td>
-                    <td>: </td>
-                    <td>sfsdfsdf</td>
-
-                    <td> Taluk </td>
-                    <td>: </td>
-                    <td>sfsdfsdf</td>
-
-                    <td> District </td>
-                    <td>: </td>
-                    <td>sfsdfsdf</td>
-                </tr>
-                <tr>
-                    <td colspan="4">Marks Obtained in last Examination  SSLC/PUC/Degree</td>
-                    <td> : </td>
-                    <td>jkdsgjk dsgjkkl dsfgk</td>
-
-                    <td>Year</td>
-                    <td> : </td>
-                    <td>yeart jkdsgjk dsgjkkl dsfgk</td>
-                </tr>
-                <tr>
-                    <td colspan="4">If PUC / Degree please specify the subject </td>
-                    <td>:</td>
-                    <td colspan="4">sjfklsdjfkl</td>
-                </tr>
-                <tr>
-                    <td>Grade/ Class</td>
-                    <td>:</td>
-                    <td colspan="2">fdsfdsfds</td>
-
-                    <td colspan="2">Percentage</td>
-                    <td>:</td>
-                    <td colspan="2">me sdfsd sdfsdf</td>
-                </tr>
-
-                <tr>
-                    <td>Contact Person:</td>
-                    <td>:</td>
-                    <td colspan="2">fdsfdsfds</td>
-                    <td colspan="2">Designation</td>
-                    <td >:</td>
-                    <td colspan="2">sgsdfsd</td>
-                </tr>
-
-                <tr>
-                    <td>Contact no.</td>
-                    <td>:</td>
-                    <td colspan="2">gdfgdfgfd</td>
-                    <td colspan="2">Seal & Signature</td>
-                    <td>:</td>
-                    <td colspan="2">sfsd sdfsdf dsfsd</td>
-                </tr>
-            </tbody>
-        </table>
+        @php
+            $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schollDetail : $scholarship->collegeDetail;
+        @endphp
+        <div class="col-sm-12">
+            <table class="table table-borderless p-0 m-0">
+                <tbody>
+                    @if ($scholarship->school_or_college == 1)
+                    <tr>
+                        <td>Govt. / Govt. Aided / Private</td>
+                        <td>:</td>
+                        <td colspan="7">{{$scholl_college_data->school_type}}</td>
+                    </tr>
+                    @else
+                    <tr>
+                        <td>Govt. / Govt. Aided / Private</td>
+                        <td>:</td>
+                        <td colspan="7">{{$scholl_college_data->college_type}}</td>
+                    </tr>
+                    @endif
+                    
+                    <tr>
+                        <td> Village </td>
+                        <td>: </td>
+                        <td>{{$scholl_college_data->scholarshipVillage->name}}</td>
+    
+                        <td> Taluk </td>
+                        <td>: </td>
+                        <td>{{$scholarship->studentDetail->taluk}}</td>
+    
+                        <td> District </td>
+                        <td>: </td>
+                        <td>{{$scholl_college_data->district}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Marks Obtained in last Examination  SSLC/PUC/Degree</td>
+                        <td> : </td>
+                        <td>{{$scholarship->marks_obtained}}</td>
+    
+                        <td>Year</td>
+                        <td> : </td>
+                        <td>{{$scholarship->year}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">If PUC / Degree please specify the subject </td>
+                        <td>:</td>
+                        <td colspan="4">{{$scholarship->marks_obtained_type}}</td>
+                    </tr>
+                    <tr>
+                        <td>Grade/ Class</td>
+                        <td>:</td>
+                        <td colspan="2">{{$scholarship->school_grade}}</td>
+    
+                        <td colspan="2">Percentage</td>
+                        <td>:</td>
+                        <td colspan="2">{{$scholarship->percentage_marks_obtained}}</td>
+                    </tr>
+    
+                    <tr>
+                        <td>Contact Person:</td>
+                        <td>:</td>
+                        <td colspan="2">{{$scholarship->school_contact_person}}</td>
+                        <td colspan="2">Designation</td>
+                        <td >:</td>
+                        <td colspan="2">{{$scholarship->school_designation}}</td>
+                    </tr>
+    
+                    <tr>
+                        <td>Contact no.</td>
+                        <td>:</td>
+                        <td colspan="2">{{$scholarship->school_contact_number}}</td>
+                        <td colspan="2">Seal & Signature</td>
+                        <td>:</td>
+                        <td colspan="2">Maybe need image</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold"> FURTHER EDUCATION DETAILS :</h6>
+            <h6 class="font-weight-bold"><u> FURTHER EDUCATION DETAILS :</u></h6>
         </div>
         <div class="col-sm-12">
            <p> Course Joined :</p>
@@ -220,7 +233,7 @@
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold"> DECLARATION OF STUDENT </h6>
+            <h6 class="font-weight-bold"><u>DECLARATION OF STUDENT </u></h6>
         </div>
         <div class="col-sm-12">
            <p> 1. I certified that the information given in above istrue and correct.</p>
@@ -237,7 +250,7 @@
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold">DOCUMENTS TO BE ATTACH :</h6>
+            <h6 class="font-weight-bold"><u>DOCUMENTS TO BE ATTACH :</u></h6>
         </div>
         <div class="col-sm-12">
            <p> 1. Income certificate of Parents/ Guardian </p>
@@ -250,7 +263,7 @@
 
     <div class="row mt-5">
         <div class="col-sm-12">
-            <h6 class="font-weight-bold">FOR OFFICE USE` :</h6>
+            <h6 class="font-weight-bold text-center text-underline"><u>FOR OFFICE USE</u></h6>
         </div>
         <div class="col-sm-12">
            <p> 1. Applicant Selected / Not selected : </p>
@@ -273,7 +286,7 @@
         <div class="col-sm-12">
             <h6 class="font-weight-bold">SANSERA FOUNDATION</h6>
             <p>No 143/A, Jirani link Road Near OMEX Circle Bengaluru 560099,Mobil No: 9845620096</p>
-            <img src="./img/Screenshot from 2023-01-28 22-22-18.png" alt="">
+            <img src="{{asset('pdf//img/qr.png')}}" alt="">
         </div>
     </div>
 
