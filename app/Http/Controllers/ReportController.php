@@ -18,6 +18,9 @@ use App\Traits\DateTime;
 use App\Models\BillPayment;
 use Illuminate\Http\Request;
 use App\Models\InvoicePayment;
+use App\Models\Scholarship;
+use App\Models\ScholarshipYear;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -39,94 +42,47 @@ class ReportController extends Controller
         $this->middleware('permission:profit-loss-report-read', ['only' => ['profitAndloss']]);
     }
 
-    public function income(Request $request)
+    public function year(Request $request)
     {
+        $grandTotalAmount = 0;
+        $grandTotalStudent = 0;
+        $yearWiseData = $this->filter($request)->paginate(10);
+        if (isset($yearWiseData) && !empty($yearWiseData)) {
+            foreach ($yearWiseData as $data){
+                $grandTotalAmount += $data->total_amount;
+                $grandTotalStudent += $data->total_student;
+            }
+        }
+
         $company = Company::findOrFail(Session::get('company_id'));
         $company->setSettings();
 
-        $dates = $totals = $incomes = $incomes_graph = $categories = [];
-
-        ($request->year) ?  $year = $request->year : $year = Carbon::now()->year;
-
-        ($request->status) ?  $status = $request->status : $status = 'all';
-
-        $financial_start = $this->getFinancialStart();
-        if ($financial_start->month != 1) {
-            if (!is_null($request->year)) {
-                $financial_start->year = $year;
-            }
-            $year = [$financial_start->format('Y'), $financial_start->addYear()->format('Y')];
-            $financial_start->subYear()->subMonth();
-        }
-
-        $categories = Category::where('company_id', session('company_id'))->where('enabled', 1)->where('type', 'income')->orderBy('name')->pluck('name', 'id');
-
-        if ($categories_filter = $request->categories) {
-            $cats = collect($categories)->filter(function ($value, $key) use ($categories_filter) {
-                return in_array($key, $categories_filter);
-            });
-        } else {
-            $cats = $categories;
-        }
-
-        // Dates
-        for ($j = 1; $j <= 12; $j++) {
-            $ym_string = is_array($year) ? $financial_start->addMonth()->format('Y-m') : $year . '-' . $j;
-            $dates[$j] = Carbon::parse($ym_string)->format('F');
-            $incomes_graph[Carbon::parse($ym_string)->format('F-Y')] = 0;
-            // Totals
-            $totals[$dates[$j]] = array(
-                'amount' => 0,
-                'currency_code' => $company->default_currency,
-                'currency_rate' => 1
-            );
-
-            foreach ($cats as $category_id => $category_name) {
-                $incomes[$category_id][$dates[$j]] = [
-                    'category_id' => $category_id,
-                    'name' => $category_name,
-                    'amount' => 0,
-                    'currency_code' => $company->default_currency,
-                    'currency_rate' => 1
-                ];
-            }
-        }
-
-        $revenues = Revenue::monthsOfYear('paid_at')->isNotTransfer()->get();
-        if ($request->accounts)
-            $revenues = $revenues->where('account_id', $request->accounts);
-
-        switch ($status) {
-            case 'paid':
-                // Invoices
-                $invoices = InvoicePayment::monthsOfYear('paid_at')->get();
-                if ($request->accounts)
-                    $revenues->where('account_id', $request->accounts);
-                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'paid_at');
-
-                // Revenues
-                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
-                break;
-            default:
-                // Invoices
-                $invoices = Invoice::accrued()->monthsOfYear('invoiced_at')->get();
-                $this->setAmount($incomes_graph, $totals, $incomes, $invoices, 'invoice', 'invoiced_at');
-
-                // Revenues
-                $this->setAmount($incomes_graph, $totals, $incomes, $revenues, 'revenue', 'paid_at');
-                break;
-        }
-
-        $statuses = collect(['all' => 'All','paid' => 'Paid']);
-        $years = collect(['2020' => '2020','2021' => '2021','2022' => '2022','2023' => '2023','2024' => '2024','2025' => '2025']);
+        $years = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
         $thisYear = Carbon::now()->year;
-        $accounts = Account::where('company_id', session('company_id'))->where('enabled', 1)->pluck('name', 'id')->toArray();
-        $customers = Customer::where('company_id', session('company_id'))->where('enabled', 1)->pluck('name', 'id')->toArray();
-        $myMonth = json_encode(array_values($dates));
-        $myIncomesGraph = json_encode(array_values($incomes_graph));
+        $previousYear = $thisYear-2;
 
+        return view('report.income', compact('grandTotalStudent','grandTotalAmount','years','thisYear','previousYear','company','yearWiseData'));
+    }
 
-        return view('report.income', compact('years','thisYear','dates', 'categories', 'statuses', 'accounts', 'customers', 'incomes', 'totals', 'company', 'myMonth','myIncomesGraph'));
+    private function filter(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
+
+        $sub = Scholarship::orderBy('created_at','DESC');
+        $chats = DB::table(DB::raw("({$sub->toSql()}) as sub"))
+        ->where('status','payment_done')
+        ->selectRaw("SUM(fee_amount) as total_amount")
+        ->selectRaw("count(id) as total_student")
+        ->selectRaw("year")
+        ->groupBy('year');
+        if ($request->start_year && $request->end_year) {
+            $chats->whereBetween('year', [$request->start_year, $request->end_year]);
+        } else {
+            $chats->whereBetween('year', [$previousYear, $thisYear]);
+        }
+
+        return $chats;
     }
 
     private function setAmount(&$graph, &$totals, &$incomes, $items, $type, $date_field)

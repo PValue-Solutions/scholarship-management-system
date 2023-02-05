@@ -153,59 +153,7 @@ $roleName = Auth::user()->getRoleNames();
                         </ul>
                     </li>
                 @endcanany
-                @canany(['income-report-read', 'expense-report-read', 'tax-report-read', 'profit-loss-report-read', 'income-expense-report-read'])
-                    <li class="nav-item has-treeview @if($c == 'report') menu-open @endif">
-                        <a href="javascript:void(0)" class="nav-link @if($c == 'report') active @endif">
-                            <i class="nav-icon fas fa-chart-bar"></i>
-                            <p>
-                                @lang('Reports')
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @can('income-report-read')
-                                <li class="nav-item">
-                                    <a href="{{ route('report.income') }}" class="nav-link @if($c == 'report' && $m == 'income') active @endif ">
-                                        <i class="fas fa-hand-holding-usd nav-icon"></i>
-                                        <p>@lang('Income')</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('expense-report-read')
-                                <li class="nav-item">
-                                    <a href="{{ route('report.expense') }}" class="nav-link @if($c == 'report' && $m == 'expense') active @endif ">
-                                        <i class="fas fa-money-check-alt nav-icon"></i>
-                                        <p>@lang('Expense')</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('tax-report-read')
-                                <li class="nav-item">
-                                    <a href="{{ route('report.tax') }}" class="nav-link @if($c == 'report' && $m == 'tax') active @endif ">
-                                        <i class="fas fa-coins nav-icon"></i>
-                                        <p>@lang('Tax')</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('profit-loss-report-read')
-                                <li class="nav-item">
-                                    <a href="{{ route('report.profitAndloss') }}" class="nav-link @if($c == 'report' && $m == 'profitAndloss') active @endif ">
-                                        <i class="fas fa-wave-square nav-icon"></i>
-                                        <p>@lang('Profit &amp; Loss')</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('income-expense-report-read')
-                                <li class="nav-item">
-                                    <a href="{{ route('report.incomeVsexpense') }}" class="nav-link @if($c == 'report' && $m == 'incomeVsexpense') active @endif ">
-                                        <i class="fas fa-columns nav-icon"></i>
-                                        <p>@lang('Income VS Expense')</p>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcanany
+
 
                 @canany(['scholarship-read', 'scholarship-create', 'scholarship-update', 'scholarship-delete'])
                 <li class="nav-item">
@@ -274,6 +222,24 @@ $roleName = Auth::user()->getRoleNames();
                                 </a>
                             </li>
                         @endcanany
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview @if($c == 'report') menu-open @endif">
+                    <a href="javascript:void(0)" class="nav-link @if($c == 'report') active @endif">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>
+                            @lang('Reports')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('report.year') }}" class="nav-link @if($c == 'report' && $m == 'income') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Year Wise Scholarship')</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

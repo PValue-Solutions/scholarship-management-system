@@ -1,7 +1,17 @@
 @extends('layouts.layout')
-@section('one_page_js')
-    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+
+@section('one_page_css')
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
 @endsection
+@section('one_page_js')
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
+@endsection
+
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
@@ -11,7 +21,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">@lang('Dashboard')</a></li>
-                    <li class="breadcrumb-item active">{{ __('Income Report') }}</li>
+                    <li class="breadcrumb-item active">{{ __('Year Wise Scholarship Contribution') }}</li>
                 </ol>
             </div>
         </div>
@@ -21,131 +31,101 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Income Summary') }}</h3>
+                <h3 class="card-title">{{ __('Year Wise Scholarship Contribution') }}</h3>
                 <div class="card-tools">
-                    <form action="" method="get" role="form">
-                        <div class="form-row">
-                            <div class="col-2">
-                                <select name="status" class="form-control">
-                                    @foreach ($statuses as $key => $value)
-                                        <option value="{{ $key }}" @if($key == request()->status) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <select name="year" class="form-control">
-                                    @foreach ($years as $key => $value)
-                                        @php
-                                            ($thisYear == request()->year) ?  $cYear = $thisYear : $cYear = request()->year;
-                                        @endphp
-                                        <option value="{{ $key }}" @if($key == $cYear) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <select name="category_id" class="form-control">
-                                    <option value="">@lang('Select Category')</option>
-                                    @foreach ($categories as $key => $value)
-                                        <option value="{{ $key }}" @if($key == request()->category_id) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <select name="account_id" class="form-control">
-                                    <option value="">@lang('Select Account')</option>
-                                    @foreach ($accounts as $key => $value)
-                                        <option value="{{ $key }}" @if($key == request()->account_id) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-default"><i class="fas fa-filter"></i> @lang('Filter')</button>
-                            </div>
-                        </div>
-                    </form>
+                    <button class="btn btn-default" data-toggle="collapse" href="#filter"><i class="fas fa-filter"></i> @lang('Filter')</button>
                 </div>
             </div>
-            <div class="card-body table table-responsive">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="charts">
-                            <div class="charts-chart">
-                                <div>
-                                    <canvas id="PQFfRtWHpU" height="400"></canvas>
+            <div class="card-body">
+                <div id="filter" class="collapse @if(request()->isFilterActive) show @endif">
+                    <div class="card-body border">
+                        <form action="" method="get" role="form" autocomplete="off">
+                            <input type="hidden" name="isFilterActive" value="true">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <select id="start_year" name="start_year" class="form-control">
+                                            <option value="">--@lang('Select Start Year')--</option>
+                                            @foreach ($years as $key => $value)
+                                            @if(request()->status == '1') selected @endif
+                                                <option value="{{ $key }}" {{ old('start_year', request()->start_year) == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <select name="end_year" class="form-control">
+                                            <option value="">--@lang('Select End Year')--</option>
+                                            @foreach ($years as $key => $value)
+                                                <option value="{{ $key }}" {{ old('end_year',request()->end_year) == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-info">Submit</button>
+                                    @if(request()->isFilterActive)
+                                        <a href="{{ route('report.year') }}" class="btn btn-secondary">Clear</a>
+                                    @endif
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <br>
-                    <br>
-
-                <table class="table table-striped compact table-width table-bordered">
+                </div>
+                <table id="laravel_datatable" class="table table-striped compact table-width">
                     <thead>
-                        <tr class="table-info">
-                            <th>@lang('Category')</th>
-                            @foreach($dates as $date)
-                                <th class="text-right">{{ $date }}</th>
-                            @endforeach
+                        <tr style="text-align: center;">
+                            <th colspan="3">Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
+                        </tr>
+                        <tr class="table-info" style="text-align: center;">
+                            <th>@lang('Years')</th>
+                            <th>@lang('No. of Students')</th>
+                            <th>@lang('Contribution(Rs)')</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @if ($incomes)
-                            @foreach($incomes as $category_id =>  $category)
-                                <tr>
-                                    <td>{{ $categories[$category_id] }}</td>
-                                    @foreach($category as $item)
-                                        <td class="text-right">@money($item['amount'], $company->default_currency, true)</td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="13">
-                                    <h5 class="text-center">@lang('No Records')</h5>
-                                </td>
-                            </tr>
-                        @endif
+                    <tbody style="text-align: center;">
+                        @foreach ($yearWiseData as $data)
+                        <tr>
+                            <td>{{ $data->year }}</td>
+                            <td>{{ $data->total_student }}</td>
+                            <td>{{ "₹ ".$data->total_amount }}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <th>@lang('Totals')</th>
-                            @foreach($totals as $total)
-                                <th class="text-right">@money($total['amount'], $total['currency_code'], true)</th>
-                            @endforeach
+                        <tr class="table-info" style="text-align: center;">
+                            <th>@lang('Grand Total')</th>
+                            <th>{{ $grandTotalStudent }}</th>
+                            <th>{{ "₹ ".$grandTotalAmount }}</th>
                         </tr>
                     </tfoot>
                 </table>
-            </div>
+                {{ $yearWiseData->links() }}
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    var ctx = document.getElementById("PQFfRtWHpU")
-    var data = {
-        labels: {!! $myMonth !!},
-        datasets: [
-            {
-                fill: true,
-                label: "Income",
-                lineTension: 0.3, borderColor: "#00c0ef",
-                backgroundColor: "#00c0ef",
-                data: {!! $myIncomesGraph !!},
-            },
-        ]
-    };
+    "use strict";
+    $(document).ready( function () {
+        $('#laravel_datatable').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            dom: 'Bfrtip',
 
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                position: 'top'
-            },
-        }
+
+            buttons: [
+                { extend: 'excelHtml5', footer: true,title: 'Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
+                { extend: 'csvHtml5', footer: true,title: 'Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
+                { extend: 'pdfHtml5', footer: true,title: 'Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years' }
+            ]
+        });
     });
 </script>
 @endsection
