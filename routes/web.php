@@ -69,9 +69,9 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'invoice.addPaymentStore'
     ]);
 
-    Route::get('/report/income',[
-        'uses' => 'App\Http\Controllers\ReportController@income',
-        'as' => 'report.income'
+    Route::get('/report/year',[
+        'uses' => 'App\Http\Controllers\ReportController@year',
+        'as' => 'report.year'
     ]);
 
     Route::get('/report/expense',[
