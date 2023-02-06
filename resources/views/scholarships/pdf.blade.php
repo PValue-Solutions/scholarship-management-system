@@ -1,22 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Scholarship-{{$scholarship->studentDetail->full_name}}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  
-<style>
-    /* .c-row{
-        widows: 793.92px !important;
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        *{
+            color: black;
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        border-top: none;
+        /* padding: 5px; */
     }
-    .c-col-4{
-        width: 200px !important;
-    }
-    .c-col-8{
-        width: 500px !important;
-    } */
   </style>
 </head>
 <body>
@@ -27,73 +24,65 @@
                   <div class="text-center">
                       <img src="{{public_path('pdf/img/logo.png')}}" class="img-fluid" alt="...">
                   </div>
-                  <p class="font-weight-bold text-justify text-center"><u>The Rotary Bangalore Midtown in association with Sansera Foundation invites application
-                      from Students who have secured marks in excess of 60% in 10th standard exam last held.</u></p>
+                  <p class="text-center" style="font-size: 17px;"><u><strong>The Rotary Bangalore Midtown in association with Sansera Foundation invites application
+                      from Students who have secured marks in excess of 60% in 10th standard exam last held.</strong></u></p>
               </div>
           </div>
       
-          <div class="row mt-2">
-              <div class="col-sm-4">
-                  <div>
-                      <span>Application No. : {{$scholarship->application_no}}</span>
-                  </div>
-              </div>
-      
-              <div class="col-sm-4">
-                  <div>
-                      <span>Year : {{$scholarship->year}}</span>
-                  </div>
-              </div>
-      
-              <div class="col-sm-4">
-                  <div>
-                      <span> Annual Income: {{$scholarship->annual_income}}</span>
-                  </div>
-              </div>
+          <div class="mt-2">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Application No. : {{$scholarship->application_no}}</td>
+                        <td>Year : {{$scholarship->year}}</td>
+                        <td>Annual Income: {{$scholarship->annual_income}}</td>
+                    </tr>
+                </tbody>
+            </table>
               
           </div>
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold">PERSONAL DETAILS:</h6>
+                  <h5><strong><u>PERSONAL DETAILS:</u><strong></h5>
               </div>
-              <table class="table table-borderless p-0 m-0" >
+              <table class="table borderless" >
                   <tr>
-                      <td>1. Full Name : </td>
+                      <td><span style="margin-left: 18px;">1. Full Name</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->full_name}}</td>
-                      <td rowspan="5">
-                          <div class="text-right">
+                      <td rowspan="5" colspan="3">
+                          <div class="text-right" style="float: right">
                               <img width="200" height="200" src="{{public_path('img/profile/male.png')}}" class="rounded" alt="prfile">
                           </div>
                       </td>
                   </tr>
                   <tr>
-                      <td>2. Father Name </td>
+                      <td><span style="margin-left: 18px;">2. Father Name</span> </td>
                       <td>: </td>
                       <td>{{$scholarship->studentDetail->father_name}}</td>
                   </tr>
                   <tr>
-                      <td><span class="ml-3">Occupation</span> </td>
+                      <td><span style="margin-left: 30px;">Occupation</span> </td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->father_occupation}}</td>
                   </tr>
                   <tr>
-                      <td>3. Mother Name</td>
+                      <td> <span style="margin-left: 18px;">3. Mother Name</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->mother_name}}</td>
                   </tr>
                   <tr>
-                      <td><span class="ml-3">Occupation</span></td>
+                      <td><span style="margin-left: 30px;">Occupation</span></td>
                       <td> : </td>
                       <td> {{$scholarship->studentDetail->mother_occupation}}</td>
                   </tr>
                   <tr>
-                      <td colspan="4">4. Full Address </td>
+                      <td colspan="4"><span style="margin-left: 18px;">4. Full Address</span>  </td>
                       
                   </tr>
                   <tr>
-                      <td> <span class="ml-3">House no.</span> </td>
+                      <td> <span style="margin-left: 30px;">House no.</span> </td>
                       <td>:</td>
                       <td>{{$scholarship->studentDetail->house_no}}</td>
                       <td>Street/ Cross </td>
@@ -101,7 +90,7 @@
                       <td>{{$scholarship->studentDetail->state}}</td>
                   </tr>
                   <tr>
-                      <td> <span class="ml-3">Village</span>  </td>
+                      <td> <<span style="margin-left: 30px;">Village</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->scholarshipVillage->name}}</td>
                       <td>Post office :</td>
@@ -109,7 +98,7 @@
                       <td>{{$scholarship->studentDetail->post_office}}</td>
                   </tr>
                   <tr>
-                      <td><span class="ml-3">Taluk</span>  </td>
+                      <td><span style="margin-left: 30px;">Taluk</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->taluk}}</td>
                       <td>District :</td>
@@ -117,7 +106,7 @@
                       <td>{{$scholarship->studentDetail->district}}</td>
                   </tr>
                   <tr>
-                      <td><span class="ml-3">Pin code</span> </td>
+                      <td><span style="margin-left: 30px;">Pin code</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->pincode}}</td>
                       <td>State </td>
@@ -125,7 +114,7 @@
                       <td>{{$scholarship->studentDetail->state}}</td>
                   </tr>
                   <tr>
-                      <td>5. Contact no. 1 :</td>
+                      <td><span style="margin-left: 18px;">5. Contact no. 1 :</span></td>
                       <td>:</td>
                       <td>{{$scholarship->studentDetail->contact_no_1}}</td>
                       <td>Contact no : </td>
@@ -134,7 +123,7 @@
                   </tr>
       
                   <tr>
-                      <td>6. Date of Birth </td>
+                      <td><span style="margin-left: 18px;">6. Date of Birth </span></td>
                       <td>:</td>
                       <td>{{$scholarship->studentDetail->date_of_birth}}</td>
                       <td>Age </td>
@@ -142,12 +131,12 @@
                       <td>{{$scholarship->studentDetail->age}}</td>
                   </tr>
                   <tr>
-                      <td>7. Male/ Female </td>
+                      <td><span style="margin-left: 18px;">7. Male/ Female</span> </td>
                       <td>:</td>
                       <td colspan="4">{{$scholarship->studentDetail->gender}}</td>
                   </tr>
                   <tr>
-                      <td>8. Aadhar no.  </td>
+                      <td> <span style="margin-left: 18px;">8. Aadhar no. </span> </td>
                       <td>:</td>
                       <td colspan="4">{{$scholarship->studentDetail->aadhar_no}}</td>
                   </tr>
@@ -157,7 +146,7 @@
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold"> DETAILS OF STUDIED SCHOOL / COLLEGE :</h6>
+                <h5><strong><u>DETAILS OF STUDIED SCHOOL / COLLEGE :</u><strong></h5>
               </div>
               @php
                   $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schollDetail : $scholarship->collegeDetail;
@@ -167,9 +156,9 @@
                       <tbody>
                           @if ($scholarship->school_or_college == 1)
                           <tr>
-                              <td>Govt. / Govt. Aided / Private</td>
+                              <td colspan="4">Govt. / Govt. Aided / Private</td>
                               <td>:</td>
-                              <td colspan="7">{{$scholl_college_data->school_type}}</td>
+                              <td colspan="4">{{$scholl_college_data->school_type}}</td>
                           </tr>
                           @else
                           <tr>
@@ -209,7 +198,7 @@
                           <tr>
                               <td>Grade/ Class</td>
                               <td>:</td>
-                              <td colspan="2">{{$scholarship->school_grade}}</td>
+                              <td colspan="2">{{$scholarship->classDetail->name}}</td>
           
                               <td colspan="2">Percentage</td>
                               <td>:</td>
@@ -241,20 +230,20 @@
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold"> FURTHER EDUCATION DETAILS :</h6>
+                <h5><strong><u>FURTHER EDUCATION DETAILS :</u><strong></h5>
               </div>
               <div class="col-sm-12">
-                 <p> Course Joined :</p>
+                 <p> Course Joined : {{$scholarship->further_education_details_course_joined}}</p>
               </div>
       
               <div class="col-sm-12">
-                 <p> College /Institute : </p>
+                 <p> College /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
               </div>
           </div>
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold"> DECLARATION OF STUDENT </h6>
+                <h5><strong><u>DECLARATION OF STUDENT</u><strong></h5>
               </div>
               <div class="col-sm-12">
                  <p> 1. I certified that the information given in above istrue and correct.</p>
@@ -262,16 +251,24 @@
                  <p>3. If the information given by me isfound to be false/incorrect, the scholarship sanction to me may be
                   cancelled and the amount of scholarship refunded by me</p>
               </div>
-      
-              <div class="col-sm-4"><p> Date : </p></div>
-              <div class="col-sm-4"><p> Student Signature  </p></div>
-              <div class="col-sm-4"><p> Parents/ Guardian Signature  </p></div>
-              <div class="col-sm-12"><p> Place : </p></div>
+              <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Date : </td>
+                        <td>Student Signature</td>
+                        <td>Parents/ Guardian Signature </td>
+                    </tr>
+                    <tr>
+                        <td>Place : </td>
+                        <td colspan="3"></td>
+                    </tr>
+                </tbody>
+            </table>
           </div>
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold">DOCUMENTS TO BE ATTACH :</h6>
+                <h5><strong><u>DOCUMENTS TO BE ATTACH :</u><strong></h5>
               </div>
               <div class="col-sm-12">
                  <p> 1. Income certificate of Parents/ Guardian </p>
@@ -284,30 +281,35 @@
       
           <div class="row mt-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold text-center">FOR OFFICE USE :</h6>
+                <h5 class="text-center"><strong><u>FOR OFFICE USE :</u><strong></h5>
               </div>
               <div class="col-sm-12">
                  <p> 1. Applicant Selected / Not selected : </p>
                  <p> 2. If Not selected : </p>
                  <p> 3. Sanctioned amount : </p>
-                 <p>I, [Name of Principal], being first duly sworn, hereby state that: I am the principal of [Name of School], located at
-                  [Address of School]. [Student's Name], date of birth [Student's Date of Birth], is a student at [Name of School]
-                  and is enrolled in the [Grade Level] grade. This affidavit is being executed for the purpose of verifying [Student's
-                  Name]'s complete information provided above in the portal is true and attendance for the purpose of applying
+                 <p>I, {{$scholarship->school_designation}}, being first duly sworn, hereby state that: I am the principa of {{$scholl_college_data->name}}, located at
+                  {{$scholl_college_data->scholarshipVillage->name}}, {{$scholl_college_data->district}}. {{$scholarship->studentDetail->full_name}}, date of birth {{date('d-m-Y', strtotime($scholarship->studentDetail->date_of_birth))}}, is a student at {{$scholl_college_data->name}}
+                  and is enrolled in the {{$scholarship->classDetail->name}} grade. This affidavit is being executed for the purpose of verifying {{$scholarship->studentDetail->full_name}} complete information provided above in the portal is true and attendance for the purpose of applying
                   for a scholarship.
                   <p class="mt-5">I declare under penalty of perjury that the foregoing is true and correct.</p>
-              </p>
+                </p>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Date:</td>
+                            <td>Signature</td>
+                            <td>Seal</td>
+                        </tr>
+                    </tbody>
+                </table>
               </div>
-              <div class="col-sm-4"><p>Date: </p></div>
-              <div class="col-sm-4"><p>Signature </p></div>
-              <div class="col-sm-4"><p>Seal </p></div>
           </div>
       
           <div class="row my-5">
               <div class="col-sm-12">
-                  <h6 class="font-weight-bold">SANSERA FOUNDATION</h6>
+                  <h6><strong style="color:blue; font-style: italic;">SANSERA FOUNDATION</strong></h6>
                   <p>No 143/A, Jirani link Road Near OMEX Circle Bengaluru 560099,Mobil No: 9845620096</p>
-                  <img src="{{public_path('pdf//img/qr.png')}}" alt="">
+                 {{--  <img src="{{public_path('pdf//img/qr.png')}}" alt=""> --}}
               </div>
           </div>
       

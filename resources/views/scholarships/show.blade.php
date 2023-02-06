@@ -194,7 +194,7 @@
                             <tr>
                                 <td>Grade/ Class</td>
                                 <td>:</td>
-                                <td colspan="2">{{$scholarship->school_grade}}</td>
+                                <td colspan="2">{{$scholarship->classDetail->name}}</td>
             
                                 <td colspan="2">Percentage</td>
                                 <td>:</td>
@@ -233,11 +233,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12">
-                   <p> Course Joined :</p>
+                   <p> Course Joined : {{$scholarship->further_education_details_course_joined}}</p>
                 </div>
         
                 <div class="col-sm-12">
-                   <p> College /Institute : </p>
+                   <p> College /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
                 </div>
             </div>
         </div>
