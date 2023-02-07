@@ -53,7 +53,7 @@
                       <td>{{$scholarship->studentDetail->full_name}}</td>
                       <td rowspan="5" colspan="3">
                           <div class="text-right" style="float: right">
-                              <img width="200" height="200" src="{{public_path('img/profile/male.png')}}" class="rounded" alt="prfile">
+                              <img width="200" height="200" src="{{public_path('storage/'.$scholarship->photo)}}" class="rounded" alt="prfile">
                           </div>
                       </td>
                   </tr>
@@ -149,7 +149,7 @@
                 <h5><strong><u>DETAILS OF STUDIED SCHOOL / COLLEGE :</u><strong></h5>
               </div>
               @php
-                  $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schollDetail : $scholarship->collegeDetail;
+                  $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schoolDetail : $scholarship->collegeDetail;
               @endphp
               <div class="col-sm-12">
                   <table class="table table-borderless p-0 m-0">

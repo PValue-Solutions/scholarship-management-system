@@ -430,7 +430,7 @@ class ScholarshipController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function download($id){
-        $scholarship = Scholarship::find($id);
+        $scholarship = Scholarship::where('id', $id)->first();
         //dd($data);
        //return view('scholarships.pdf', compact('scholarship'));
         $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship'));

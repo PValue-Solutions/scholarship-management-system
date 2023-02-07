@@ -45,7 +45,8 @@
                         <td>{{$scholarship->studentDetail->full_name}}</td>
                         <td rowspan="5">
                             <div class="text-right">
-                                <img width="200" height="200" src="{{asset('img/profile/male.png')}}" class="rounded" alt="prfile">
+                                {{-- <img width="200" height="200" src="{{asset('img/profile/male.png')}}" class="rounded" alt="prfile"> --}}
+                                <img width="200" height="200" src="{{asset('storage/'.$scholarship->photo)}}" class="rounded" alt="prfile">
                             </div>
                         </td>
                     </tr>
@@ -145,7 +146,7 @@
         <div class="card-body">
             <div class="row">
                 @php
-                    $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schollDetail : $scholarship->collegeDetail;
+                    $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schoolDetail : $scholarship->collegeDetail;
                 @endphp
                 <div class="col-sm-12">
                     <table class="table table-borderless p-0 m-0">
