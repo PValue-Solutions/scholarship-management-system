@@ -73,34 +73,36 @@
                         </form>
                     </div>
                 </div>
-                <table id="laravel_datatable" class="table table-striped compact table-width">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th colspan="3">Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
-                        </tr>
-                        <tr class="table-info" style="text-align: center;">
-                            <th>@lang('Years')</th>
-                            <th>@lang('No. of Students')</th>
-                            <th>@lang('Contribution(Rs)')</th>
-                        </tr>
-                    </thead>
-                    <tbody style="text-align: center;">
-                        @foreach ($yearWiseData as $data)
-                        <tr>
-                            <td>{{ $data->year }}</td>
-                            <td>{{ $data->total_student }}</td>
-                            <td>{{ "₹ ".$data->total_amount }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr class="table-info" style="text-align: center;">
-                            <th>@lang('Grand Total')</th>
-                            <th>{{ $grandTotalStudent }}</th>
-                            <th>{{ "₹ ".$grandTotalAmount }}</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                <div class="table-responsive">
+                    <table id="laravel_datatable" class="table table-striped compact table-width">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th colspan="3">Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
+                            </tr>
+                            <tr class="table-info" style="text-align: center;">
+                                <th>@lang('Years')</th>
+                                <th>@lang('No. of Students')</th>
+                                <th>@lang('Contribution(Rs)')</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            @foreach ($yearWiseData as $data)
+                            <tr>
+                                <td>{{ $data->year }}</td>
+                                <td>{{ $data->total_student }}</td>
+                                <td>{{ "₹ ".$data->total_amount }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-info" style="text-align: center;">
+                                <th>@lang('Grand Total')</th>
+                                <th>{{ $grandTotalStudent }}</th>
+                                <th>{{ "₹ ".$grandTotalAmount }}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 {{ $yearWiseData->links() }}
             </div>
         </div>
