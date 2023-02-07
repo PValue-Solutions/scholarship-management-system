@@ -21,7 +21,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">@lang('Dashboard')</a></li>
-                    <li class="breadcrumb-item active">{{ __('Year Wise Scholarship Contribution') }}</li>
+                    <li class="breadcrumb-item active">{{ __('School Wise Scholarship Contribution') }}</li>
                 </ol>
             </div>
         </div>
@@ -31,7 +31,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('Year Wise Scholarship Contribution') }}</h3>
+                <h3 class="card-title">{{ __('School Wise Scholarship Contribution') }}</h3>
                 <div class="card-tools">
                     <button class="btn btn-default" data-toggle="collapse" href="#filter"><i class="fas fa-filter"></i> @lang('Filter')</button>
                 </div>
@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <select id="start_year" name="start_year" class="form-control">
                                             <option value="">--@lang('Select Start Year')--</option>
-                                            @foreach ($years as $key => $value)
+                                            @foreach ($selectYears as $key => $value)
                                             @if(request()->status == '1') selected @endif
                                                 <option value="{{ $key }}" {{ old('start_year', request()->start_year) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
@@ -57,7 +57,7 @@
                                     <div class="form-group">
                                         <select name="end_year" class="form-control">
                                             <option value="">--@lang('Select End Year')--</option>
-                                            @foreach ($years as $key => $value)
+                                            @foreach ($selectYears as $key => $value)
                                                 <option value="{{ $key }}" {{ old('end_year',request()->end_year) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
                                         </select>
@@ -66,42 +66,79 @@
                                 <div class="col-sm-4">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                     @if(request()->isFilterActive)
-                                        <a href="{{ route('report.year') }}" class="btn btn-secondary">Clear</a>
+                                        <a href="{{ route('report.school') }}" class="btn btn-secondary">Clear</a>
                                     @endif
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <table id="laravel_datatable" class="table table-striped compact table-width">
+                <table id="laravel_datatable" class="table table-striped compact table-width table-responsive">
                     <thead>
                         <tr style="text-align: center;">
-                            <th colspan="3">Year wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
+                            <th colspan="{{ $colSForHeading }}">School wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
                         </tr>
-                        <tr class="table-info" style="text-align: center;">
-                            <th>@lang('Years')</th>
-                            <th>@lang('No. of Students')</th>
-                            <th>@lang('Contribution(Rs)')</th>
+                        <tr class="table-primary">
+                            <th></th>
+                            @foreach ($output as $value)
+                                @foreach ($value as $yearName => $yearData)
+                                    <th colspan="2" style="text-align: center;">{{ $yearName }}</th>
+                                @endforeach
+                                @break
+                            @endforeach
+                            <th>Total NoS.</th>
+                            <th>Total Amount</th>
                         </tr>
+                        <tr class="table-info">
+                            <th style="text-align: center;">School Name</th>
+                            @foreach ($output as $value)
+                                @foreach ($value as $yearName => $yearData)
+                                <th style="text-align: center;">NoS.</th>
+                                <th style="text-align: center;">Amount</th>
+                                @endforeach
+                                @break
+                            @endforeach
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tbody style="text-align: center;">
+                            @foreach ($output as $schoolName => $value)
+                            <tr>
+                                <td> {{ $schoolName }}</td>
+                                @foreach ($value as $yearName => $yearData)
+                                    @if(isset($yearData['total_student']) && !empty($yearData['total_student']))
+                                        <td>{{ $yearData['total_student'] }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                    @if(isset($yearData['total_amount']) && !empty($yearData['total_amount']))
+                                        <td>&#x20B9; {{ $yearData['total_amount'] }}</td>
+                                    @else
+                                        <td></td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $totalData[$schoolName]['school_wise_total_student'] }}</td>
+                                <td>&#x20B9; {{ $totalData[$schoolName]['school_wise_total_amount'] }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-info" style="text-align: center;">
+                                <th>@lang('Grand Total')</th>
+                                @foreach ($output as $value)
+                                    @foreach ($value as $yearName => $yearData)
+                                        <th>{{ $studentYearData[$yearName]['g_total_student'] }}</th>
+                                        <th>{{ $studentYearData[$yearName]['g_total_amount'] }}</th>
+                                    @endforeach
+                                    @break
+                                @endforeach
+                                <th>{{ $gTotalStudent }}</th>
+                                <th>&#x20B9; {{ $gTotalAmount }}</th>
+                            </tr>
+                        </tfoot>
                     </thead>
-                    <tbody style="text-align: center;">
-                        @foreach ($yearWiseData as $data)
-                        <tr>
-                            <td>{{ $data->year }}</td>
-                            <td>{{ $data->total_student }}</td>
-                            <td>{{ "₹ ".$data->total_amount }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr class="table-info" style="text-align: center;">
-                            <th>@lang('Grand Total')</th>
-                            <th>{{ $grandTotalStudent }}</th>
-                            <th>{{ "₹ ".$grandTotalAmount }}</th>
-                        </tr>
-                    </tfoot>
                 </table>
-                {{ $yearWiseData->links() }}
+                {{ $schoolWiseData->links() }}
             </div>
         </div>
     </div>

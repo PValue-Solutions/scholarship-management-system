@@ -74,6 +74,11 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'report.year'
     ]);
 
+    Route::get('/report/school',[
+        'uses' => 'App\Http\Controllers\ReportController@school',
+        'as' => 'report.school'
+    ]);
+
     Route::get('/report/expense',[
         'uses' => 'App\Http\Controllers\ReportController@expense',
         'as' => 'report.expense'
