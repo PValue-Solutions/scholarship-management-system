@@ -235,11 +235,20 @@ $roleName = Auth::user()->getRoleNames();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('report.year') }}" class="nav-link @if($c == 'report' && $m == 'income') active @endif ">
+                            <a href="{{ route('report.year') }}" class="nav-link @if($c == 'report' && $m == 'year') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('Year Wise Scholarship')</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('report.school') }}" class="nav-link @if($c == 'report' && $m == 'school') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('School Wise Scholarship')</p>
+                            </a>
+                        </li>
+
+
+
                     </ul>
                 </li>
 

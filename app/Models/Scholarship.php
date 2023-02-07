@@ -77,7 +77,7 @@ class Scholarship extends Model
         return $this->belongsTo(StudentDetail::class);
     }
 
-    public function schollDetail()
+    public function schoolDetail()
     {
         return $this->belongsTo(ScholarshipSchool::class,'scholarship_school_id');
     }
