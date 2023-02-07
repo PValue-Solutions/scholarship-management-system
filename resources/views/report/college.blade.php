@@ -21,7 +21,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">@lang('Dashboard')</a></li>
-                    <li class="breadcrumb-item active">{{ __('School Wise Scholarship Contribution') }}</li>
+                    <li class="breadcrumb-item active">{{ __('College Wise Scholarship Contribution') }}</li>
                 </ol>
             </div>
         </div>
@@ -31,7 +31,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ __('School Wise Scholarship Contribution') }}</h3>
+                <h3 class="card-title">{{ __('College Wise Scholarship Contribution') }}</h3>
                 <div class="card-tools">
                     <button class="btn btn-default" data-toggle="collapse" href="#filter"><i class="fas fa-filter"></i> @lang('Filter')</button>
                 </div>
@@ -66,7 +66,7 @@
                                 <div class="col-sm-4">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                     @if(request()->isFilterActive)
-                                        <a href="{{ route('report.school') }}" class="btn btn-secondary">Clear</a>
+                                        <a href="{{ route('report.college') }}" class="btn btn-secondary">Clear</a>
                                     @endif
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                     <table id="laravel_datatable" class="table table-striped compact table-width">
                         <thead>
                             <tr style="text-align: center;">
-                                <th colspan="{{ $colSForHeading }}">School wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
+                                <th colspan="{{ $colSForHeading }}">College wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years</th>
                             </tr>
                             <tr class="table-primary">
                                 <th></th>
@@ -91,7 +91,7 @@
                                 <th>Total Amount</th>
                             </tr>
                             <tr class="table-info">
-                                <th style="text-align: center;">School Name</th>
+                                <th style="text-align: center;">College Name</th>
                                 @foreach ($output as $value)
                                     @foreach ($value as $yearName => $yearData)
                                     <th style="text-align: center;">NoS.</th>
@@ -119,8 +119,8 @@
                                         <td></td>
                                     @endif
                                 @endforeach
-                                <td>{{ $totalData[$schoolName]['school_wise_total_student'] }}</td>
-                                <td>&#x20B9; {{ $totalData[$schoolName]['school_wise_total_amount'] }}</td>
+                                <td>{{ $totalData[$schoolName]['college_wise_total_student'] }}</td>
+                                <td>&#x20B9; {{ $totalData[$schoolName]['college_wise_total_amount'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -148,8 +148,8 @@
                             </tr>
                         </tfoot>
                     </table>
-                    {{ $schoolWiseData->links() }}
-                <div>
+                    {{ $collegeWiseData->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -167,9 +167,9 @@
             "responsive": true,
             dom: 'Bfrtip',
             buttons: [
-                { extend: 'excelHtml5', footer: true,title: 'School wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
-                { extend: 'csvHtml5', footer: true,title: 'School wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
-                { extend: 'pdfHtml5', footer: true,title: 'School wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years' }
+                { extend: 'excelHtml5', footer: true,title: 'College wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
+                { extend: 'csvHtml5', footer: true,title: 'College wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years'  },
+                { extend: 'pdfHtml5', footer: true,title: 'College wise Scholarship Contribution in @if(request()->start_year) {{ request()->start_year }} @else {{ $previousYear }} @endif to @if(request()->end_year) {{ request()->end_year }} @else {{ $thisYear }} @endif Years' }
             ]
         });
     });
