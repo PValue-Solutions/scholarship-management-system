@@ -252,7 +252,12 @@ $roleName = Auth::user()->getRoleNames();
                                 <p>@lang('College Wise Scholarship')</p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="{{ route('report.village') }}" class="nav-link @if($c == 'report' && $m == 'village') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Village Wise Scholarship')</p>
+                            </a>
+                        </li>
 
 
                     </ul>
