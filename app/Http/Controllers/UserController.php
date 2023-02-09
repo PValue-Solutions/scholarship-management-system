@@ -30,6 +30,12 @@ class UserController extends Controller
         $this->middleware('permission:user-update', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
         $this->middleware('permission:user-export', ['only' => ['doExport']]);
+
+        $this->middleware('permission:student-read|student-create|student-update|student-delete', ['only' => ['studentIndex']]);
+        $this->middleware('permission:student-create', ['only' => ['createStudent','storeStudent']]);
+        $this->middleware('permission:student-update', ['only' => ['editStudent','updateStudent']]);
+        $this->middleware('permission:student-delete', ['only' => ['destroyStudent']]);
+        $this->middleware('permission:student-export', ['only' => ['doExportStudent']]);
     }
 
     /**
@@ -47,9 +53,31 @@ class UserController extends Controller
         return view('users.index',compact('users'));
     }
 
+    public function studentIndex(Request $request)
+    {
+        $users = $this->studentFilter($request)->paginate(10)->withQueryString();
+        return view('users.student_index',compact('users'));
+    }
+
+    private function studentFilter(Request $request)
+    {
+        $query = User::role('Student')->orderBy('id','DESC');
+
+        if ($request->id)
+            $query->where('id', $request->id);
+
+        if ($request->name)
+            $query->where('name', 'like', $request->name.'%');
+
+        if ($request->email)
+            $query->where('email', 'like', $request->email.'%');
+
+        return $query;
+    }
+
     private function filter(Request $request)
     {
-        $query = User::orderBy('id','DESC');
+        $query = User::notRole('Student')->orderBy('id','DESC');
 
         if ($request->id)
             $query->where('id', $request->id);
@@ -105,6 +133,16 @@ class UserController extends Controller
             $company->setSettings();
         }
         return view('users.create',compact('staffRoles','userRoles','companies'));
+    }
+
+    public function createStudent()
+    {
+        $staffRoles = Role::where('role_for', '1')->pluck('name','name')->all();
+        $companies = auth()->user()->companies()->get();
+        foreach ($companies as $company) {
+            $company->setSettings();
+        }
+        return view('users.student_create',compact('staffRoles','companies'));
     }
 
     /**
@@ -178,6 +216,46 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', trans('User Created Successfully'));
     }
 
+    public function storeStudent(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:password_confirmation',
+            'status' => 'required',
+            'role_for' => 'required'
+        ]);
+
+        $logoUrl = "";
+        if($request->hasFile('photo'))
+        {
+            $this->validate($request, [
+                'photo' => 'image|mimes:png,jpg,jpeg'
+            ]);
+            $logo = $request->photo;
+            $logoNewName = time().$logo->getClientOriginalName();
+            $logo->move('uploads/employee',$logoNewName);
+            $logoUrl = 'uploads/employee/'.$logoNewName;
+        }
+
+        $roles = "Student";
+        $companies = "1";
+
+        $input = array();
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        $input['password'] = bcrypt($request->password);
+        $input['phone'] = $request->phone;
+        $input['address'] = $request->address;
+        $input['status'] = $request->status;
+        $input['photo'] = $logoUrl;
+        $user = User::create($input);
+        $user->assignRole($roles);
+        $user->companies()->attach($companies);
+
+        return redirect()->route('student.studentIndex')->with('success', trans('Student Created Successfully'));
+    }
+
     /**
      * Store a newly created resource in storage
      *
@@ -218,6 +296,30 @@ class UserController extends Controller
         }
 
         return view('users.edit',compact('user','roleFor','staffRoles', 'userRoles','companies','cIdStd'));
+    }
+
+    public function editStudent($id)
+    {
+        $student = User::findOrFail($id);
+        $roleName = $student->getRoleNames();
+        $roleFor = Role::findByName($roleName['0']);
+
+        $cId = array();
+        $selectedCompanies = $student->companies()->select('id')->get();
+        foreach ($selectedCompanies as $companies) {
+            $cId[] = $companies->id;
+        }
+        $cIdStd = implode(",",$cId);
+
+        $staffRoles = Role::where('role_for', '1')->pluck('name','name')->all();
+        $companies = auth()->user()->companies()->get();
+
+        foreach ($companies as $company) {
+            $company->setSettings();
+        }
+
+        // dd($user);
+        return view('users.studentEdit',compact('student','roleFor','staffRoles','companies','cIdStd'));
     }
 
     /**
@@ -299,6 +401,64 @@ class UserController extends Controller
         }
         $user->assignRole($roles);
         return redirect()->route('users.index')->with('success', trans('User Updated Successfully'));
+    }
+
+    public function updateStudent(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'same:password_confirmation',
+            'status' => 'required',
+            'role_for' => 'required'
+        ]);
+        $logoUrl = "";
+        if($request->hasFile('photo'))
+        {
+
+            $this->validate($request, [
+                'photo' => 'image|mimes:png,jpg,jpeg'
+            ]);
+
+            $logo = $request->photo;
+            $logoNewName = time().$logo->getClientOriginalName();
+            $logo->move('uploads/employee',$logoNewName);
+            $logoUrl = 'uploads/employee/'.$logoNewName;
+        }
+        $student = User::findOrFail($id);
+        $password = $student->password;
+        $roles = "Student";
+        $companies = "1";
+        $input = array();
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        if (!empty($request->password))
+        {
+            $input['password'] = bcrypt($input['password']);
+        } else {
+            $input['password'] = $password;
+        }
+        $input['phone'] = $request->phone;
+        $input['address'] = $request->address;
+        $input['status'] = $request->status;
+        $input['photo'] = $logoUrl;
+        $student->update($input);
+
+        DB::table('model_has_roles')->where('model_id',$student->id)->delete();
+        $userSelectedCompaniesStr = $request->user_selected_companies;
+        $userSelectedCompaniesArray = explode(',',$userSelectedCompaniesStr);
+        foreach ($userSelectedCompaniesArray as $company) {
+            DB::table('user_companies')->where('user_id',$student->id)->where('company_id',$company)->delete();
+        }
+        if($request->role_for == "1") //staff
+        {
+            // Attach company
+            $student->companies()->attach($companies);
+        }
+
+        $student->assignRole($roles);
+        return redirect()->route('student.studentIndex')->with('success', trans('Student Updated Successfully'));
+
     }
 
 

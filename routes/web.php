@@ -127,6 +127,36 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('users/{user}/read-items', 'App\Http\Controllers\UserController@readItemsOutOfStock');
 
+    Route::get('/student/studentIndex',[
+        'uses' => 'App\Http\Controllers\UserController@studentIndex',
+        'as' => 'student.studentIndex'
+    ]);
+
+    Route::get('/student/createStudent',[
+        'uses' => 'App\Http\Controllers\UserController@createStudent',
+        'as' => 'student.createStudent'
+    ]);
+
+    Route::post('/student/storeStudent',[
+        'uses' => 'App\Http\Controllers\UserController@storeStudent',
+        'as' => 'student.storeStudent'
+    ]);
+
+    Route::get('/student/editStudent/{id}',[
+        'uses' => 'App\Http\Controllers\UserController@editStudent',
+        'as' => 'student.editStudent'
+    ]);
+
+    Route::post('/student/updateStudent/{id}',[
+        'uses' => 'App\Http\Controllers\UserController@updateStudent',
+        'as' => 'student.updateStudent'
+    ]);
+
+    Route::delete('/student/destroyStudent',[
+        'uses' => 'App\Http\Controllers\UserController@destroyStudent',
+        'as' => 'student.destroyStudent'
+    ]);
+
     Route::resources([
         'roles' => App\Http\Controllers\RoleController::class,
         'users' => App\Http\Controllers\UserController::class,
@@ -155,6 +185,8 @@ Route::group(['middleware' => ['auth']], function() {
         'scholarship-college' => App\Http\Controllers\ScholarshipCollegeController::class,
         'scholarship-teacher' => App\Http\Controllers\ScholarshipTeacherController::class,
     ]);
+
+
 
     Route::get('/scholarship/index',[
         'uses' => 'App\Http\Controllers\ScholarshipController@index',

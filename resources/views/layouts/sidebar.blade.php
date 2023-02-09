@@ -53,6 +53,13 @@ $roleName = Auth::user()->getRoleNames();
                 </li>
                 @endcan
 
+                    <li class="nav-item">
+                        <a href="{{ route('student.studentIndex') }}" class="nav-link @if($c == 'student' && $m='studentIndex') active @endif ">
+                            <i class="fa fa-users nav-icon"></i>
+                            <p>@lang('Student')</p>
+                        </a>
+                    </li>
+
                 @canany(['customer-read', 'customer-create', 'customer-update', 'customer-delete'])
 
                 <li class="nav-item has-treeview @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') menu-open @endif">
