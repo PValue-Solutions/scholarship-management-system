@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => 'required|captcha',
         ]);
     }
 
@@ -64,10 +65,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $input = array();
+        $input['name'] = $data['name'];
+        $input['email'] = $data['email'];
+        $input['password'] = bcrypt($data['password']);
+        $input['status'] = "1";
+        $user = User::create($input);
+
+        $roles = "Student";
+        $companies = "1";
+
+        $user->assignRole($roles);
+        $user->companies()->attach($companies);
+
+        return redirect()->route('register')->with('success', trans('Student Created Successfully'));
+
+        // return $user;
+
+
+
+        // dd($data);
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
     }
 }

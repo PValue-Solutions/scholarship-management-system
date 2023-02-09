@@ -30,7 +30,8 @@ Route::get('/clear', function() {
 });
 
 
-Auth::routes(['register' => false]);
+Auth::routes();
+// Auth::routes(['register' => false]);
 
 Route::get('/install',[
     'uses' => 'App\Http\Controllers\InstallController@index',
@@ -41,6 +42,11 @@ Route::post('/install',[
     'uses' => 'App\Http\Controllers\InstallController@install',
     'as' => 'install.install'
 ]);
+
+Route::resources([
+    'student-register' => App\Http\Controllers\StudentRegisterController::class,
+]);
+
 
 
 Route::group(['middleware' => ['auth']], function() {
@@ -92,6 +98,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/report/course',[
         'uses' => 'App\Http\Controllers\ReportController@course',
         'as' => 'report.course'
+    ]);
+
+    Route::get('/report/student',[
+        'uses' => 'App\Http\Controllers\ReportController@student',
+        'as' => 'report.student'
     ]);
 
     Route::get('/report/expense',[

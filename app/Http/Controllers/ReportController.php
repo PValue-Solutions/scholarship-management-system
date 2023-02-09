@@ -390,6 +390,86 @@ class ReportController extends Controller
         return view('report.village',compact('villageYearData','datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','villageWiseData'));
     }
 
+    public function student(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
+
+        $company = Company::findOrFail(Session::get('company_id'));
+        $company->setSettings();
+
+        $studentWiseData = $this->filterStudent($request)->paginate(15);
+
+        $datas = $studentWiseData->mapToGroups(function ($item, $key) {
+            return [$item->name => $item];
+        });
+
+        $datasYear = $studentWiseData->mapToGroups(function ($item, $key) {
+            return [$item->year => $item];
+        });
+
+        // dd($datas);
+
+        $studentYearData = array();
+        foreach($datasYear as $key => $value) {
+            // $gTotalYearStudent = 0;
+            $gTotalYearAmount = 0;
+            foreach ($value as $v) {
+                // $gTotalYearStudent = $gTotalYearStudent + $v->total_student;
+                $gTotalYearAmount = $gTotalYearAmount + $v->total_amount;
+
+            }
+            // $villageYearData[$key]['g_total_student'] = $gTotalYearStudent;
+            $villageYearData[$key]['g_total_amount'] = $gTotalYearAmount;
+        }
+
+        if ($request->start_year && $request->end_year) {
+            for ($x = $request->start_year; $x <= $request->end_year; $x++) {
+                $years[]['year'] = $x;
+            }
+        } else {
+            for ($x = $previousYear; $x <= $thisYear; $x++) {
+                $years[]['year'] = $x;
+            }
+        }
+
+        $years = json_decode(json_encode($years), FALSE);
+        $yearCount = count($years);
+        $colSForHeading = $yearCount*2+3;
+
+        $gTotalStudent = 0;
+        $gTotalAmount = 0;
+        $output = array();
+        $totalData = array();
+        foreach($datas as $key => $value) {
+            $studentWiseTotalStudent = 0;
+            $studentWiseTotalAmount = 0;
+            foreach ($value as $v) {
+                $studentWiseTotalAmount = $studentWiseTotalAmount + $v->total_amount;
+                if($v->total_amount > 0) {
+                    $studentWiseTotalStudent = $studentWiseTotalStudent + 1;
+                }
+                foreach ($years as $y) {
+                    $output[$v->name][$y->year][] = array();
+                    if($y->year == $v->year) {
+
+                        $output[$v->name][$y->year]['name'] = $v->name;
+                        $output[$v->name][$y->year]['total_amount'] = $v->total_amount;
+                    }
+                }
+                $totalData[$v->name]['student_wise_total_student'] = $studentWiseTotalStudent;
+                $totalData[$v->name]['student_wise_total_amount'] = $studentWiseTotalAmount;
+
+
+            }
+            // $gTotalStudent = $gTotalStudent + $villageWiseTotalStudent;
+            $gTotalAmount = $gTotalAmount + $studentWiseTotalAmount;
+        }
+
+        $selectYears = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
+        return view('report.student',compact('villageYearData','datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','studentWiseData'));
+
+    }
     private function filterSchool(Request $request)
     {
         $thisYear = Carbon::now()->year;
@@ -470,5 +550,23 @@ class ReportController extends Controller
         return $projects;
     }
 
+    private function filterStudent(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
 
+        $projects = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','payment_done')
+            ->join('users', 'scholarships.user_id', '=', 'users.id')
+            ->join('student_details', 'users.id', '=', 'student_details.user_id')
+            ->select('scholarships.year as year','student_details.full_name as name', DB::raw('sum(fee_amount) as total_amount'),DB::raw('count(users.id) as total_student'))
+            ->groupBy('users.id','year');
+            if ($request->start_year && $request->end_year) {
+                $projects->whereBetween('year', [$request->start_year, $request->end_year]);
+            } else {
+                $projects->whereBetween('year', [$previousYear, $thisYear]);
+            }
+        return $projects;
+    }
 }
