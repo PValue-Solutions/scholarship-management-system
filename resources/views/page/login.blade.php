@@ -23,6 +23,9 @@
                     <a class="h1"><span class="identColor"><b>S</b></span>SMS</a>
                 </div>
                 <div class="card-body">
+                    @if (session()->has('flash_notification.success'))
+                        <div class="alert alert-success" role="alert">{!! session('flash_notification.success') !!}</div>
+                    @endif
                     <p class="login-box-msg m-0 p-0">@lang('Sign in to start your session')</p>
                     <br>
                     <form action="{{ route('login') }}" method="post">
@@ -69,6 +72,10 @@
                         <div class="social-auth-links text-center mt-2 mb-3">
                             <button type="submit" class="btn btn-block btn-primary"> <i class="fas fa-sign-in-alt mr-2"></i> @lang('Log in')</button>
                         </div>
+
+                        <p class="text-center">
+                            <a href="{{ route('register') }}" class="btn btn-info btn-block"><span>New Student?</span> Register Now</a>
+                        </p>
                     </form>
                 </div>
             </div>
