@@ -17,6 +17,13 @@ class PermissionTableSeeder extends Seeder
     {
         Permission::firstOrCreate(['name' => 'profile-read','display_name' => 'Profile']);
         Permission::firstOrCreate(['name' => 'profile-update','display_name' => 'Profile']);
+
+        Permission::firstOrCreate(['name' => 'student-read','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-create','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-update','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-delete','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-export','display_name' => 'Student']);
+
         Permission::firstOrCreate(['name' => 'role-read','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-create','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-update','display_name' => 'Role']);

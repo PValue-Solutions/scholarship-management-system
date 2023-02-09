@@ -30,6 +30,9 @@ class UserController extends Controller
         $this->middleware('permission:user-update', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
         $this->middleware('permission:user-export', ['only' => ['doExport']]);
+
+        $this->middleware('permission:student-read|student-create|student-update|student-delete', ['only' => ['studentIndex']]);
+        $this->middleware('permission:student-create', ['only' => ['createStudent','storeStudent']]);
     }
 
     /**
@@ -47,9 +50,31 @@ class UserController extends Controller
         return view('users.index',compact('users'));
     }
 
+    public function studentIndex(Request $request)
+    {
+        $users = $this->studentFilter($request)->paginate(10)->withQueryString();
+        return view('users.student_index',compact('users'));
+    }
+
+    private function studentFilter(Request $request)
+    {
+        $query = User::role('Student')->orderBy('id','DESC');
+
+        if ($request->id)
+            $query->where('id', $request->id);
+
+        if ($request->name)
+            $query->where('name', 'like', $request->name.'%');
+
+        if ($request->email)
+            $query->where('email', 'like', $request->email.'%');
+
+        return $query;
+    }
+
     private function filter(Request $request)
     {
-        $query = User::orderBy('id','DESC');
+        $query = User::notRole('Student')->orderBy('id','DESC');
 
         if ($request->id)
             $query->where('id', $request->id);
@@ -105,6 +130,16 @@ class UserController extends Controller
             $company->setSettings();
         }
         return view('users.create',compact('staffRoles','userRoles','companies'));
+    }
+
+    public function createStudent()
+    {
+        $staffRoles = Role::where('role_for', '1')->pluck('name','name')->all();
+        $companies = auth()->user()->companies()->get();
+        foreach ($companies as $company) {
+            $company->setSettings();
+        }
+        return view('users.student_create',compact('staffRoles','companies'));
     }
 
     /**
@@ -176,6 +211,46 @@ class UserController extends Controller
             }
         }
         return redirect()->route('users.index')->with('success', trans('User Created Successfully'));
+    }
+
+    public function storeStudent(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:password_confirmation',
+            'status' => 'required',
+            'role_for' => 'required'
+        ]);
+
+        $logoUrl = "";
+        if($request->hasFile('photo'))
+        {
+            $this->validate($request, [
+                'photo' => 'image|mimes:png,jpg,jpeg'
+            ]);
+            $logo = $request->photo;
+            $logoNewName = time().$logo->getClientOriginalName();
+            $logo->move('uploads/employee',$logoNewName);
+            $logoUrl = 'uploads/employee/'.$logoNewName;
+        }
+
+        $roles = "Student";
+        $companies = "1";
+
+        $input = array();
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        $input['password'] = bcrypt($request->password);
+        $input['phone'] = $request->phone;
+        $input['address'] = $request->address;
+        $input['status'] = $request->status;
+        $input['photo'] = $logoUrl;
+        $user = User::create($input);
+        $user->assignRole($roles);
+        $user->companies()->attach($companies);
+
+        return redirect()->route('student.studentIndex')->with('success', trans('Student Created Successfully'));
     }
 
     /**
