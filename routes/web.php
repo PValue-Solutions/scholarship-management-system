@@ -195,6 +195,31 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'scholarship.index'
     ]);
 
+    Route::get('/scholarship/pending',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@pending',
+        'as' => 'scholarship.pending'
+    ]);
+
+    Route::get('/scholarship/approved',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@approved',
+        'as' => 'scholarship.approved'
+    ]);
+
+    Route::get('/scholarship/payment_in_progress',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@payment_in_progress',
+        'as' => 'scholarship.payment_in_progress'
+    ]);
+
+    Route::get('/scholarship/payment_done',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@payment_done',
+        'as' => 'scholarship.payment_done'
+    ]);
+
+    Route::get('/scholarship/rejected',[
+        'uses' => 'App\Http\Controllers\ScholarshipController@rejected',
+        'as' => 'scholarship.rejected'
+    ]);
+
     Route::get('/scholarship/create',[
         'uses' => 'App\Http\Controllers\ScholarshipController@create',
         'as' => 'scholarship.create'

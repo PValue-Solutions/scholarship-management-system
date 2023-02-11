@@ -36,6 +36,186 @@ class ScholarshipController extends Controller
         return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
     }
 
+    public function pending(Request $request)
+    {
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filterPending($request)->paginate(10);
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+    }
+
+    public function approved(Request $request)
+    {
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filterApproved($request)->paginate(10);
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+    }
+
+    public function payment_in_progress(Request $request)
+    {
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filterPaymentInProgress($request)->paginate(10);
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+    }
+
+    public function payment_done(Request $request)
+    {
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filterPaymentDone($request)->paginate(10);
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+    }
+
+    public function rejected(Request $request)
+    {
+        if ($request->export)
+            return $this->doExport($request);
+        $scholarships = $this->filterRejected($request)->paginate(10);
+        $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+    }
+
+    private function filterRejected(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
+            $query->where('status', 'like', 'rejected');
+        return $query;
+    }
+
+    private function filterPaymentDone(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
+            $query->where('status', 'like', 'payment_done');
+        return $query;
+    }
+
+    private function filterPaymentInProgress(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
+            $query->where('status', 'like', 'payment_in_progress');
+        return $query;
+    }
+
+    private function filterApproved(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
+            $query->where('status', 'like', 'approved');
+        return $query;
+    }
+
+    private function filterPending(Request $request)
+    {
+        $query = Scholarship::with(['studentDetail'])
+        ->whereHas('studentDetail', function ($q) use ($request) {
+            $q->where('company_id', session('company_id'));
+            if ($request->scholarship_village_id)
+                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+        })
+        ->where('company_id', session('company_id'))->latest();
+
+        if ($request->application_no)
+            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+        if ($request->year)
+            $query->where('year', 'like', '%'.$request->year.'%');
+        if ($request->school_or_college)
+            $query->where('school_or_college', 'like', $request->school_or_college);
+        if ($request->scholarship_school_id)
+            $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
+        if ($request->scholarship_college_id)
+            $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
+
+            $query->where('status', 'like', 'pending');
+        return $query;
+    }
+
     private function filter(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
@@ -113,7 +293,7 @@ class ScholarshipController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'application_no' => ['required', 'string', 'max:255'],
+            'application_no' => ['required','unique:scholarships,application_no', 'string', 'max:255'],
             'year' => ['required', 'string', 'max:255'],
             'annual_income' => ['required', 'numeric'],
             'percentage_marks_obtained' => ['required', 'numeric'],

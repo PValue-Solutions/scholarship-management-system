@@ -149,7 +149,7 @@
                         </tfoot>
                     </table>
                     {{ $schoolWiseData->links() }}
-                <div>
+                </div>
             </div>
         </div>
     </div>
