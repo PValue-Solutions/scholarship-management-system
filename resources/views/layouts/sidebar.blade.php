@@ -163,11 +163,52 @@ $roleName = Auth::user()->getRoleNames();
 
 
                 @canany(['scholarship-read', 'scholarship-create', 'scholarship-update', 'scholarship-delete'])
-                <li class="nav-item">
-                    <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship') active @endif ">
-                        <i class="fas fa-graduation-cap nav-icon"></i>
-                        <p>@lang('Scholarship')</p>
+                <li class="nav-item has-treeview @if($c == 'scholarship') menu-open @endif">
+                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship') active @endif">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>
+                            @lang('Applications')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.pending') }}" class="nav-link @if($c == 'scholarship' && $m == 'pending') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Under Verification')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.approved') }}" class="nav-link @if($c == 'scholarship' && $m == 'approved') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Approved')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.payment_in_progress') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_in_progress') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Payment In Progress')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.payment_done') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_done') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Payment Done')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.rejected') }}" class="nav-link @if($c == 'scholarship' && $m == 'rejected') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('Rejected')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship') active @endif ">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>@lang('All Applications')</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endcan
 
