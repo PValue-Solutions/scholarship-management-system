@@ -22,13 +22,19 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'student-create','display_name' => 'Student']);
         Permission::firstOrCreate(['name' => 'student-update','display_name' => 'Student']);
         Permission::firstOrCreate(['name' => 'student-delete','display_name' => 'Student']);
-        Permission::firstOrCreate(['name' => 'student-export','display_name' => 'Student']);
+        // Permission::firstOrCreate(['name' => 'student-export','display_name' => 'Student']);
+
+        Permission::firstOrCreate(['name' => 'expense-read','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-create','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-update','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-delete','display_name' => 'Expense']);
+        // Permission::firstOrCreate(['name' => 'expense-export','display_name' => 'Expense']);
 
         Permission::firstOrCreate(['name' => 'role-read','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-create','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-update','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-delete','display_name' => 'Role']);
-        Permission::firstOrCreate(['name' => 'role-export','display_name' => 'Role']);
+        // Permission::firstOrCreate(['name' => 'role-export','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'user-read','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-create','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-update','display_name' => 'User']);

@@ -483,4 +483,9 @@ class UserController extends Controller
             return redirect()->route('users.index')->with('error',$e);
         }
     }
+
+    public function destroyStudent($id)
+    {
+        dd($id);
+    }
 }

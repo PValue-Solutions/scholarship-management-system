@@ -52,14 +52,14 @@ $roleName = Auth::user()->getRoleNames();
                     </a>
                 </li>
                 @endcan
-
+                @canany(['student-read', 'student-create', 'student-update', 'student-delete'])
                     <li class="nav-item">
                         <a href="{{ route('student.studentIndex') }}" class="nav-link @if($c == 'student' && $m='studentIndex') active @endif ">
                             <i class="fa fa-users nav-icon"></i>
                             <p>@lang('Student')</p>
                         </a>
                     </li>
-
+                @endcan
                 @canany(['customer-read', 'customer-create', 'customer-update', 'customer-delete'])
 
                 <li class="nav-item has-treeview @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') menu-open @endif">
@@ -280,6 +280,14 @@ $roleName = Auth::user()->getRoleNames();
                     </ul>
                 </li>
 
+                @canany(['expense-read', 'expense-create', 'expense-update', 'expense-delete'])
+                <li class="nav-item">
+                    <a href="{{ route('expense.index') }}" class="nav-link @if($c == 'expense') active @endif ">
+                        <i class="fas fa-minus nav-icon"></i>
+                        <p>@lang('Expense')</p>
+                    </a>
+                </li>
+                @endcanany
 
                 @canany(['category-read', 'category-create', 'category-update', 'category-delete', 'category-export', 'category-import', 'currencies-read', 'currencies-create', 'currencies-update', 'currencies-delete', 'currencies-export', 'currencies-import','tax-rate-read', 'tax-rate-create', 'tax-rate-update', 'tax-rate-delete', 'tax-rate-export', 'tax-rate-import'])
                     <li class="nav-item has-treeview @if($c == 'category' || $c == 'currency' || $c == 'tax') menu-open @endif">
