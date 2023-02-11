@@ -177,6 +177,8 @@ Route::group(['middleware' => ['auth']], function() {
         'transaction' => App\Http\Controllers\TransactionController::class,
         'offline-payment' => App\Http\Controllers\OfflinePaymentController::class,
 
+        'expense' => App\Http\Controllers\ExpenseController::class,
+
         // 'scholarship' => App\Http\Controllers\ScholarshipController::class,
         'scholarship-class' => App\Http\Controllers\ScholarshipClassController::class,
         'scholarship-year' => App\Http\Controllers\ScholarshipYearController::class,

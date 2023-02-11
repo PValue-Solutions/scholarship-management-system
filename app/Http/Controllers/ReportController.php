@@ -467,7 +467,7 @@ class ReportController extends Controller
         }
 
         $selectYears = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
-        return view('report.student',compact('villageYearData','datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','studentWiseData'));
+        return view('report.student',compact('datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','studentWiseData'));
 
     }
     private function filterSchool(Request $request)

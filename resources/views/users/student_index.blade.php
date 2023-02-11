@@ -103,7 +103,7 @@
                                         <a href="{{ route('student.editStudent', ['id' => $user->id]) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="Edit"><i class="fa fa-edit ambitious-padding-btn"></i></a>&nbsp;&nbsp;
                                         @endcan
                                         @can('student-delete')
-                                            <a href="#" data-href="{{ route('student.destroyStudent', $user->id) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash ambitious-padding-btn"></i></a>
+                                            <a href="#" data-href="{{ route('users.destroy', $user->id) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="modal" data-target="#myModal" title="Delete"><i class="fa fa-trash ambitious-padding-btn"></i></a>
                                         @endcan
                                     </td>
                                 @endcanany
