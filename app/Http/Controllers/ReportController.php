@@ -160,6 +160,128 @@ class ReportController extends Controller
         return view('report.college',compact('studentYearData','datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','collegeWiseData'));
     }
 
+    public function expense(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
+
+        $company = Company::findOrFail(Session::get('company_id'));
+        $company->setSettings();
+
+        $expenseWiseData = $this->filterExpense($request)->paginate(15);
+
+        $expenseWiseCollegeData = $this->filterCollegeExpense($request)->paginate(15);
+
+        $datas = $expenseWiseData->mapToGroups(function ($item, $key) {
+            return [$item->name => $item];
+        });
+
+        $collegeDatas = $expenseWiseCollegeData->mapToGroups(function ($item, $key) {
+            return [$item->name => $item];
+        });
+
+        $datasYear = $expenseWiseData->mapToGroups(function ($item, $key) {
+            return [$item->year => $item];
+        });
+
+        $collegeDatasYear = $expenseWiseCollegeData->mapToGroups(function ($item, $key) {
+            return [$item->year => $item];
+        });
+
+        $expenseCollegeData = array();
+        foreach($collegeDatasYear as $key => $value) {
+            $gTotalYearEexpenseCollege = 0;
+            $gTotalYearAmountCollege = 0;
+            foreach ($value as $v) {
+                $gTotalYearEexpenseCollege = $gTotalYearEexpenseCollege + $v->total_expenses;
+                $gTotalYearAmountCollege = $gTotalYearAmountCollege + $v->total_amount;
+            }
+            $expenseCollegeData[$key]['g_total_expense'] = $gTotalYearEexpenseCollege;
+            $expenseCollegeData[$key]['g_total_amount'] = $gTotalYearAmountCollege;
+        }
+
+        $expenseSchoolData = array();
+        foreach($datasYear as $key => $value) {
+            $gTotalYearEexpenseSchool = 0;
+            $gTotalYearAmountSchool = 0;
+            foreach ($value as $v) {
+                $gTotalYearEexpenseSchool = $gTotalYearEexpenseSchool + $v->total_expenses;
+                $gTotalYearAmountSchool = $gTotalYearAmountSchool + $v->total_amount;
+
+            }
+            $expenseSchoolData[$key]['g_total_expense'] = $gTotalYearEexpenseSchool;
+            $expenseSchoolData[$key]['g_total_amount'] = $gTotalYearAmountSchool;
+        }
+        if ($request->start_year && $request->end_year) {
+            for ($x = $request->start_year; $x <= $request->end_year; $x++) {
+                $years[]['year'] = $x;
+            }
+        } else {
+            for ($x = $previousYear; $x <= $thisYear; $x++) {
+                $years[]['year'] = $x;
+            }
+        }
+
+        $years = json_decode(json_encode($years), FALSE);
+        $yearCount = count($years);
+        $colSForHeading = $yearCount*2+3;
+
+        $gTotalExpenseSchool = 0;
+        $gTotalAmountSchool = 0;
+        $outputSchool = array();
+        $totalDataSchool = array();
+
+        $gTotalExpenseCollege = 0;
+        $gTotalAmountCollege = 0;
+        $outputCollege = array();
+        $totalDataCollege = array();
+
+        foreach($collegeDatas as $key => $value) {
+            $collegeWiseTotalExpense = 0;
+            $collegeWiseTotalAmount = 0;
+            foreach ($value as $v) {
+                $collegeWiseTotalExpense = $collegeWiseTotalExpense + $v->total_expenses;
+                $collegeWiseTotalAmount = $collegeWiseTotalAmount + $v->total_amount;
+                foreach ($years as $y) {
+                    $outputCollege[$v->name][$y->year][] = array();
+                    if($y->year == $v->year) {
+                        $outputCollege[$v->name][$y->year]['name'] = $v->name;
+                        $outputCollege[$v->name][$y->year]['total_amount'] = $v->total_amount;
+                        $outputCollege[$v->name][$y->year]['total_expenses'] = $v->total_expenses;
+                    }
+                }
+                $totalDataCollege[$v->name]['college_wise_total_expense'] = $collegeWiseTotalExpense;
+                $totalDataCollege[$v->name]['college_wise_total_amount'] = $collegeWiseTotalAmount;
+            }
+            $gTotalAmountCollege = $gTotalAmountCollege + $collegeWiseTotalAmount;
+        }
+
+        foreach($datas as $key => $value) {
+            $schoolWiseTotalExpense = 0;
+            $schoolWiseTotalAmount = 0;
+            foreach ($value as $v) {
+                $schoolWiseTotalExpense = $schoolWiseTotalExpense + $v->total_expenses;
+                $schoolWiseTotalAmount = $schoolWiseTotalAmount + $v->total_amount;
+                foreach ($years as $y) {
+                    $outputSchool[$v->name][$y->year][] = array();
+                    if($y->year == $v->year) {
+                        $outputSchool[$v->name][$y->year]['name'] = $v->name;
+                        $outputSchool[$v->name][$y->year]['total_amount'] = $v->total_amount;
+                        $outputSchool[$v->name][$y->year]['total_expenses'] = $v->total_expenses;
+                    }
+                }
+                $totalDataSchool[$v->name]['school_wise_total_expense'] = $schoolWiseTotalExpense;
+                $totalDataSchool[$v->name]['school_wise_total_amount'] = $schoolWiseTotalAmount;
+            }
+            $gTotalExpenseSchool = $gTotalExpenseSchool + $schoolWiseTotalExpense;
+            $gTotalAmountSchool = $gTotalAmountSchool + $schoolWiseTotalAmount;
+        }
+        $selectYears = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
+
+        return view('report.my_expense', compact('gTotalAmountCollege','expenseCollegeData','totalDataCollege','outputCollege','expenseCollegeData','expenseSchoolData','gTotalAmountSchool','gTotalExpenseSchool','selectYears','totalDataSchool','years','thisYear','previousYear','company','datas','outputSchool','colSForHeading','expenseWiseData','expenseWiseCollegeData'));
+    }
+
+
     public function school(Request $request)
     {
         $thisYear = Carbon::now()->year;
@@ -487,6 +609,46 @@ class ReportController extends Controller
         } else {
             $projects->whereBetween('year', [$previousYear, $thisYear]);
         }
+        return $projects;
+    }
+
+    private function filterExpense(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
+
+        $projects = DB::table('expenses')
+            ->orderBy('expenses.year','ASC')
+            ->where('expenses.school_or_college','1')
+            ->where('expenses.status','1')
+            ->join('scholarship_schools', 'expenses.scholarship_school_id', '=', 'scholarship_schools.id')
+            ->select('expenses.year as year','scholarship_schools.name as name', DB::raw('sum(amount) as total_amount'),DB::raw('count(expenses.id) as total_expenses'))
+            ->groupBy('scholarship_school_id','year');
+            if ($request->start_year && $request->end_year) {
+                $projects->whereBetween('year', [$request->start_year, $request->end_year]);
+            } else {
+                $projects->whereBetween('year', [$previousYear, $thisYear]);
+            }
+        return $projects;
+    }
+
+    private function filterCollegeExpense(Request $request)
+    {
+        $thisYear = Carbon::now()->year;
+        $previousYear = $thisYear-2;
+
+        $projects = DB::table('expenses')
+            ->orderBy('expenses.year','ASC')
+            ->where('expenses.school_or_college','2')
+            ->where('expenses.status','1')
+            ->join('scholarship_colleges', 'expenses.scholarship_college_id', '=', 'scholarship_colleges.id')
+            ->select('expenses.year as year','scholarship_colleges.name as name', DB::raw('sum(amount) as total_amount'),DB::raw('count(expenses.id) as total_expenses'))
+            ->groupBy('scholarship_college_id','year');
+            if ($request->start_year && $request->end_year) {
+                $projects->whereBetween('year', [$request->start_year, $request->end_year]);
+            } else {
+                $projects->whereBetween('year', [$previousYear, $thisYear]);
+            }
         return $projects;
     }
 
