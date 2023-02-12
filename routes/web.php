@@ -50,6 +50,11 @@ Route::resources([
 
 
 Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('/dashboard/get-chart-data', [
+        App\Http\Controllers\DashboardController::class, 'getChartData'
+    ]);
+
     Route::get('/company/companyAccountSwitch', [
         'uses' => 'App\Http\Controllers\CompanyController@companyAccountSwitch',
         'as' => 'company.companyAccountSwitch'
