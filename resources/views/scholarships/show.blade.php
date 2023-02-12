@@ -262,10 +262,7 @@
                     cancelled and the amount of scholarship refunded by me</p>
                 </div>
 
-                <div class="col-sm-4"><p> Date : </p></div>
-                <div class="col-sm-4"><p> Student Signature  </p></div>
-                <div class="col-sm-4"><p> Parents/ Guardian Signature  </p></div>
-                <div class="col-sm-12"><p> Place : </p></div>
+              
             </div>
         </div>
     </div>
@@ -277,11 +274,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12">
-                   <p> 1. Income certificate of Parents/ Guardian </p>
-                   <p> 2. Any Govt. ID proof (Aadhar, Ration card etc.) </p>
-                   <p> 3. Previous educational marks card </p>
-                   <p> 4. Original fee receipt </p>
-                   <p> 5. Bank passbook copy </p>
+                   <p> <a href="{{asset('storage/'.$scholarship->income_certificate)}}" target="_blank"> 1. Income certificate of Parents/ Guardian </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->id_proof)}}" target="_blank"> 
+                    2. Any Govt. ID proof (Aadhar, Ration card etc.)</a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->previous_educational_marks_card)}}" target="_blank">
+                    3. Previous educational marks card </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->original_fee_receipt)}}" target="_blank">
+                    4. Original fee receipt </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->bank_passbook)}}" target="_blank">
+                    5. Bank passbook copy </a></p>
                 </div>
             </div>
         </div>
