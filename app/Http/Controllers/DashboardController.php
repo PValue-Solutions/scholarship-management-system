@@ -6,6 +6,7 @@ use Session;
 use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Category;
+use App\Models\Scholarship;
 use App\Traits\DateTime;
 use Illuminate\Support\Facades\DB;
 
@@ -66,38 +67,77 @@ class DashboardController extends Controller
             ->select(DB::raw('count(scholarships.id) as total_scholarships'))
             ->first();
 
-        // dd($data_total);
+        $currentYearApApRe = $this->currentYearApApRe();
+        $overallYearApApRe = $this->overallYearApApRe();
 
+        $monthlyData = $this->getChartData();
 
-
-        $company = Company::findOrFail(Session::get('company_id'));
-        $company->setSettings();
-
-        $this->company = $company;
-        $this->today = Carbon::today();
-
-        $this->financial_start = $financial_start = $this->getFinancialStart()->format('Y-m-d');
-
-        list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
-
-        // dd($datas);
-
-        // list($donut_incomes, $donut_expenses) = $this->getDonuts();
+        // dd($monthlyData);
 
         return view('dashboard', compact(
-            'company',
-            'total_incomes',
-            'total_expenses',
-            'total_profit',
-            'financial_start',
             'data_total',
             'data_pending',
             'data_approved',
             'data_rejected',
             'data_payment_in_progress',
-            'data_payment_done'
+            'data_payment_done',
+            'monthlyData',
+            'currentYearApApRe',
+            'overallYearApApRe'
 
         ));
+    }
+
+    public function getChartData()
+    {
+        return response()->json([
+            'currentYearApApRe' => $this->currentYearApApRe(),
+            'overallYearApApRe' => $this->overallYearApApRe()
+        ], 200);
+    }
+
+    private function currentYearApApRe()
+    {
+        $application = 0; $approved = 0; $rejected = 0;
+
+        $application = Scholarship::whereYear('date', date('Y'))->count('id');
+        $approved = Scholarship::where('status','approved')->whereYear('date', date('Y'))->count('id');
+        $rejected = Scholarship::where('status','rejected')->whereYear('date', date('Y'))->count('id');
+
+        return [
+            'application' => $application,
+            'approved' => $approved,
+            'rejected' => $rejected
+        ];
+    }
+
+    private function overallYearApApRe()
+    {
+        $application = 0; $approved = 0; $rejected = 0;
+
+        $application = Scholarship::count('id');
+        $approved = Scholarship::where('status','approved')->count('id');
+        $rejected = Scholarship::where('status','rejected')->count('id');
+
+        return [
+            'application' => $application,
+            'approved' => $approved,
+            'rejected' => $rejected
+        ];
+    }
+
+    private function monthlyData()
+    {
+        $paymentDone = []; $labels = [];
+        $results = DB::select('SELECT DISTINCT YEAR(date) AS "year", MONTH(date) AS "month" FROM scholarships ORDER BY year DESC LIMIT 12');
+        foreach ($results as $result) {
+            $labels[] = '"'.date('F', mktime(0, 0, 0, $result->month, 10)).' '.$result->year.'"';
+            $paymentDone[] = '"'.Scholarship::where('status','payment_done')->whereYear('date', $result->year)->whereMonth('date', $result->month)->count('id').'"';
+        }
+        return [
+            'paymentDone' => $paymentDone,
+            'labels' => $labels
+        ];
     }
 
     private function getTotals()

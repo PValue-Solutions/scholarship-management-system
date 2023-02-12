@@ -44,7 +44,7 @@ $roleName = Auth::user()->getRoleNames();
                     </a>
                 </li>
 
-                
+
                 @canany(['student-read', 'student-create', 'student-update', 'student-delete'])
                     <li class="nav-item">
                         <a href="{{ route('student.studentIndex') }}" class="nav-link @if($c == 'student' && $m='studentIndex') active @endif ">
@@ -130,7 +130,7 @@ $roleName = Auth::user()->getRoleNames();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship') active @endif ">
+                            <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship'  && $m == 'index') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('All Applications')</p>
                             </a>
