@@ -29,7 +29,7 @@
                 <span> Annual Income: {{$scholarship->annual_income}}</span>
             </div>
         </div>
-        
+
     </div>
 
     <div class="card mt-3">
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                         <td colspan="4">4. Full Address </td>
-                        
+
                     </tr>
                     <tr>
                         <td> <span class="ml-3">House no.</span> </td>
@@ -114,7 +114,7 @@
                         <td>:</td>
                         <td>{{$scholarship->studentDetail->contact_no_2}}</td>
                     </tr>
-        
+
                     <tr>
                         <td>6. Date of Birth </td>
                         <td>:</td>
@@ -134,7 +134,7 @@
                         <td colspan="4">{{$scholarship->studentDetail->aadhar_no}}</td>
                     </tr>
                 </table>
-                
+
             </div>
         </div>
     </div>
@@ -164,16 +164,16 @@
                                 <td colspan="7">{{$scholl_college_data->college_type}}</td>
                             </tr>
                             @endif
-                            
+
                             <tr>
                                 <td> Village </td>
                                 <td>: </td>
                                 <td>{{$scholl_college_data->scholarshipVillage->name}}</td>
-            
+
                                 <td> Taluk </td>
                                 <td>: </td>
                                 <td>{{$scholarship->studentDetail->taluk}}</td>
-            
+
                                 <td> District </td>
                                 <td>: </td>
                                 <td>{{$scholl_college_data->district}}</td>
@@ -182,7 +182,7 @@
                                 <td colspan="4">Marks Obtained in last Examination  SSLC/PUC/Degree</td>
                                 <td> : </td>
                                 <td>{{$scholarship->marks_obtained}}</td>
-            
+
                                 <td>Year</td>
                                 <td> : </td>
                                 <td>{{$scholarship->year}}</td>
@@ -196,12 +196,12 @@
                                 <td>Grade/ Class</td>
                                 <td>:</td>
                                 <td colspan="2">{{$scholarship->classDetail->name}}</td>
-            
+
                                 <td colspan="2">Percentage</td>
                                 <td>:</td>
                                 <td colspan="2">{{$scholarship->percentage_marks_obtained}}</td>
                             </tr>
-            
+
                             <tr>
                                 <td>Contact Person:</td>
                                 <td>:</td>
@@ -210,7 +210,7 @@
                                 <td >:</td>
                                 <td colspan="2">{{$scholarship->school_designation}}</td>
                             </tr>
-            
+
                             <tr>
                                 <td>Contact no.</td>
                                 <td>:</td>
@@ -224,7 +224,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
 
     <div class="card  mt-3">
@@ -236,9 +236,14 @@
                 <div class="col-sm-12">
                    <p> Course Joined : {{$scholarship->further_education_details_course_joined}}</p>
                 </div>
-        
+
                 <div class="col-sm-12">
-                   <p> College /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
+                    @if($scholarship->further_education_details_school_or_college == "1")
+                    <p> School /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
+                    @else
+                    <p> College /Institute : {{$scholarship->furtherEducationCollegeDetail->name}}</p>
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -256,7 +261,7 @@
                    <p>3. If the information given by me isfound to be false/incorrect, the scholarship sanction to me may be
                     cancelled and the amount of scholarship refunded by me</p>
                 </div>
-        
+
                 <div class="col-sm-4"><p> Date : </p></div>
                 <div class="col-sm-4"><p> Student Signature  </p></div>
                 <div class="col-sm-4"><p> Parents/ Guardian Signature  </p></div>

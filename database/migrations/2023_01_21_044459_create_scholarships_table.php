@@ -53,6 +53,7 @@ class CreateScholarshipsTable extends Migration
             $table->string('previous_educational_marks_card')->nullable();
             $table->string('original_fee_receipt')->nullable();
             $table->string('fee_amount')->nullable();
+            $table->string('apply_amount')->nullable();
             $table->string('bank_passbook')->nullable();
             $table->bigInteger('scholarship_bank_detail_id')->nullable();
             $table->bigInteger('print_form')->nullable();

@@ -55,6 +55,7 @@ class Scholarship extends Model
         'previous_educational_marks_card',
         'original_fee_receipt',
         'fee_amount',
+        'apply_amount',
         'bank_passbook',
         'scholarship_bank_detail_id',
         'print_form',
@@ -85,6 +86,11 @@ class Scholarship extends Model
     public function furtherEducationschollDetail()
     {
         return $this->belongsTo(ScholarshipSchool::class,'further_education_details_scholarship_school_id');
+    }
+
+    public function furtherEducationCollegeDetail()
+    {
+        return $this->belongsTo(ScholarshipCollege::class,'further_education_details_scholarship_college_id');
     }
 
     public function collegeDetail(){
