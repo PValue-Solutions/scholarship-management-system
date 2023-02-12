@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Category;
 use App\Traits\DateTime;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class DashboardController
@@ -30,6 +31,45 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $data_total = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        $data_pending = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','pending')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        $data_approved = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','approved')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        $data_rejected = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','rejected')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        $data_payment_in_progress = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','payment_in_progress')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        $data_payment_done = DB::table('scholarships')
+            ->orderBy('scholarships.year','ASC')
+            ->where('scholarships.status','payment_done')
+            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
+            ->first();
+
+        // dd($data_total);
+
+
+
         $company = Company::findOrFail(Session::get('company_id'));
         $company->setSettings();
 
@@ -40,7 +80,7 @@ class DashboardController extends Controller
 
         list($total_incomes, $total_expenses, $total_profit) = $this->getTotals();
 
-        // dd($total_incomes);
+        // dd($datas);
 
         // list($donut_incomes, $donut_expenses) = $this->getDonuts();
 
@@ -49,7 +89,14 @@ class DashboardController extends Controller
             'total_incomes',
             'total_expenses',
             'total_profit',
-            'financial_start'
+            'financial_start',
+            'data_total',
+            'data_pending',
+            'data_approved',
+            'data_rejected',
+            'data_payment_in_progress',
+            'data_payment_done'
+
         ));
     }
 

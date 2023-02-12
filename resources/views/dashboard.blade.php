@@ -8,62 +8,82 @@
 <script src="{{ asset('plugins/bower_components/chart.js/utils.js') }}"></script>
 @endsection
 @section('content')
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2>@lang('Dashboard')</h2>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item active">@lang('Dashboard')</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="container-fluid">
+
     <div class="row">
-        <!---Income-->
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-12">
             <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fas fa-hand-holding-usd"></i></span>
+                <span class="info-box-icon bg-info"><i class="fas fa-globe"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">@lang('Total Incomes')</span>
-                    <span class="info-box-number">@money($total_incomes['total'], $company->default_currency, true)</span>
-                    <div class="progress-group" title="@lang('Open Invoices') {{ $total_incomes['open_invoice'] }}<br>@lang('Overdue Invoices'): {{ $total_incomes['overdue_invoice'] }}" data-toggle="tooltip" data-html="true">
-                        <div class="progress sm">
-                            <div class="progress-bar progress-bar-aqua" style="width: {{ $total_incomes['progress'] }}%"></div>
-                        </div>
-                        <span class="progress-text">@lang('Receivables')</span>
-                        <span class="progress-number">{{ $total_incomes['open_invoice'] }} / {{ $total_incomes['overdue_invoice'] }}</span>
-                    </div>
+                    <span class="info-box-text">Total Application</span>
+                    <span class="info-box-number">{{ $data_total->total_scholarships }}</span>
                 </div>
             </div>
         </div>
 
-        <!---Expense-->
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-shopping-cart"></i></span>
-
+                <span class="info-box-icon bg-primary"><i class="fas fa-money-bill-wave"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">@lang('Total Expenses')</span>
-                    <span class="info-box-number">@money($total_expenses['total'], $company->default_currency, true)</span>
-
-                    <div class="progress-group" title="@lang('Open Bills') {{ $total_expenses['open_bill'] }}<br>@lang('Overdue Bills') {{ $total_expenses['overdue_bill'] }}" data-toggle="tooltip" data-html="true">
-                        <div class="progress sm">
-                            <div class="progress-bar progress-bar-red" style="width: {{ $total_expenses['progress'] }}%"></div>
-                        </div>
-                        <span class="progress-text">@lang('Payables')</span>
-                        <span class="progress-number">{{ $total_expenses['open_bill'] }} / {{ $total_expenses['overdue_bill'] }}</span>
-                    </div>
+                    <span class="info-box-text">Payment In Progress</span>
+                    <span class="info-box-number">{{ $data_payment_in_progress->total_scholarships }}</span>
                 </div>
             </div>
         </div>
 
-        <!---Profit-->
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-heart"></i></span>
-
+                <span class="info-box-icon bg-success"><i class="fas fa-hand-holding-usd"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">@lang('Total Profit')</span>
-                    <span class="info-box-number">@money($total_profit['total'], $company->default_currency, true)</span>
+                    <span class="info-box-text">Payment Done</span>
+                    <span class="info-box-number">{{ $data_payment_done->total_scholarships }}</span>
+                </div>
+            </div>
+        </div>
 
-                    <div class="progress-group" title="@lang('Open Profit') {{ $total_profit['open'] }}<br>@lang('Overdue Profit') {{ $total_profit['overdue'] }}" data-toggle="tooltip" data-html="true">
-                        <div class="progress sm">
-                            <div class="progress-bar progress-bar-green" style="width: {{ $total_profit['progress'] }}%"></div>
-                        </div>
-                        <span class="progress-text">@lang('Upcoming')</span>
-                        <span class="progress-number">{{ $total_profit['open'] }} / {{ $total_profit['overdue'] }}</span>
-                    </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-success"><i class="fas fa-thumbs-up"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Approved</span>
+                    <span class="info-box-number">{{ $data_approved->total_scholarships }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning"><i class="fas fa-stop"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Under Verification</span>
+                    <span class="info-box-number">{{ $data_pending->total_scholarships }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="fas fa-times-circle"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Rejected</span>
+                    <span class="info-box-number">{{ $data_rejected->total_scholarships }}</span>
                 </div>
             </div>
         </div>
