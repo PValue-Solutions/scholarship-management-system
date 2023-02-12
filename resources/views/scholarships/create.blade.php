@@ -724,7 +724,7 @@
                                     <label for="fee_amount">
                                         {{ __('Fee amount') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="text" value="{{ old('fee_amount') }}" placeholder="Type Fee Amount" required>
+                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="number" value="{{ old('fee_amount') }}" placeholder="Type Fee Amount" required>
                                     @if ($errors->has('fee_amount'))
                                         {{ Session::flash('error',$errors->first('fee_amount')) }}
                                     @endif

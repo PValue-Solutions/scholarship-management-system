@@ -423,6 +423,7 @@ class ScholarshipController extends Controller
                 'further_education_details_scholarship_college_id' => $request->further_education_details_scholarship_college_id,
                 'further_education_details_course_joined' => $request->further_education_details_course_joined,
                 'fee_amount' => $request->fee_amount,
+                'apply_amount' => $request->fee_amount,
                 'date' => $request->date,
                 'given_information' => $request->given_information,
                 'any_other_scholarship' => $request->any_other_scholarship,
