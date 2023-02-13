@@ -478,6 +478,34 @@ class ScholarshipController extends Controller
     {
         if($id != 0){
             $scholarship = Scholarship::with(['studentDetail', 'scholarshipBankDetail','scholarshipVillage'])->findOrFail($id);
+            $cMark = intval($scholarship->percentage_marks_obtained);
+            $aAmount = intval($scholarship->apply_amount);
+
+            $eAmount = 0;
+
+            if($cMark > 85 && $cMark <=101){
+                if($aAmount > 20000){
+                    $eAmount = 20000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            } elseif ($cMark > 75 && $cMark <=85) {
+                if($aAmount > 15000){
+                    $eAmount = 15000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            } else {
+                if($aAmount > 10000){
+                    $eAmount = 10000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            }
+
+
+            // dd($eAmount);
+            // die();
             $company = Company::findOrFail(Session::get('company_id'));
             $company->setSettings();
             $number = $this->getNextInvoiceNumber($company);
@@ -486,7 +514,7 @@ class ScholarshipController extends Controller
             $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
             $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
             $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-            return view('scholarships.edit', compact('scholarship','number','years','classes','villages','schools','colleges'));
+            return view('scholarships.edit', compact('eAmount','scholarship','number','years','classes','villages','schools','colleges'));
         } else {
             return false;
         }
@@ -510,6 +538,7 @@ class ScholarshipController extends Controller
             'mother_occupation' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
             'age' => ['required', 'numeric'],
+            'fee_amount' => ['required', 'string', 'max:255'],
             'aadhar_no' => ['required', 'string', 'max:255'],
             'school_year' => ['required', 'numeric'],
             'school_contact_person' => ['required', 'string', 'max:255'],
@@ -554,6 +583,7 @@ class ScholarshipController extends Controller
             $scholarshipInfo->marks_obtained_type = $request->marks_obtained_type;
             $scholarshipInfo->marks_subject = $request->marks_subject;
             $scholarshipInfo->marks_obtained = $request->marks_obtained;
+            $scholarshipInfo->fee_amount = $request->fee_amount;
             $scholarshipInfo->further_education_details_school_or_college = $request->further_education_details_school_or_college;
             $scholarshipInfo->further_education_details_scholarship_college_id = $request->further_education_details_scholarship_college_id;
             $scholarshipInfo->further_education_details_course_joined = $request->further_education_details_course_joined;
