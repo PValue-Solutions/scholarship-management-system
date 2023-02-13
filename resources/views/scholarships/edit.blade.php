@@ -75,7 +75,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="annual_income">
                                         {{ __('Annual Income') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="annual_income" class="form-control @if($errors->has('annual_income')) is-invalid @endif" name="annual_income" type="number" value="{{ old('annual_income', $scholarship->annual_income) }}" placeholder="Annual Income Of Your Glargine" required>
+                                    <input id="annual_income" class="form-control @if($errors->has('annual_income')) is-invalid @endif" name="annual_income" type="number" value="{{ old('annual_income', $scholarship->annual_income) }}" placeholder="Annual Income of Your Guardian" required>
                                     @if ($errors->has('annual_income'))
                                         {{ Session::flash('error',$errors->first('annual_income')) }}
                                     @endif
@@ -84,7 +84,7 @@ $roleName = Auth::user()->getRoleNames();
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="percentage_marks_obtained">
-                                        {{ __('Percentage Of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Percentage of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="percentage_marks_obtained" class="form-control @if($errors->has('percentage_marks_obtained')) is-invalid @endif" name="percentage_marks_obtained" type="number" value="{{ old('percentage_marks_obtained', $scholarship->percentage_marks_obtained) }}" placeholder="Percentage Marks In Your Last Examination" required readonly>
                                     @if ($errors->has('percentage_marks_obtained'))
@@ -238,7 +238,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="pincode">
                                         {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="text" value="{{ old('pincode',$scholarship->studentDetail->pincode) }}" placeholder="Type Your Pincode" required readonly>
+                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="number" value="{{ old('pincode',$scholarship->studentDetail->pincode) }}" placeholder="Type Your Pincode" required readonly>
                                     @if ($errors->has('pincode'))
                                         {{ Session::flash('error',$errors->first('pincode')) }}
                                     @endif
@@ -271,7 +271,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="contact_no_1">
                                         {{ __('Contact No 1') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="text" value="{{ old('contact_no_1',$scholarship->studentDetail->contact_no_1) }}" placeholder="Type Your Contact No 1" required readonly>
+                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="number" value="{{ old('contact_no_1',$scholarship->studentDetail->contact_no_1) }}" placeholder="Type Your Contact No 1" required readonly>
                                     @if ($errors->has('contact_no_1'))
                                         {{ Session::flash('error',$errors->first('contact_no_1')) }}
                                     @endif
@@ -282,7 +282,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="contact_no_2">
                                         {{ __('Contact No 2') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="text" value="{{ old('contact_no_2',$scholarship->studentDetail->contact_no_2) }}" placeholder="Type Your Contact No 2" required readonly>
+                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="number" value="{{ old('contact_no_2',$scholarship->studentDetail->contact_no_2) }}" placeholder="Type Your Contact No 2" required readonly>
                                     @if ($errors->has('contact_no_2'))
                                         {{ Session::flash('error',$errors->first('contact_no_2')) }}
                                     @endif
@@ -319,7 +319,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="aadhar_no">
                                         {{ __('Aadhar No') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="aadhar_no" class="form-control @if($errors->has('aadhar_no')) is-invalid @endif" name="aadhar_no" type="text" value="{{ old('aadhar_no',$scholarship->studentDetail->aadhar_no) }}" placeholder="Type Aadhar No" required>
+                                    <input id="aadhar_no" class="form-control @if($errors->has('aadhar_no')) is-invalid @endif" name="aadhar_no" type="number" value="{{ old('aadhar_no',$scholarship->studentDetail->aadhar_no) }}" placeholder="Type Aadhar No" required>
                                     @if ($errors->has('aadhar_no'))
                                         {{ Session::flash('error',$errors->first('aadhar_no')) }}
                                     @endif
@@ -456,7 +456,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="school_contact_number">
                                         {{ __('Contact Number') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="school_contact_number" class="form-control @if($errors->has('school_contact_number')) is-invalid @endif" name="school_contact_number" type="text" value="{{ old('school_contact_number',$scholarship->school_contact_number) }}" placeholder="Type Your Contact Number" required>
+                                    <input id="school_contact_number" class="form-control @if($errors->has('school_contact_number')) is-invalid @endif" name="school_contact_number" type="number" value="{{ old('school_contact_number',$scholarship->school_contact_number) }}" placeholder="Type Your Contact Number" required>
                                     @if ($errors->has('school_contact_number'))
                                         {{ Session::flash('error',$errors->first('school_contact_number')) }}
                                     @endif
@@ -555,7 +555,7 @@ $roleName = Auth::user()->getRoleNames();
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="further_education_details_course_joined">
-                                        {{ __('Further Education Course') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Further Education Current Course/Class') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="further_education_details_course_joined" class="form-control @if($errors->has('further_education_details_course_joined')) is-invalid @endif" name="further_education_details_course_joined" type="text" value="{{ old('further_education_details_course_joined',$scholarship->further_education_details_course_joined) }}" placeholder="Type Your Course Joined" required>
                                     @if ($errors->has('further_education_details_course_joined'))
@@ -730,12 +730,20 @@ $roleName = Auth::user()->getRoleNames();
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        {{ __('Fee amount') }}
+                                    </label>
+                                    <input class="form-control"type="number" value="{{ $scholarship->apply_amount }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="fee_amount">
-                                        {{ __('Fee amount') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Eligibility Amount') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="number" value="{{ old('fee_amount',$scholarship->fee_amount) }}" placeholder="Type Fee Amount" required readonly>
+                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="number" value="{{ old('fee_amount',$scholarship->fee_amount) }}" placeholder="Type Eligibility Amount" required readonly>
                                     <small id="maximum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 20000')</small>
                                     <small id="average-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 15000')</small>
                                     <small id="minimum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 10000')</small>
@@ -744,7 +752,7 @@ $roleName = Auth::user()->getRoleNames();
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="date">@lang('Date') <b class="ambitious-crimson">*</b></label>
                                     <input type="text" name="date" id="date" class="form-control flatpickr @error('date') is-invalid @enderror" placeholder="@lang('Date')" value="{{ $scholarship->date }}" required>
@@ -868,12 +876,15 @@ $roleName = Auth::user()->getRoleNames();
                     $('#average-scholarship-amount').hide();
                     $('#minimum-scholarship-amount').show();
                 }
+                document.getElementById('fee_amount').removeAttribute('readonly');
+
             } else {
                 var input_fee_amount = document.getElementById("fee_amount");
                 input_fee_amount.removeAttribute("max");
                 $('#maximum-scholarship-amount').hide();
                 $('#average-scholarship-amount').hide();
                 $('#minimum-scholarship-amount').hide();
+                document.getElementById('fee_amount').setAttribute('readonly');
             }
         });
 

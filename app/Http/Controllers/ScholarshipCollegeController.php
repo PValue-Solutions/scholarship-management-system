@@ -157,7 +157,7 @@ class ScholarshipCollegeController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'college_type' => ['required', 'in:Govt.,Govt. Aided,Private'],
+            'college_type' => ['nullable', 'in:Govt.,Govt. Aided,Private'],
             'website' => ['nullable', 'url'],
             'email' => ['nullable', 'email'],
             'scholarship_village_id' => ['nullable', 'string', 'max:255'],

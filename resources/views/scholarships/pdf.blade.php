@@ -28,7 +28,7 @@
                       from Students who have secured marks in excess of 60% in 10th standard exam last held.</strong></u></p>
               </div>
           </div>
-      
+
           <div class="mt-2">
             <table class="table">
                 <tbody>
@@ -39,9 +39,9 @@
                     </tr>
                 </tbody>
             </table>
-              
+
           </div>
-      
+
           <div class="row mt-5">
               <div class="col-sm-12">
                   <h5><strong><u>PERSONAL DETAILS:</u><strong></h5>
@@ -79,7 +79,7 @@
                   </tr>
                   <tr>
                       <td colspan="4"><span style="margin-left: 18px;">4. Full Address</span>  </td>
-                      
+
                   </tr>
                   <tr>
                       <td> <span style="margin-left: 30px;">House no.</span> </td>
@@ -121,7 +121,7 @@
                       <td>:</td>
                       <td>{{$scholarship->studentDetail->contact_no_2}}</td>
                   </tr>
-      
+
                   <tr>
                       <td><span style="margin-left: 18px;">6. Date of Birth </span></td>
                       <td>:</td>
@@ -141,9 +141,9 @@
                       <td colspan="4">{{$scholarship->studentDetail->aadhar_no}}</td>
                   </tr>
               </table>
-              
+
           </div>
-      
+
           <div class="row mt-5">
               <div class="col-sm-12">
                 <h5><strong><u>DETAILS OF STUDIED SCHOOL / COLLEGE :</u><strong></h5>
@@ -167,16 +167,16 @@
                               <td colspan="7">{{$scholl_college_data->college_type}}</td>
                           </tr>
                           @endif
-                          
+
                           <tr>
                               <td> Village </td>
                               <td>: </td>
                               <td>{{$scholl_college_data->scholarshipVillage->name}}</td>
-          
+
                               <td> Taluk </td>
                               <td>: </td>
                               <td>{{$scholarship->studentDetail->taluk}}</td>
-          
+
                               <td> District </td>
                               <td>: </td>
                               <td>{{$scholl_college_data->district}}</td>
@@ -185,7 +185,7 @@
                               <td colspan="4">Marks Obtained in last Examination  SSLC/PUC/Degree</td>
                               <td> : </td>
                               <td>{{$scholarship->marks_obtained}}</td>
-          
+
                               <td>Year</td>
                               <td> : </td>
                               <td>{{$scholarship->year}}</td>
@@ -199,12 +199,12 @@
                               <td>Grade/ Class</td>
                               <td>:</td>
                               <td colspan="2">{{$scholarship->classDetail->name}}</td>
-          
+
                               <td colspan="2">Percentage</td>
                               <td>:</td>
                               <td colspan="2">{{$scholarship->percentage_marks_obtained}}</td>
                           </tr>
-          
+
                           <tr>
                               <td>Contact Person:</td>
                               <td>:</td>
@@ -213,7 +213,7 @@
                               <td >:</td>
                               <td colspan="2">{{$scholarship->school_designation}}</td>
                           </tr>
-          
+
                           <tr>
                               <td>Contact no.</td>
                               <td>:</td>
@@ -226,8 +226,8 @@
                   </table>
               </div>
           </div>
-      
-      
+
+
           <div class="row mt-5">
               <div class="col-sm-12">
                 <h5><strong><u>FURTHER EDUCATION DETAILS :</u><strong></h5>
@@ -235,12 +235,16 @@
               <div class="col-sm-12">
                  <p> Course Joined : {{$scholarship->further_education_details_course_joined}}</p>
               </div>
-      
+
               <div class="col-sm-12">
-                 <p> College /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
+                @if($scholarship->further_education_details_school_or_college == "1")
+                <p> School /Institute : {{$scholarship->furtherEducationschollDetail->name}}</p>
+                @else
+                <p> College /Institute : {{$scholarship->furtherEducationCollegeDetail->name}}</p>
+                @endif
               </div>
           </div>
-      
+
           <div class="row mt-5">
               <div class="col-sm-12">
                 <h5><strong><u>DECLARATION OF STUDENT</u><strong></h5>
@@ -265,7 +269,7 @@
                 </tbody>
             </table>
           </div>
-      
+
           <div class="row mt-5">
               <div class="col-sm-12">
                 <h5><strong><u>DOCUMENTS TO BE ATTACH :</u><strong></h5>
@@ -278,7 +282,7 @@
                  <p> 5. Bank passbook copy </p>
               </div>
           </div>
-      
+
           <div class="row mt-5">
               <div class="col-sm-12">
                 <h5 class="text-center"><strong><u>FOR OFFICE USE :</u><strong></h5>
@@ -304,7 +308,7 @@
                 </table>
               </div>
           </div>
-      
+
           <div class="row my-5">
               <div class="col-sm-12">
                   <h6><strong style="color:blue; font-style: italic;">SANSERA FOUNDATION</strong></h6>
@@ -312,7 +316,7 @@
                  {{--  <img src="{{public_path('pdf//img/qr.png')}}" alt=""> --}}
               </div>
           </div>
-      
+
       </div>
 
 </body>

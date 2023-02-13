@@ -278,7 +278,7 @@ class ReportController extends Controller
         }
         $selectYears = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
 
-        return view('report.my_expense', compact('gTotalAmountCollege','expenseCollegeData','totalDataCollege','outputCollege','expenseCollegeData','expenseSchoolData','gTotalAmountSchool','gTotalExpenseSchool','selectYears','totalDataSchool','years','thisYear','previousYear','company','datas','outputSchool','colSForHeading','expenseWiseData',''));
+        return view('report.my_expense', compact('gTotalAmountCollege','expenseCollegeData','totalDataCollege','outputCollege','expenseCollegeData','expenseSchoolData','gTotalAmountSchool','gTotalExpenseSchool','selectYears','totalDataSchool','years','thisYear','previousYear','company','datas','outputSchool','colSForHeading','expenseWiseData','expenseWiseCollegeData'));
     }
 
 
