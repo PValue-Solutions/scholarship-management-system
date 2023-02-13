@@ -21,6 +21,27 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class ScholarshipController extends Controller
 {
     /**
+     * load constructor method
+     *
+     * @access public
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware('permission:scholarship-read|scholarship-create|scholarship-update|scholarship-delete', ['only' => ['index']]);
+        $this->middleware('permission:scholarship-create', ['only' => ['create','store']]);
+        $this->middleware('permission:scholarship-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:scholarship-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:scholarship-export', ['only' => ['doExport']]);
+
+        $this->middleware('permission:scholarship-pending-read', ['only' => ['pending']]);
+        $this->middleware('permission:scholarship-approved-read', ['only' => ['approved']]);
+        $this->middleware('permission:scholarship-payment_in_progress-read', ['only' => ['payment_in_progress']]);
+        $this->middleware('permission:scholarship-payment_done-read', ['only' => ['payment_done']]);
+        $this->middleware('permission:scholarship-rejected-read', ['only' => ['rejected']]);
+        $this->middleware('permission:scholarship-all-read', ['only' => ['index']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -242,8 +263,6 @@ class ScholarshipController extends Controller
             $query->where('scholarship_school_id', 'like', $request->scholarship_school_id);
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
-        if ($request->status)
-            $query->where('status', 'like', $request->status);
         return $query;
     }
 

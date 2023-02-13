@@ -84,7 +84,7 @@
                             <th>@lang('Type')</th>
                             <th>@lang('Email')</th>
                             <th>@lang('Status')</th>
-                            @canany(['college-update', 'college-delete'])
+                            @canany(['college-read','college-update', 'college-delete'])
                                 <th data-orderable="false">@lang('Actions')</th>
                             @endcanany
                         </tr>

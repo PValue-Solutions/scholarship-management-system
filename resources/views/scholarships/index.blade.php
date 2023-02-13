@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>@lang('Institution')</label>
                                         <select class="form-control ambitious-form-loading" name="school_or_college" id="school_or_college">
@@ -71,7 +71,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="school_block" class="col-md-4">
+                                <div id="school_block" class="col-md-6">
                                     <div class="form-group">
                                         <label>@lang('School')</label>
                                         <select class="form-control select2" name="scholarship_school_id" id="scholarship_school_id">
@@ -82,7 +82,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="college_block" class="col-md-4">
+                                <div id="college_block" class="col-md-6">
                                     <div class="form-group">
                                         <label>@lang('College')</label>
                                         <select class="form-control select2" name="scholarship_college_id" id="scholarship_college_id">
@@ -90,19 +90,6 @@
                                             @foreach ($colleges as $key => $value)
                                                 <option value="{{ $key }}" {{ old('scholarship_college_id', request()->scholarship_college_id) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                             @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>@lang('Status')</label>
-                                        <select class="form-control ambitious-form-loading" name="status" id="status">
-                                            <option value="">Select Status</option>
-                                            <option value="pending" {{ old('status', request()->status) == 'pending' ? 'selected' : ''  }}>@lang('Under Verification')</option>
-                                            <option value="approved" {{ old('status', request()->status) == 'approved' ? 'selected' : ''  }}>@lang('Approved')</option>
-                                            <option value="payment_in_progress" {{ old('status', request()->status) == 'payment_in_progress' ? 'selected' : ''  }}>@lang('Payment In Progress')</option>
-                                            <option value="payment_done" {{ old('status', request()->status) == 'payment_done' ? 'selected' : ''  }}>@lang('Payment Done')</option>
-                                            <option value="rejected" {{ old('status', request()->status) == 'rejected' ? 'selected' : ''  }}>@lang('Rejected')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -126,7 +113,7 @@
                             <th>@lang('Village')</th>
                             <th>@lang('Institution')</th>
                             <th>@lang('Status')</th>
-                            @canany(['scholarship-update', 'scholarship-delete'])
+                            @canany(['scholarship-read','scholarship-update', 'scholarship-delete'])
                                 <th data-orderable="false">@lang('Actions')</th>
                             @endcanany
                         </tr>

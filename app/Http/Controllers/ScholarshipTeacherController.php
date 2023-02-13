@@ -13,6 +13,20 @@ use App\Exports\TeachersExport;
 class ScholarshipTeacherController extends Controller
 {
     /**
+     * load constructor method
+     *
+     * @access public
+     * @return void
+     */
+    function __construct()
+    {
+        $this->middleware('permission:teacher-read|teacher-create|teacher-update|teacher-delete', ['only' => ['index']]);
+        $this->middleware('permission:teacher-create', ['only' => ['create','store']]);
+        $this->middleware('permission:teacher-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:teacher-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:teacher-export', ['only' => ['doExport']]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
