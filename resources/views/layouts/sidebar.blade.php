@@ -96,6 +96,14 @@ $roleName = Auth::user()->getRoleNames();
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @canany(['scholarship-create'])
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.create') }}" class="nav-link @if($c == 'scholarship' && $m == 'create') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Apply Application')</p>
+                                    </a>
+                                </li>
+                            @endcanany
                             @can('scholarship-pending-read')
                                 <li class="nav-item">
                                     <a href="{{ route('scholarship.pending') }}" class="nav-link @if($c == 'scholarship' && $m == 'pending') active @endif ">
