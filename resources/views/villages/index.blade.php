@@ -66,7 +66,7 @@
                             <th>@lang('ID')</th>
                             <th>@lang('Name')</th>
                             <th>@lang('Status')</th>
-                            @canany(['class-update', 'class-delete'])
+                            @canany(['village-update', 'village-delete'])
                                 <th>@lang('Actions')</th>
                             @endcanany
                         </tr>

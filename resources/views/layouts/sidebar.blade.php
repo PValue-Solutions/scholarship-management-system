@@ -53,8 +53,8 @@ $roleName = Auth::user()->getRoleNames();
                         </a>
                     </li>
                 @endcan
-                @canany(['customer-read', 'customer-create', 'customer-update', 'customer-delete'])
 
+                @canany(['customer-read', 'customer-create', 'customer-update', 'customer-delete'])
                 <li class="nav-item has-treeview @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'customer' || $c == 'invoice' || $c == 'revenue') active @endif">
                         <i class="nav-icon fas fa-plus"></i>
@@ -86,60 +86,77 @@ $roleName = Auth::user()->getRoleNames();
                 </li>
                 @endcan
 
-
-
-
                 @canany(['scholarship-read', 'scholarship-create', 'scholarship-update', 'scholarship-delete'])
-                <li class="nav-item has-treeview @if($c == 'scholarship') menu-open @endif">
-                    <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship') active @endif">
-                        <i class="nav-icon fas fa-graduation-cap"></i>
-                        <p>
-                            @lang('Applications')
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.pending') }}" class="nav-link @if($c == 'scholarship' && $m == 'pending') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Under Verification')</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.approved') }}" class="nav-link @if($c == 'scholarship' && $m == 'approved') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Approved')</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.payment_in_progress') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_in_progress') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Payment In Progress')</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.payment_done') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_done') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Payment Done')</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.rejected') }}" class="nav-link @if($c == 'scholarship' && $m == 'rejected') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Rejected')</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship'  && $m == 'index') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('All Applications')</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item has-treeview @if($c == 'scholarship') menu-open @endif">
+                        <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship') active @endif">
+                            <i class="nav-icon fas fa-graduation-cap"></i>
+                            <p>
+                                @lang('Applications')
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @canany(['scholarship-create'])
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.create') }}" class="nav-link @if($c == 'scholarship' && $m == 'create') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Apply Application')</p>
+                                    </a>
+                                </li>
+                            @endcanany
+                            @can('scholarship-pending-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.pending') }}" class="nav-link @if($c == 'scholarship' && $m == 'pending') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Under Verification')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('scholarship-approved-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.approved') }}" class="nav-link @if($c == 'scholarship' && $m == 'approved') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Approved')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('scholarship-payment_in_progress-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.payment_in_progress') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_in_progress') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Payment In Progress')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('scholarship-payment_done-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.payment_done') }}" class="nav-link @if($c == 'scholarship' && $m == 'payment_done') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Payment Done')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('scholarship-rejected-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.rejected') }}" class="nav-link @if($c == 'scholarship' && $m == 'rejected') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('Rejected')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('scholarship-all-read')
+                                <li class="nav-item">
+                                    <a href="{{ route('scholarship.index') }}" class="nav-link @if($c == 'scholarship'  && $m == 'index') active @endif ">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>@lang('All Applications')</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
                 @endcan
 
-
+                @canany(['village-read', 'village-create', 'village-update', 'village-delete','class-read', 'class-create', 'class-update', 'class-delete','year-read', 'year-create', 'year-update', 'year-delete','school-read', 'school-create', 'school-update', 'school-delete','college-read', 'college-create', 'college-update', 'college-delete','teacher-read', 'teacher-create', 'teacher-update', 'teacher-delete'])
                 <li class="nav-item has-treeview @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c =='scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'scholarship-class' || $c == 'scholarship-college' || $c == 'scholarship-year' || $c == 'scholarship-teacher' || $c == 'scholarship-village' || $c == 'scholarship-school' || $c == 'teacher') active @endif">
                         <i class="nav-icon fas fa-tools"></i>
@@ -199,7 +216,9 @@ $roleName = Auth::user()->getRoleNames();
                         @endcanany
                     </ul>
                 </li>
+                @endcanany
 
+                @canany(['year-wise-read','school-wise-read','college-wise-read','village-wise-read','course-wise-read','student-wise-read','expense-wise-read'])
                 <li class="nav-item has-treeview @if($c == 'report') menu-open @endif">
                     <a href="javascript:void(0)" class="nav-link @if($c == 'report') active @endif">
                         <i class="nav-icon fas fa-chart-bar"></i>
@@ -209,50 +228,65 @@ $roleName = Auth::user()->getRoleNames();
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('report.year') }}" class="nav-link @if($c == 'report' && $m == 'year') active @endif ">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>@lang('Year Wise Scholarship')</p>
-                            </a>
-                        </li>
+                        @canany(['year-wise-read'])
+                            <li class="nav-item">
+                                <a href="{{ route('report.year') }}" class="nav-link @if($c == 'report' && $m == 'year') active @endif ">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>@lang('Year Wise Scholarship')</p>
+                                </a>
+                            </li>
+                        @endcanany
+                        @canany(['school-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.school') }}" class="nav-link @if($c == 'report' && $m == 'school') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('School Wise Scholarship')</p>
                             </a>
                         </li>
+                        @endcanany
+                        @canany(['college-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.college') }}" class="nav-link @if($c == 'report' && $m == 'college') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('College Wise Scholarship')</p>
                             </a>
                         </li>
+                        @endcanany
+                        @canany(['village-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.village') }}" class="nav-link @if($c == 'report' && $m == 'village') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('Village Wise Scholarship')</p>
                             </a>
                         </li>
+                        @endcanany
+                        @canany(['course-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.course') }}" class="nav-link @if($c == 'report' && $m == 'course') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('Course Wise Scholarship')</p>
                             </a>
                         </li>
+                        @endcanany
+                        @canany(['student-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.student') }}" class="nav-link @if($c == 'report' && $m == 'student') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('Student Wise Scholarship')</p>
                             </a>
                         </li>
+                        @endcanany
+                        @canany(['expense-wise-read'])
                         <li class="nav-item">
                             <a href="{{ route('report.expense') }}" class="nav-link @if($c == 'report' && $m == 'expense') active @endif ">
                                 <i class="far fa-dot-circle nav-icon"></i>
                                 <p>@lang('Expense Wise Report')</p>
                             </a>
                         </li>
+                        @endcanany
                     </ul>
                 </li>
+                @endcanany
 
                 @canany(['expense-read', 'expense-create', 'expense-update', 'expense-delete'])
                 <li class="nav-item">

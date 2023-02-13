@@ -21,11 +21,11 @@ class ScholarshipCollegeController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:school-read|school-create|school-update|school-delete', ['only' => ['index']]);
-        $this->middleware('permission:school-create', ['only' => ['create','store']]);
-        $this->middleware('permission:school-update', ['only' => ['edit','update']]);
-        $this->middleware('permission:school-delete', ['only' => ['destroy']]);
-        $this->middleware('permission:school-export', ['only' => ['doExport']]);
+        $this->middleware('permission:college-read|college-create|college-update|college-delete', ['only' => ['index']]);
+        $this->middleware('permission:college-create', ['only' => ['create','store']]);
+        $this->middleware('permission:college-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:college-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:college-export', ['only' => ['doExport']]);
     }
     /**
      * Display a listing of the resource.

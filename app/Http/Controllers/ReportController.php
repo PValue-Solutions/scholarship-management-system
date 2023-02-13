@@ -35,11 +35,13 @@ class ReportController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:income-report-read', ['only' => ['income']]);
-        $this->middleware('permission:expense-report-read', ['only' => ['expense']]);
-        $this->middleware('permission:income-expense-report-read', ['only' => ['incomeVsexpense']]);
-        $this->middleware('permission:tax-report-read', ['only' => ['tax']]);
-        $this->middleware('permission:profit-loss-report-read', ['only' => ['profitAndloss']]);
+        $this->middleware('permission:year-wise-read', ['only' => ['year']]);
+        $this->middleware('permission:school-wise-read', ['only' => ['school']]);
+        $this->middleware('permission:college-wise-read', ['only' => ['college']]);
+        $this->middleware('permission:village-wise-read', ['only' => ['village']]);
+        $this->middleware('permission:course-wise-read', ['only' => ['course']]);
+        $this->middleware('permission:student-wise-read', ['only' => ['student']]);
+        $this->middleware('permission:expense-wise-read', ['only' => ['expense']]);
     }
 
     public function year(Request $request)

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                @can('class-create')
+                @can('year-create')
                     <h3><a href="{{ route('scholarship-year.create') }}" class="btn btn-outline btn-info">+ @lang('Add New')</a></h3>
                 @endcan
             </div>
@@ -66,7 +66,7 @@
                             <th>@lang('ID')</th>
                             <th>@lang('Name')</th>
                             <th>@lang('Status')</th>
-                            @canany(['class-update', 'class-delete'])
+                            @canany(['year-update', 'year-delete'])
                                 <th>@lang('Actions')</th>
                             @endcanany
                         </tr>

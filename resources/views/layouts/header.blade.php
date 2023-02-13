@@ -51,32 +51,12 @@
                 @endforeach
 
                 <div class="dropdown-divider"></div>
+                @can('company-read')
                 <a href="{{ route('company.index') }}" class="dropdown-item"><i class="fa fa-sliders-h mr-2"></i> @lang('Manage Organization')</a>
+                @endcan
             </div>
         </li>
-        <!-- Company Name // -->
 
-        <!-- flag -->
-
-        {{--  <li class="nav-item dropdown">
-
-            @php
-                $locale = App::getLocale();
-            @endphp
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            @foreach ($getLang as $key => $value)
-                    @if($locale == $key)
-                        <span  class="flag-icon {{ $flag[$key] }}"> </span> <span id="ambitious-flag-name-id">{{ $value }}</span> </a>
-                    @endif
-            @endforeach
-            <div class="dropdown-menu" aria-labelledby="dropdown09">
-                @foreach ($getLang as $key => $value)
-                       <a class="dropdown-item" href="{{ route('lang.index', ['language' => $key]) }}" @if ($key == $locale) style="background-color : #ddd" @endif><span class="flag-icon {{ $flag[$key] }}"> </span>  {{ $value }}</a>
-                @endforeach
-            </div>
-        </li>  --}}
-
-        <!-- flag -->
 
         <li class="nav-item dropdown">
             <?php
@@ -106,12 +86,16 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
+                @can('profile-read')
                 <a href="{{ route('profile.view') }}" class="dropdown-item">
                     <i class="fas fa-user mr-2"></i> @lang('My Profile')
                 </a>
+                @endcan
+                @can('profile-update')
                 <a href="{{ route('profile.setting') }}" class="dropdown-item">
                     <i class="fas fa-cogs mr-2"></i> @lang('Account Setting')
                 </a>
+                @endcan
                 <a href="{{ route('profile.password') }}" class="dropdown-item">
                     <i class="fa fa-key mr-2"></i></i> @lang('Change Password')
                 </a>
