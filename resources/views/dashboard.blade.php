@@ -91,6 +91,24 @@
     </div>
 
     <div class="row">
+        <div class="col-md-12">
+            <!-- BAR CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title custom-color-white">@lang('Monthly Debit/Credit')</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="barChart" class="custom-dashbord-mix"></canvas>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6">
             <div class="card card-info">
                 <div class="card-header">
@@ -122,6 +140,34 @@
         "use strict";
         let siteUrl = $('meta[name="site-url"]').attr('content');
         $.get(siteUrl + "/dashboard/get-chart-data", function(data, status){
+
+            var donutData        = {
+                labels: [
+                    'Application',
+                    'Approved',
+                    'Rejected'
+                ],
+                datasets: [
+                    {
+                        data: [data.currentYearApApRe.application, data.currentYearApApRe.approved, data.currentYearApApRe.rejected],
+                        backgroundColor : ['#17a2b8', '#00a65a', '#dc3545'],
+                    }
+                ]
+            };
+
+            var barChartCanvas = $('#barChart').get(0).getContext('2d');
+
+            var barChartOptions = {
+                responsive              : true,
+                maintainAspectRatio     : false,
+                datasetFill             : false
+            };
+
+            new Chart(barChartCanvas, {
+                type: 'bar',
+                data: donutData,
+                options: barChartOptions
+            });
 
             var donutChartCanvas = $('#donutChart1').get(0).getContext('2d');
             var donutData        = {

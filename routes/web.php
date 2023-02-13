@@ -255,7 +255,7 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'scholarship.edit'
     ]);
 
-    Route::get('/scholarship/{id}/destroy',[
+    Route::delete('/scholarship/{id}/destroy',[
         'uses' => 'App\Http\Controllers\ScholarshipController@destroy',
         'as' => 'scholarship.destroy'
     ]);

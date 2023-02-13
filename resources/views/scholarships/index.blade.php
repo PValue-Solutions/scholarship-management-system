@@ -21,7 +21,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">@lang('Applications') </h3>
+                <h3 class="card-title">{{ $title }}</h3>
                 <div class="card-tools">
                     {{--  @can('scholarship-export')
                         <a class="btn btn-primary" target="_blank" href="{{ route('scholarship.index') }}?export=1">
@@ -162,7 +162,7 @@
                                     {{--  @can('scholarship-download')
                                         <a href="{{ route('scholarship.download', $scholarship) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-download ambitious-padding-btn"></i></a>&nbsp;&nbsp;
                                     @endcan  --}}
-                                    <a href="{{ route('scholarship.download', $scholarship) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="download"><i class="fa fa-download ambitious-padding-btn"></i></a>&nbsp;&nbsp;
+                                    <a href="{{ route('scholarship.download', $scholarship) }}" target="_blank" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="download"><i class="fa fa-download ambitious-padding-btn"></i></a>&nbsp;&nbsp;
 
                                     @can('scholarship-read')
                                         <a href="{{ route('scholarship.show', $scholarship) }}" class="btn btn-info btn-outline btn-circle btn-lg" data-toggle="tooltip" title="show"><i class="fa fa-eye ambitious-padding-btn"></i></a>&nbsp;&nbsp;

@@ -71,7 +71,7 @@
                                     <label for="annual_income">
                                         {{ __('Annual Income') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="annual_income" class="form-control @if($errors->has('annual_income')) is-invalid @endif" name="annual_income" type="number" value="{{ old('annual_income') }}" placeholder="Annual Income Of Your Glargine" required>
+                                    <input id="annual_income" class="form-control @if($errors->has('annual_income')) is-invalid @endif" name="annual_income" type="number" value="{{ old('annual_income') }}" placeholder="Annual Income of Your Guardian" required>
                                     @if ($errors->has('annual_income'))
                                         {{ Session::flash('error',$errors->first('annual_income')) }}
                                     @endif
@@ -80,7 +80,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="percentage_marks_obtained">
-                                        {{ __('Percentage Of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Percentage of Last Examination Marks') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="percentage_marks_obtained" class="form-control @if($errors->has('percentage_marks_obtained')) is-invalid @endif" name="percentage_marks_obtained" type="number" value="{{ old('percentage_marks_obtained') }}" placeholder="Percentage Marks In Your Last Examination" required>
                                     @if ($errors->has('percentage_marks_obtained'))
@@ -234,7 +234,7 @@
                                     <label for="pincode">
                                         {{ __('Pincode') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="text" value="{{ old('pincode') }}" placeholder="Type Your Pincode" required>
+                                    <input id="pincode" class="form-control @if($errors->has('pincode')) is-invalid @endif" name="pincode" type="number" value="{{ old('pincode') }}" placeholder="Type Your Pincode" required>
                                     @if ($errors->has('pincode'))
                                         {{ Session::flash('error',$errors->first('pincode')) }}
                                     @endif
@@ -267,7 +267,7 @@
                                     <label for="contact_no_1">
                                         {{ __('Contact No 1') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="text" value="{{ old('contact_no_1') }}" placeholder="Type Your Contact No 1" required>
+                                    <input id="contact_no_1" class="form-control @if($errors->has('contact_no_1')) is-invalid @endif" name="contact_no_1" type="number" value="{{ old('contact_no_1') }}" placeholder="Type Your Contact No 1" required>
                                     @if ($errors->has('contact_no_1'))
                                         {{ Session::flash('error',$errors->first('contact_no_1')) }}
                                     @endif
@@ -278,7 +278,7 @@
                                     <label for="contact_no_2">
                                         {{ __('Contact No 2') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="text" value="{{ old('contact_no_2') }}" placeholder="Type Your Contact No 2" required>
+                                    <input id="contact_no_2" class="form-control @if($errors->has('contact_no_2')) is-invalid @endif" name="contact_no_2" type="number" value="{{ old('contact_no_2') }}" placeholder="Type Your Contact No 2" required>
                                     @if ($errors->has('contact_no_2'))
                                         {{ Session::flash('error',$errors->first('contact_no_2')) }}
                                     @endif
@@ -315,7 +315,7 @@
                                     <label for="aadhar_no">
                                         {{ __('Aadhar No') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="aadhar_no" class="form-control @if($errors->has('aadhar_no')) is-invalid @endif" name="aadhar_no" type="text" value="{{ old('aadhar_no') }}" placeholder="Type Aadhar No" required>
+                                    <input id="aadhar_no" class="form-control @if($errors->has('aadhar_no')) is-invalid @endif" name="aadhar_no" type="number" value="{{ old('aadhar_no') }}" placeholder="Type Aadhar No" required>
                                     @if ($errors->has('aadhar_no'))
                                         {{ Session::flash('error',$errors->first('aadhar_no')) }}
                                     @endif
@@ -451,7 +451,7 @@
                                     <label for="school_contact_number">
                                         {{ __('Contact Number') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="school_contact_number" class="form-control @if($errors->has('school_contact_number')) is-invalid @endif" name="school_contact_number" type="text" value="{{ old('school_contact_number') }}" placeholder="Type Your Contact Number" required>
+                                    <input id="school_contact_number" class="form-control @if($errors->has('school_contact_number')) is-invalid @endif" name="school_contact_number" type="number" value="{{ old('school_contact_number') }}" placeholder="Type Your Contact Number" required>
                                     @if ($errors->has('school_contact_number'))
                                         {{ Session::flash('error',$errors->first('school_contact_number')) }}
                                     @endif
@@ -550,7 +550,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="further_education_details_course_joined">
-                                        {{ __('Further Education Course') }} <b class="ambitious-crimson">*</b>
+                                        {{ __('Further Education Current Course/Class') }} <b class="ambitious-crimson">*</b>
                                     </label>
                                     <input id="further_education_details_course_joined" class="form-control @if($errors->has('further_education_details_course_joined')) is-invalid @endif" name="further_education_details_course_joined" type="text" value="{{ old('further_education_details_course_joined') }}" placeholder="Type Your Course Joined" required>
                                     @if ($errors->has('further_education_details_course_joined'))

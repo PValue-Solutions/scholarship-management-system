@@ -12,21 +12,27 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div>
                 <span>Application No. : {{$scholarship->application_no}}</span>
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div>
                 <span>Year : {{$scholarship->year}}</span>
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div>
                 <span> Annual Income: {{$scholarship->annual_income}}</span>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div>
+                <span> Fee Amount: {{$scholarship->fee_amount}}</span>
             </div>
         </div>
 
@@ -251,6 +257,27 @@
 
     <div class="card mt-3">
         <div class="card-header">
+            <h3 class="card-title">DOCUMENTS TO BE ATTACH</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                   <p> <a href="{{asset('storage/'.$scholarship->income_certificate)}}" target="_blank"> 1. Income certificate of Parents/ Guardian </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->id_proof)}}" target="_blank">
+                    2. Any Govt. ID proof (Aadhar, Ration card etc.)</a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->previous_educational_marks_card)}}" target="_blank">
+                    3. Previous educational marks card </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->original_fee_receipt)}}" target="_blank">
+                    4. Original fee receipt </a></p>
+                   <p> <a href="{{asset('storage/'.$scholarship->bank_passbook)}}" target="_blank">
+                    5. Bank passbook copy </a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
             <h3 class="card-title">DECLARATION OF STUDENT </h3>
         </div>
         <div class="card-body">
@@ -262,28 +289,7 @@
                     cancelled and the amount of scholarship refunded by me</p>
                 </div>
 
-              
-            </div>
-        </div>
-    </div>
 
-    <div class="card mt-3">
-        <div class="card-header">
-            <h3 class="card-title">DOCUMENTS TO BE ATTACH</h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12">
-                   <p> <a href="{{asset('storage/'.$scholarship->income_certificate)}}" target="_blank"> 1. Income certificate of Parents/ Guardian </a></p>
-                   <p> <a href="{{asset('storage/'.$scholarship->id_proof)}}" target="_blank"> 
-                    2. Any Govt. ID proof (Aadhar, Ration card etc.)</a></p>
-                   <p> <a href="{{asset('storage/'.$scholarship->previous_educational_marks_card)}}" target="_blank">
-                    3. Previous educational marks card </a></p>
-                   <p> <a href="{{asset('storage/'.$scholarship->original_fee_receipt)}}" target="_blank">
-                    4. Original fee receipt </a></p>
-                   <p> <a href="{{asset('storage/'.$scholarship->bank_passbook)}}" target="_blank">
-                    5. Bank passbook copy </a></p>
-                </div>
             </div>
         </div>
     </div>

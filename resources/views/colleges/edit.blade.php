@@ -50,9 +50,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="college_type">
-                                    @lang('Type') <b class="ambitious-crimson">*</b>
+                                    @lang('Type')
                                 </label>
-                                <select class="form-control ambitious-form-loading @error('college_type') is-invalid @enderror" required="required" name="college_type" id="college_type">
+                                <select class="form-control ambitious-form-loading @error('college_type') is-invalid @enderror" name="college_type" id="college_type">
                                     <option value="">@lang('Select College Type')</option>
                                     <option value="Govt." @if(old('college_type', $scholarshipCollege->college_type) == 'Govt.') selected @endif>@lang('Govt.')</option>
                                     <option value="Govt. Aided" @if(old('college_type', $scholarshipCollege->college_type) == 'Govt. Aided') selected @endif>@lang('Govt. Aided')</option>
@@ -117,9 +117,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="district">
-                                    @lang('District') <b class="ambitious-crimson">*</b>
+                                    @lang('District')
                                 </label>
-                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipCollege->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}" required>
+                                <input class="form-control ambitious-form-loading @error('district') is-invalid @enderror" name="district" value="{{ old('district', $scholarshipCollege->district) }}" id="district" type="text" placeholder="{{ __('Type Your District Name Here') }}">
                                 @error('district')
                                     <div class="invalid-feedback">
                                         {{ $message }}

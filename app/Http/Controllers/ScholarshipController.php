@@ -33,7 +33,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "All Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     public function pending(Request $request)
@@ -44,7 +45,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "Under Verification Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     public function approved(Request $request)
@@ -55,7 +57,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "Approved Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     public function payment_in_progress(Request $request)
@@ -66,7 +69,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "Payment Processing Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     public function payment_done(Request $request)
@@ -77,7 +81,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "Payment Completed Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     public function rejected(Request $request)
@@ -88,7 +93,8 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.index', compact('scholarships','villages','schools','colleges'));
+        $title = "Rejected Applications";
+        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
     }
 
     private function filterRejected(Request $request)
@@ -599,9 +605,11 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Scholarship $scholarship)
+    public function destroy($id = 0)
     {
-        //
+        $scholarship = Scholarship::find($id);
+        $scholarship->delete();
+        return redirect()->route('scholarship.index')->with('success', trans('Scholarship Deleted Successfully'));
     }
 
     /**
