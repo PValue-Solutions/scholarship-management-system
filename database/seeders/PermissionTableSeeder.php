@@ -18,34 +18,29 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'profile-read','display_name' => 'Profile']);
         Permission::firstOrCreate(['name' => 'profile-update','display_name' => 'Profile']);
 
-        Permission::firstOrCreate(['name' => 'student-read','display_name' => 'Student']);
-        Permission::firstOrCreate(['name' => 'student-create','display_name' => 'Student']);
-        Permission::firstOrCreate(['name' => 'student-update','display_name' => 'Student']);
-        Permission::firstOrCreate(['name' => 'student-delete','display_name' => 'Student']);
-        // Permission::firstOrCreate(['name' => 'student-export','display_name' => 'Student']);
-
-        Permission::firstOrCreate(['name' => 'expense-read','display_name' => 'Expense']);
-        Permission::firstOrCreate(['name' => 'expense-create','display_name' => 'Expense']);
-        Permission::firstOrCreate(['name' => 'expense-update','display_name' => 'Expense']);
-        Permission::firstOrCreate(['name' => 'expense-delete','display_name' => 'Expense']);
-        // Permission::firstOrCreate(['name' => 'expense-export','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'company-read','display_name' => 'Company']);
+        Permission::firstOrCreate(['name' => 'company-update','display_name' => 'Company']);
 
         Permission::firstOrCreate(['name' => 'role-read','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-create','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-update','display_name' => 'Role']);
         Permission::firstOrCreate(['name' => 'role-delete','display_name' => 'Role']);
-        // Permission::firstOrCreate(['name' => 'role-export','display_name' => 'Role']);
+
         Permission::firstOrCreate(['name' => 'user-read','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-create','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-update','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-delete','display_name' => 'User']);
         Permission::firstOrCreate(['name' => 'user-export','display_name' => 'User']);
 
-        Permission::firstOrCreate(['name' => 'scholarship-read','display_name' => 'Scholarship']);
-        Permission::firstOrCreate(['name' => 'scholarship-create','display_name' => 'Scholarship']);
-        Permission::firstOrCreate(['name' => 'scholarship-update','display_name' => 'Scholarship']);
-        Permission::firstOrCreate(['name' => 'scholarship-delete','display_name' => 'Scholarship']);
-        Permission::firstOrCreate(['name' => 'scholarship-export','display_name' => 'Scholarship']);
+        Permission::firstOrCreate(['name' => 'student-read','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-create','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-update','display_name' => 'Student']);
+        Permission::firstOrCreate(['name' => 'student-delete','display_name' => 'Student']);
+
+        Permission::firstOrCreate(['name' => 'village-read','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-create','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-update','display_name' => 'Village']);
+        Permission::firstOrCreate(['name' => 'village-delete','display_name' => 'Village']);
 
         Permission::firstOrCreate(['name' => 'class-read','display_name' => 'Class']);
         Permission::firstOrCreate(['name' => 'class-create','display_name' => 'Class']);
@@ -56,11 +51,6 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'year-create','display_name' => 'Year']);
         Permission::firstOrCreate(['name' => 'year-update','display_name' => 'Year']);
         Permission::firstOrCreate(['name' => 'year-delete','display_name' => 'Year']);
-
-        Permission::firstOrCreate(['name' => 'village-read','display_name' => 'Village']);
-        Permission::firstOrCreate(['name' => 'village-create','display_name' => 'Village']);
-        Permission::firstOrCreate(['name' => 'village-update','display_name' => 'Village']);
-        Permission::firstOrCreate(['name' => 'village-delete','display_name' => 'Village']);
 
         Permission::firstOrCreate(['name' => 'school-read','display_name' => 'School']);
         Permission::firstOrCreate(['name' => 'school-create','display_name' => 'School']);
@@ -80,86 +70,30 @@ class PermissionTableSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'teacher-delete','display_name' => 'Teacher']);
         Permission::firstOrCreate(['name' => 'teacher-export','display_name' => 'Teacher']);
 
-        // Permission::firstOrCreate(['name' => 'offline-payment-read','display_name' => 'Offline Payment']);
-        // Permission::firstOrCreate(['name' => 'offline-payment-create','display_name' => 'Offline Payment']);
-        // Permission::firstOrCreate(['name' => 'offline-payment-update','display_name' => 'Offline Payment']);
-        // Permission::firstOrCreate(['name' => 'offline-payment-delete','display_name' => 'Offline Payment']);
-        Permission::firstOrCreate(['name' => 'company-read','display_name' => 'Company']);
-        // Permission::firstOrCreate(['name' => 'company-create','display_name' => 'Company']);
-        Permission::firstOrCreate(['name' => 'company-update','display_name' => 'Company']);
-        // Permission::firstOrCreate(['name' => 'company-delete','display_name' => 'Company']);
-        // Permission::firstOrCreate(['name' => 'company-export','display_name' => 'Company']);
-        // Permission::firstOrCreate(['name' => 'category-read','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'category-create','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'category-update','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'category-delete','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'category-export','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'category-import','display_name' => 'Category']);
-        // Permission::firstOrCreate(['name' => 'currencies-read','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'currencies-create','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'currencies-update','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'currencies-delete','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'currencies-export','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'currencies-import','display_name' => 'Currencies']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-read','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-create','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-update','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-delete','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-export','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'tax-rate-import','display_name' => 'Tax Rate']);
-        // Permission::firstOrCreate(['name' => 'item-read','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'item-create','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'item-update','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'item-delete','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'item-export','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'item-import','display_name' => 'Item']);
-        // Permission::firstOrCreate(['name' => 'customer-read','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'customer-create','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'customer-update','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'customer-delete','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'customer-export','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'customer-import','display_name' => 'Customer']);
-        // Permission::firstOrCreate(['name' => 'invoice-read','display_name' => 'Invoice']);
-        // Permission::firstOrCreate(['name' => 'invoice-create','display_name' => 'Invoice']);
-        // Permission::firstOrCreate(['name' => 'invoice-update','display_name' => 'Invoice']);
-        // Permission::firstOrCreate(['name' => 'invoice-delete','display_name' => 'Invoice']);
-        // Permission::firstOrCreate(['name' => 'invoice-export','display_name' => 'Invoice']);
-        // Permission::firstOrCreate(['name' => 'revenue-read','display_name' => 'Revenue']);
-        // Permission::firstOrCreate(['name' => 'revenue-create','display_name' => 'Revenue']);
-        // Permission::firstOrCreate(['name' => 'revenue-update','display_name' => 'Revenue']);
-        // Permission::firstOrCreate(['name' => 'revenue-delete','display_name' => 'Revenue']);
-        // Permission::firstOrCreate(['name' => 'revenue-export','display_name' => 'Revenue']);
-        // Permission::firstOrCreate(['name' => 'vendor-read','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'vendor-create','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'vendor-update','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'vendor-delete','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'vendor-export','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'vendor-import','display_name' => 'Vendor']);
-        // Permission::firstOrCreate(['name' => 'bill-read','display_name' => 'Bill']);
-        // Permission::firstOrCreate(['name' => 'bill-create','display_name' => 'Bill']);
-        // Permission::firstOrCreate(['name' => 'bill-update','display_name' => 'Bill']);
-        // Permission::firstOrCreate(['name' => 'bill-delete','display_name' => 'Bill']);
-        // Permission::firstOrCreate(['name' => 'bill-export','display_name' => 'Bill']);
-        // Permission::firstOrCreate(['name' => 'payment-read','display_name' => 'Payment']);
-        // Permission::firstOrCreate(['name' => 'payment-create','display_name' => 'Payment']);
-        // Permission::firstOrCreate(['name' => 'payment-update','display_name' => 'Payment']);
-        // Permission::firstOrCreate(['name' => 'payment-delete','display_name' => 'Payment']);
-        // Permission::firstOrCreate(['name' => 'payment-export','display_name' => 'Payment']);
-        // Permission::firstOrCreate(['name' => 'account-read','display_name' => 'Account']);
-        // Permission::firstOrCreate(['name' => 'account-create','display_name' => 'Account']);
-        // Permission::firstOrCreate(['name' => 'account-update','display_name' => 'Account']);
-        // Permission::firstOrCreate(['name' => 'account-delete','display_name' => 'Account']);
-        // Permission::firstOrCreate(['name' => 'account-export','display_name' => 'Account']);
-        // Permission::firstOrCreate(['name' => 'transfer-read','display_name' => 'Transfer']);
-        // Permission::firstOrCreate(['name' => 'transfer-create','display_name' => 'Transfer']);
-        // Permission::firstOrCreate(['name' => 'transfer-update','display_name' => 'Transfer']);
-        // Permission::firstOrCreate(['name' => 'transfer-delete','display_name' => 'Transfer']);
-        // Permission::firstOrCreate(['name' => 'transfer-export','display_name' => 'Transfer']);
-        // Permission::firstOrCreate(['name' => 'transaction-read','display_name' => 'Transaction']);
-        Permission::firstOrCreate(['name' => 'income-report-read','display_name' => 'Reports']);
-        Permission::firstOrCreate(['name' => 'expense-report-read','display_name' => 'Reports']);
-        Permission::firstOrCreate(['name' => 'tax-report-read','display_name' => 'Reports']);
-        Permission::firstOrCreate(['name' => 'profit-loss-report-read','display_name' => 'Reports']);
-        Permission::firstOrCreate(['name' => 'income-expense-report-read','display_name' => 'Reports']);
+        Permission::firstOrCreate(['name' => 'scholarship-read','display_name' => 'Application']);
+        Permission::firstOrCreate(['name' => 'scholarship-create','display_name' => 'Application']);
+        Permission::firstOrCreate(['name' => 'scholarship-update','display_name' => 'Application']);
+        Permission::firstOrCreate(['name' => 'scholarship-delete','display_name' => 'Application']);
+        Permission::firstOrCreate(['name' => 'scholarship-export','display_name' => 'Application']);
+
+        Permission::firstOrCreate(['name' => 'scholarship-pending-read','display_name' => 'Application Under Verification']);
+        Permission::firstOrCreate(['name' => 'scholarship-approved-read','display_name' => 'Application Approved']);
+        Permission::firstOrCreate(['name' => 'scholarship-payment_in_progress-read','display_name' => 'Application Payment In Progress']);
+        Permission::firstOrCreate(['name' => 'scholarship-payment_done-read','display_name' => 'Application Payment Done']);
+        Permission::firstOrCreate(['name' => 'scholarship-rejected-read','display_name' => 'Application Rejected']);
+        Permission::firstOrCreate(['name' => 'scholarship-all-read','display_name' => 'All Application']);
+
+        Permission::firstOrCreate(['name' => 'expense-read','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-create','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-update','display_name' => 'Expense']);
+        Permission::firstOrCreate(['name' => 'expense-delete','display_name' => 'Expense']);
+
+        Permission::firstOrCreate(['name' => 'year-wise-read','display_name' => 'Year Wise Report']);
+        Permission::firstOrCreate(['name' => 'school-wise-read','display_name' => 'School Wise Report']);
+        Permission::firstOrCreate(['name' => 'college-wise-read','display_name' => 'College Wise Report']);
+        Permission::firstOrCreate(['name' => 'village-wise-read','display_name' => 'Village Wise Report']);
+        Permission::firstOrCreate(['name' => 'course-wise-read','display_name' => 'Course Wise Report']);
+        Permission::firstOrCreate(['name' => 'student-wise-read','display_name' => 'Student Wise Report']);
+        Permission::firstOrCreate(['name' => 'expense-wise-read','display_name' => 'Expense Wise Report']);
     }
 }
