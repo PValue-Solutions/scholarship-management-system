@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Session;
 use Carbon\Carbon;
 use App\Models\Company;
@@ -32,46 +33,29 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $data_total = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $data_pending = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->where('scholarships.status','pending')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $data_approved = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->where('scholarships.status','approved')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $data_rejected = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->where('scholarships.status','rejected')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $data_payment_in_progress = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->where('scholarships.status','payment_in_progress')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $data_payment_done = DB::table('scholarships')
-            ->orderBy('scholarships.year','ASC')
-            ->where('scholarships.status','payment_done')
-            ->select(DB::raw('count(scholarships.id) as total_scholarships'))
-            ->first();
-
-        $currentYearApApRe = $this->currentYearApApRe();
-        $overallYearApApRe = $this->overallYearApApRe();
-
-        $monthlyData = $this->getChartData();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $userId = Auth::user()->id;
+            $data_total = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_pending = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->where('scholarships.status','pending')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_approved = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->where('scholarships.status','approved')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_rejected = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->where('scholarships.status','rejected')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_payment_in_progress = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->where('scholarships.status','payment_in_progress')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_payment_done = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.user_id',$userId)->where('scholarships.status','payment_done')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $currentYearApApRe = $this->currentYearApApReSt();
+            $overallYearApApRe = $this->overallYearApApReSt();
+            $monthlyData = $this->getChartData();
+        } else {
+            $data_total = DB::table('scholarships')->orderBy('scholarships.year','ASC')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_pending = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.status','pending')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_approved = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.status','approved')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_rejected = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.status','rejected')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_payment_in_progress = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.status','payment_in_progress')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $data_payment_done = DB::table('scholarships')->orderBy('scholarships.year','ASC')->where('scholarships.status','payment_done')->select(DB::raw('count(scholarships.id) as total_scholarships'))->first();
+            $currentYearApApRe = $this->currentYearApApRe();
+            $overallYearApApRe = $this->overallYearApApRe();
+            $monthlyData = $this->getChartData();
+        }
         return view('dashboard', compact(
             'data_total',
             'data_pending',
@@ -87,10 +71,22 @@ class DashboardController extends Controller
 
     public function getChartData()
     {
-        return response()->json([
-            'currentYearApApRe' => $this->currentYearApApRe(),
-            'overallYearApApRe' => $this->overallYearApApRe()
-        ], 200);
+        $roleName = Auth::user()->getRoleNames();
+
+        if($roleName[0] == "Student") {
+
+            return response()->json([
+                'currentYearApApRe' => $this->currentYearApApReSt(),
+                'overallYearApApRe' => $this->overallYearApApReSt()
+            ], 200);
+
+        } else {
+            return response()->json([
+                'currentYearApApRe' => $this->currentYearApApRe(),
+                'overallYearApApRe' => $this->overallYearApApRe()
+            ], 200);
+        }
+
     }
 
     private function currentYearApApRe()
@@ -100,6 +96,38 @@ class DashboardController extends Controller
         $application = Scholarship::whereYear('date', date('Y'))->count('id');
         $approved = Scholarship::where('status','approved')->whereYear('date', date('Y'))->count('id');
         $rejected = Scholarship::where('status','rejected')->whereYear('date', date('Y'))->count('id');
+
+        return [
+            'application' => $application,
+            'approved' => $approved,
+            'rejected' => $rejected
+        ];
+    }
+
+    private function currentYearApApReSt()
+    {
+        $userId = Auth::user()->id;
+        $application = 0; $approved = 0; $rejected = 0;
+
+        $application = Scholarship::whereYear('date', date('Y'))->where('scholarships.user_id',$userId)->count('id');
+        $approved = Scholarship::where('status','approved')->where('scholarships.user_id',$userId)->whereYear('date', date('Y'))->count('id');
+        $rejected = Scholarship::where('status','rejected')->where('scholarships.user_id',$userId)->whereYear('date', date('Y'))->count('id');
+
+        return [
+            'application' => $application,
+            'approved' => $approved,
+            'rejected' => $rejected
+        ];
+    }
+
+    private function overallYearApApReSt()
+    {
+        $userId = Auth::user()->id;
+        $application = 0; $approved = 0; $rejected = 0;
+
+        $application = Scholarship::where('scholarships.user_id',$userId)->count('id');
+        $approved = Scholarship::where('status','approved')->where('scholarships.user_id',$userId)->count('id');
+        $rejected = Scholarship::where('status','rejected')->where('scholarships.user_id',$userId)->count('id');
 
         return [
             'application' => $application,
