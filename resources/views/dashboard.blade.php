@@ -91,24 +91,6 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <!-- BAR CHART -->
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title custom-color-white">@lang('Monthly Debit/Credit')</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="barChart" class="custom-dashbord-mix"></canvas>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-6">
             <div class="card card-info">
                 <div class="card-header">

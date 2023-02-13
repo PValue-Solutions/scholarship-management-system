@@ -69,7 +69,6 @@ class DashboardController extends Controller
 
         $currentYearApApRe = $this->currentYearApApRe();
         $overallYearApApRe = $this->overallYearApApRe();
-        $monthlyData = $this->monthlyData();
 
         $monthlyData = $this->getChartData();
 
@@ -80,7 +79,6 @@ class DashboardController extends Controller
             'data_rejected',
             'data_payment_in_progress',
             'data_payment_done',
-            'monthlyData',
             'currentYearApApRe',
             'overallYearApApRe',
             'monthlyData'
@@ -90,7 +88,6 @@ class DashboardController extends Controller
     public function getChartData()
     {
         return response()->json([
-            'monthlyData' => $this->monthlyData(),
             'currentYearApApRe' => $this->currentYearApApRe(),
             'overallYearApApRe' => $this->overallYearApApRe()
         ], 200);
@@ -131,12 +128,10 @@ class DashboardController extends Controller
         $paymentDone = []; $labels = [];
         $results = DB::select('SELECT DISTINCT YEAR(date) AS "year", MONTH(date) AS "month" FROM scholarships ORDER BY year DESC LIMIT 12');
 
-
         foreach ($results as $result) {
             $labels[] = date('F', mktime(0, 0, 0, $result->month, 10)).' '.$result->year;
             $paymentDone[] = '"'.Scholarship::where('status','payment_done')->whereYear('date', $result->year)->whereMonth('date', $result->month)->count('id').'"';
         }
-        // dd($labels);
         return [
             'paymentDone' => $paymentDone,
             'labels' => $labels

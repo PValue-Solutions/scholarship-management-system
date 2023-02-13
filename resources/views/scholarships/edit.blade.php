@@ -743,10 +743,7 @@ $roleName = Auth::user()->getRoleNames();
                                     <label for="fee_amount">
                                         {{ __('Eligibility Amount') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="number" value="{{ old('fee_amount',$scholarship->fee_amount) }}" placeholder="Type Eligibility Amount" required readonly>
-                                    <small id="maximum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 20000')</small>
-                                    <small id="average-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 15000')</small>
-                                    <small id="minimum-scholarship-amount" class="form-text text-muted">@lang('Your Maximum Scholarship Amount Is ₹ 10000')</small>
+                                    <input id="fee_amount" class="form-control @if($errors->has('fee_amount')) is-invalid @endif" name="fee_amount" type="number" value="{{ $eAmount }}" placeholder="Type Eligibility Amount" required readonly>
                                     @if ($errors->has('fee_amount'))
                                         {{ Session::flash('error',$errors->first('fee_amount')) }}
                                     @endif
@@ -852,39 +849,6 @@ $roleName = Auth::user()->getRoleNames();
                 $('#payment_date_block').show();
             } else {
                 $('#payment_date_block').hide();
-            }
-
-            if($('#s_status').val() == 'approved' || $('#s_status').val() == 'payment_in_progress' || $('#s_status').val() == 'payment_done') {
-                var percentage_marks_obtained = $("#percentage_marks_obtained").val();
-                var marks = Number(percentage_marks_obtained);
-                if(marks > 85 && marks <=101){
-                    var input_fee_amount = document.getElementById("fee_amount");
-                    input_fee_amount.setAttribute("max",20000);
-                    $('#maximum-scholarship-amount').show();
-                    $('#average-scholarship-amount').hide();
-                    $('#minimum-scholarship-amount').hide();
-                } else if( marks > 75 && marks <=85) {
-                    var input_fee_amount = document.getElementById("fee_amount");
-                    input_fee_amount.setAttribute("max",15000);
-                    $('#maximum-scholarship-amount').hide();
-                    $('#average-scholarship-amount').show();
-                    $('#minimum-scholarship-amount').hide();
-                } else {
-                    var input_fee_amount = document.getElementById("fee_amount");
-                    input_fee_amount.setAttribute("max",10000);
-                    $('#maximum-scholarship-amount').hide();
-                    $('#average-scholarship-amount').hide();
-                    $('#minimum-scholarship-amount').show();
-                }
-                document.getElementById('fee_amount').removeAttribute('readonly');
-
-            } else {
-                var input_fee_amount = document.getElementById("fee_amount");
-                input_fee_amount.removeAttribute("max");
-                $('#maximum-scholarship-amount').hide();
-                $('#average-scholarship-amount').hide();
-                $('#minimum-scholarship-amount').hide();
-                document.getElementById('fee_amount').setAttribute('readonly');
             }
         });
 
