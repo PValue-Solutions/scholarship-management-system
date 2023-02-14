@@ -83,13 +83,16 @@
                                 <th></th>
                                 @foreach ($output as $value)
                                     @foreach ($value as $yearName => $yearData)
-                                        <th colspan="2" style="text-align: center;">{{ $yearName }}</th>
+                                    <th></th>
+                                    <th style="text-align: left;">{{ $yearName }}</th>
                                     @endforeach
                                     @break
                                 @endforeach
                                 <th>Total NoS.</th>
                                 <th>Total Amount</th>
                             </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
                             <tr class="table-info">
                                 <th style="text-align: center;">Course Name</th>
                                 @foreach ($output as $value)
@@ -102,8 +105,6 @@
                                 <th></th>
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody style="text-align: center;">
                             @foreach ($output as $schoolName => $value)
                             <tr>
                                 <td> {{ $schoolName }}</td>
@@ -161,7 +162,7 @@
             "paging": false,
             "lengthChange": false,
             "searching": false,
-            "ordering": true,
+            "ordering": false,
             "info": false,
             "autoWidth": false,
             "responsive": true,
