@@ -115,13 +115,13 @@
                                         <td></td>
                                     @endif
                                     @if(isset($yearData['total_amount']) && !empty($yearData['total_amount']))
-                                        <td>&#x20B9; {{ $yearData['total_amount'] }}</td>
+                                        <td>{{ $yearData['total_amount'] }}</td>
                                     @else
                                         <td></td>
                                     @endif
                                 @endforeach
                                 <td>{{ $totalData[$schoolName]['course_wise_total_student'] }}</td>
-                                <td>&#x20B9; {{ $totalData[$schoolName]['course_wise_total_amount'] }}</td>
+                                <td>{{ $totalData[$schoolName]['course_wise_total_amount'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -137,15 +137,15 @@
                                     @endif
 
                                     @if(isset($courseYearData[$yearName]['g_total_amount']) && !empty($courseYearData[$yearName]['g_total_amount']))
-                                        <th> &#x20B9; {{ $courseYearData[$yearName]['g_total_amount'] }}</th>
+                                        <th>{{ $courseYearData[$yearName]['g_total_amount'] }}</th>
                                     @else
-                                        <th> &#x20B9;0</th>
+                                        <th>0</th>
                                     @endif
                                     @endforeach
                                     @break
                                 @endforeach
                                 <th>{{ $gTotalStudent }}</th>
-                                <th>&#x20B9; {{ $gTotalAmount }}</th>
+                                <th>{{ $gTotalAmount }}</th>
                             </tr>
                         </tfoot>
                     </table>

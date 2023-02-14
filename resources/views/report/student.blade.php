@@ -97,12 +97,12 @@
                                     <td> {{ $schoolName }}</td>
                                     @foreach ($value as $yearName => $yearData)
                                         @if(isset($yearData['total_amount']) && !empty($yearData['total_amount']))
-                                            <td>&#x20B9; {{ $yearData['total_amount'] }}</td>
+                                            <td>{{ $yearData['total_amount'] }}</td>
                                         @else
                                             <td></td>
                                         @endif
                                     @endforeach
-                                    <td>&#x20B9; {{ $totalData[$schoolName]['student_wise_total_amount'] }}</td>
+                                    <td>{{ $totalData[$schoolName]['student_wise_total_amount'] }}</td>
                                     <td>{{ $totalData[$schoolName]['student_wise_total_student'] }}</td>
                                 </tr>
                             @endforeach
@@ -113,14 +113,14 @@
                                 @foreach ($output as $value)
                                     @foreach ($value as $yearName => $yearData)
                                     @if(isset($villageYearData[$yearName]['g_total_amount']) && !empty($villageYearData[$yearName]['g_total_amount']))
-                                        <th> &#x20B9; {{ $villageYearData[$yearName]['g_total_amount'] }}</th>
+                                        <th>{{ $villageYearData[$yearName]['g_total_amount'] }}</th>
                                     @else
-                                        <th> &#x20B9;0</th>
+                                        <th>0</th>
                                     @endif
                                     @endforeach
                                     @break
                                 @endforeach
-                                <th>&#x20B9; {{ $gTotalAmount }}</th>
+                                <th>{{ $gTotalAmount }}</th>
                                 <th></th>
                             </tr>
                         </tfoot>
