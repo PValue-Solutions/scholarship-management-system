@@ -220,7 +220,7 @@
                               <td colspan="2">{{$scholarship->school_contact_number}}</td>
                               <td colspan="2">Seal & Signature</td>
                               <td>:</td>
-                              <td colspan="2">Maybe need image</td>
+                              <td colspan="2"></td>
                           </tr>
                       </tbody>
                   </table>
