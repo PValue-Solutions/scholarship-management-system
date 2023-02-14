@@ -89,6 +89,8 @@
                                 @endforeach
                                 <th>Total Amount</th>
                             </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
                             <tr class="table-info">
                                 <th style="text-align: center;">School Name</th>
                                 @foreach ($outputSchool as $value)
@@ -99,8 +101,6 @@
                                 @endforeach
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody style="text-align: center;">
                             @foreach ($outputSchool as $schoolName => $value)
                             <tr>
                                 <td> {{ $schoolName }}</td>
@@ -151,6 +151,8 @@
                                 @endforeach
                                 <th>Total Amount</th>
                             </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
                             <tr class="table-info">
                                 <th style="text-align: center;">College Name</th>
                                 @foreach ($outputCollege as $value)
@@ -161,8 +163,6 @@
                                 @endforeach
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody style="text-align: center;">
                             @foreach ($outputCollege as $schoolName => $value)
                             <tr>
                                 <td> {{ $schoolName }}</td>
@@ -207,7 +207,7 @@
             "paging": false,
             "lengthChange": false,
             "searching": false,
-            "ordering": true,
+            "ordering": false,
             "info": false,
             "autoWidth": false,
             "responsive": true,
@@ -223,7 +223,7 @@
             "paging": false,
             "lengthChange": false,
             "searching": false,
-            "ordering": true,
+            "ordering": false,
             "info": false,
             "autoWidth": false,
             "responsive": true,
