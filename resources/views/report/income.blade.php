@@ -90,7 +90,7 @@
                             <tr>
                                 <td>{{ $data->year }}</td>
                                 <td>{{ $data->total_student }}</td>
-                                <td>{{ "₹ ".$data->total_amount }}</td>
+                                <td>{{ $data->total_amount }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -98,7 +98,7 @@
                             <tr class="table-info" style="text-align: center;">
                                 <th>@lang('Grand Total')</th>
                                 <th>{{ $grandTotalStudent }}</th>
-                                <th>{{ "₹ ".$grandTotalAmount }}</th>
+                                <th>{{ $grandTotalAmount }}</th>
                             </tr>
                         </tfoot>
                     </table>

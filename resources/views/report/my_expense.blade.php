@@ -106,12 +106,12 @@
                                 <td> {{ $schoolName }}</td>
                                 @foreach ($value as $yearName => $yearData)
                                 @if(isset($yearData['total_amount']) && !empty($yearData['total_amount']))
-                                        <td>&#x20B9; {{ $yearData['total_amount'] }}</td>
+                                        <td>{{ $yearData['total_amount'] }}</td>
                                     @else
-                                        <td>&#x20B9; 0</td>
+                                        <td>0</td>
                                     @endif
                                 @endforeach
-                                <td>&#x20B9; {{ $totalDataSchool[$schoolName]['school_wise_total_amount'] }}</td>
+                                <td>{{ $totalDataSchool[$schoolName]['school_wise_total_amount'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -121,14 +121,14 @@
                                 @foreach ($outputSchool as $value)
                                     @foreach ($value as $yearName => $yearData)
                                     @if(isset($expenseSchoolData[$yearName]['g_total_amount']) && !empty($expenseSchoolData[$yearName]['g_total_amount']))
-                                        <th> &#x20B9; {{ $expenseSchoolData[$yearName]['g_total_amount'] }}</th>
+                                        <th>{{ $expenseSchoolData[$yearName]['g_total_amount'] }}</th>
                                     @else
-                                        <th> &#x20B9;0</th>
+                                        <th>0</th>
                                     @endif
                                     @endforeach
                                     @break
                                 @endforeach
-                                <th>&#x20B9; {{ $gTotalAmountSchool }}</th>
+                                <th>{{ $gTotalAmountSchool }}</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -168,12 +168,12 @@
                                 <td> {{ $schoolName }}</td>
                                 @foreach ($value as $yearName => $yearData)
                                 @if(isset($yearData['total_amount']) && !empty($yearData['total_amount']))
-                                        <td>&#x20B9; {{ $yearData['total_amount'] }}</td>
+                                        <td>{{ $yearData['total_amount'] }}</td>
                                     @else
-                                        <td>&#x20B9; 0</td>
+                                        <td>0</td>
                                     @endif
                                 @endforeach
-                                <td>&#x20B9; {{ $totalDataCollege[$schoolName]['college_wise_total_amount'] }}</td>
+                                <td>{{ $totalDataCollege[$schoolName]['college_wise_total_amount'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -183,14 +183,14 @@
                                 @foreach ($outputCollege as $value)
                                     @foreach ($value as $yearName => $yearData)
                                     @if(isset($expenseCollegeData[$yearName]['g_total_amount']) && !empty($expenseCollegeData[$yearName]['g_total_amount']))
-                                        <th> &#x20B9; {{ $expenseCollegeData[$yearName]['g_total_amount'] }}</th>
+                                        <th>{{ $expenseCollegeData[$yearName]['g_total_amount'] }}</th>
                                     @else
-                                        <th> &#x20B9;0</th>
+                                        <th>0</th>
                                     @endif
                                     @endforeach
                                     @break
                                 @endforeach
-                                <th>&#x20B9; {{ $gTotalAmountCollege }}</th>
+                                <th>{{ $gTotalAmountCollege }}</th>
                             </tr>
                         </tfoot>
                     </table>
