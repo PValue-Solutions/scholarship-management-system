@@ -127,7 +127,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)
@@ -152,7 +155,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)
@@ -177,7 +183,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)
@@ -202,7 +211,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)
@@ -227,7 +239,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)
@@ -252,7 +267,10 @@ class ScholarshipController extends Controller
                 $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
         })
         ->where('company_id', session('company_id'))->latest();
-
+        $roleName = Auth::user()->getRoleNames();
+        if($roleName[0] == "Student") {
+            $query->where('scholarships.user_id',Auth::user()->id);
+        }
         if ($request->application_no)
             $query->where('application_no', 'like', '%'.$request->application_no.'%');
         if ($request->year)

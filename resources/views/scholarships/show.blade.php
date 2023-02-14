@@ -221,9 +221,6 @@
                                 <td>Contact no.</td>
                                 <td>:</td>
                                 <td colspan="2">{{$scholarship->school_contact_number}}</td>
-                                <td colspan="2">Seal & Signature</td>
-                                <td>:</td>
-                                <td colspan="2">Maybe need image</td>
                             </tr>
                         </tbody>
                     </table>
