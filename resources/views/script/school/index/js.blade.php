@@ -11,9 +11,9 @@
             "responsive": true,
             dom: 'Bfrtip',
             buttons: [
-                { extend: 'excelHtml5', exportOptions: {columns: [ 0,1,2,3,4,5 ]}},
-                { extend: 'csvHtml5', exportOptions: {columns: [ 0,1,2,3,4,5 ]}},
-                { extend: 'pdfHtml5', exportOptions: {columns: [ 0,1,2,3,4,5 ]}}
+                { extend: 'excelHtml5', exportOptions: {columns: [ 1,2,3,4 ]}},
+                { extend: 'csvHtml5', exportOptions: {columns: [ 1,2,3,4 ]}},
+                { extend: 'pdfHtml5', exportOptions: {columns: [ 1,2,3,4 ]}}
             ]
         });
     });

@@ -29,7 +29,7 @@ class ScholarshipClassController extends Controller
      */
     public function index(Request $request)
     {
-        $classes = $this->filter($request)->paginate(10);
+        $classes = $this->filter($request)->paginate(1);
         return view('classes.index', compact('classes'));
     }
 
