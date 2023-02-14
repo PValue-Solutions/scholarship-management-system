@@ -137,20 +137,6 @@
                 ]
             };
 
-            var barChartCanvas = $('#barChart').get(0).getContext('2d');
-
-            var barChartOptions = {
-                responsive              : true,
-                maintainAspectRatio     : false,
-                datasetFill             : false
-            };
-
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: donutData,
-                options: barChartOptions
-            });
-
             var donutChartCanvas = $('#donutChart1').get(0).getContext('2d');
             var donutData        = {
                 labels: [
