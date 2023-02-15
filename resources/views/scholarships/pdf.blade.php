@@ -51,8 +51,9 @@
                       <td><span style="margin-left: 18px;">1. Full Name</span></td>
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->full_name}}</td>
-                      <td rowspan="5" colspan="3">
-                          <div style="border: 2px solid black; width: 160px;
+                      <td rowspan="5" colspan="4">
+
+                          <div style="float: right; border: 1px solid black; width: 160px;
                           height: 180px">
                           <br>
                           <br>
