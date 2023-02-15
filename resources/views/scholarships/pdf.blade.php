@@ -52,8 +52,12 @@
                       <td> : </td>
                       <td>{{$scholarship->studentDetail->full_name}}</td>
                       <td rowspan="5" colspan="3">
-                          <div class="text-right" style="float: right">
-                              <img width="200" height="200" src="{{public_path('storage/'.$scholarship->photo)}}" class="rounded" alt="prfile">
+                          <div style="border: 2px solid black; width: 160px;
+                          height: 180px">
+                          <br>
+                          <br>
+                          <br>
+                              <p style="text-align: center">Latest passport <br> size photo</p>
                           </div>
                       </td>
                   </tr>
@@ -291,7 +295,8 @@
                  <p> 1. Applicant Selected / Not selected : </p>
                  <p> 2. If Not selected : </p>
                  <p> 3. Sanctioned amount : </p>
-                 <p>I, {{$scholarship->school_designation}}, being first duly sworn, hereby state that: I am the principa of {{$scholl_college_data->name}}, located at
+
+                 <p>I, {{$teacherName}}, being first duly sworn, hereby state that: I am the principa of {{$scholl_college_data->name}}, located at
                   {{$scholl_college_data->scholarshipVillage->name}}, {{$scholl_college_data->district}}. {{$scholarship->studentDetail->full_name}}, date of birth {{date('d-m-Y', strtotime($scholarship->studentDetail->date_of_birth))}}, is a student at {{$scholl_college_data->name}}
                   and is enrolled in the {{$scholarship->classDetail->name}} grade. This affidavit is being executed for the purpose of verifying {{$scholarship->studentDetail->full_name}} complete information provided above in the portal is true and attendance for the purpose of applying
                   for a scholarship.
