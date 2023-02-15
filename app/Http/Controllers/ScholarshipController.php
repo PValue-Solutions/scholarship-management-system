@@ -501,8 +501,32 @@ class ScholarshipController extends Controller
     public function show($id)
     {
         $scholarship = Scholarship::find($id);
+        $cMark = intval($scholarship->percentage_marks_obtained);
+            $aAmount = intval($scholarship->apply_amount);
+
+            $eAmount = 0;
+
+            if($cMark > 85 && $cMark <=101){
+                if($aAmount > 20000){
+                    $eAmount = 20000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            } elseif ($cMark > 75 && $cMark <=85) {
+                if($aAmount > 15000){
+                    $eAmount = 15000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            } else {
+                if($aAmount > 10000){
+                    $eAmount = 10000;
+                } else {
+                    $eAmount = $aAmount;
+                }
+            }
         //dd($scholarship);
-        return view('scholarships.show', compact('scholarship'));
+        return view('scholarships.show', compact('scholarship','eAmount'));
     }
 
     /**
