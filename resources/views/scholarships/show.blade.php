@@ -26,13 +26,13 @@
 
         <div class="col-sm-3">
             <div>
-                <span> Annual Income: {{$scholarship->annual_income}}</span>
+                <span> Fee Amount: {{$scholarship->apply_amount}}</span>
             </div>
         </div>
 
         <div class="col-sm-3">
             <div>
-                <span> Fee Amount: {{$scholarship->fee_amount}}</span>
+                <span> Eligibility Amount: {{$eAmount}}</span>
             </div>
         </div>
 
@@ -77,7 +77,10 @@
                         <td> {{$scholarship->studentDetail->mother_occupation}}</td>
                     </tr>
                     <tr>
-                        <td colspan="4">4. Full Address </td>
+                        <td>4. Annual Income</td> <td>:</td><td> {{$scholarship->annual_income}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">5. Full Address </td>
 
                     </tr>
                     <tr>
@@ -113,7 +116,7 @@
                         <td>{{$scholarship->studentDetail->state}}</td>
                     </tr>
                     <tr>
-                        <td>5. Contact no. 1 :</td>
+                        <td>6. Contact no. 1 :</td>
                         <td>:</td>
                         <td>{{$scholarship->studentDetail->contact_no_1}}</td>
                         <td>Contact no : </td>
@@ -122,7 +125,7 @@
                     </tr>
 
                     <tr>
-                        <td>6. Date of Birth </td>
+                        <td>7. Date of Birth </td>
                         <td>:</td>
                         <td>{{$scholarship->studentDetail->date_of_birth}}</td>
                         <td>Age </td>
@@ -130,12 +133,12 @@
                         <td>{{$scholarship->studentDetail->age}}</td>
                     </tr>
                     <tr>
-                        <td>7. Male/ Female </td>
+                        <td>8. Male/ Female </td>
                         <td>:</td>
                         <td colspan="4">{{$scholarship->studentDetail->gender}}</td>
                     </tr>
                     <tr>
-                        <td>8. Aadhar no.  </td>
+                        <td>9. Aadhar no.  </td>
                         <td>:</td>
                         <td colspan="4">{{$scholarship->studentDetail->aadhar_no}}</td>
                     </tr>
