@@ -12,6 +12,7 @@ use App\Models\ScholarshipVillage;
 use App\Models\ScholarshipSchool;
 use App\Models\ScholarshipCollege;
 use App\Models\ScholarshipBankDetail;
+use App\Models\ScholarshipTeacher;
 use App\Models\StudentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -711,9 +712,21 @@ class ScholarshipController extends Controller
      */
     public function download($id){
         $scholarship = Scholarship::where('id', $id)->first();
-        //dd($data);
+        $teacherName = "";
+        $fSchoolCollege = $scholarship->further_education_details_school_or_college;
+        if($fSchoolCollege == "1") {
+            $schoolId = $scholarship->further_education_details_scholarship_school_id;
+            $schoolTeacher = ScholarshipTeacher::where('scholarship_school_id', $schoolId)->first();
+            if(isset($schoolTeacher->name) && !empty($schoolTeacher->name))
+                $teacherName = $schoolTeacher->name;
+        } else {
+            $CollegeId = $scholarship->further_education_details_scholarship_college_id;
+            $collegeTeacher = ScholarshipTeacher::where('scholarship_college_id', $CollegeId)->first();
+            if(isset($collegeTeacher->name) && !empty($collegeTeacher->name))
+                $teacherName = $collegeTeacher->name;
+        }
        //return view('scholarships.pdf', compact('scholarship'));
-        $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship'));
+        $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship','teacherName'));
         return $pdf->stream();
         //dd($pdf->loadHTML(''));
         /* $pdf->getDomPDF()->setHttpContext(
