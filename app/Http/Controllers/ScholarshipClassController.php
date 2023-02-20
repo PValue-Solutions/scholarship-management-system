@@ -29,7 +29,7 @@ class ScholarshipClassController extends Controller
      */
     public function index(Request $request)
     {
-        $classes = $this->filter($request)->paginate(1);
+        $classes = $this->filter($request)->paginate(10);
         return view('classes.index', compact('classes'));
     }
 
@@ -68,7 +68,7 @@ class ScholarshipClassController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_classes,name',
+            'name' => 'required',
             'status' => 'required'
         ]);
         $data = $request->only(['name','status']);
@@ -108,7 +108,7 @@ class ScholarshipClassController extends Controller
     public function update(Request $request, ScholarshipClass $scholarshipClass)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_classes,name,'.$scholarshipClass->id,
+            'name' => 'required',
             'status' => 'required',
         ]);
         $data = $request->only(['name', 'status']);

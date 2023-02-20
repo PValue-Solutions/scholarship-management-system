@@ -26,7 +26,6 @@ class CreateScholarshipCollegesTable extends Migration
             $table->string('picture')->nullable();
             $table->boolean('status');
             $table->index('company_id','type');
-            $table->unique(['company_id', 'name']);
             $table->timestamps();
             $table->softDeletes();
         });
