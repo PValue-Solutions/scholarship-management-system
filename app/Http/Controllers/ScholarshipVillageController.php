@@ -68,7 +68,7 @@ class ScholarshipVillageController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_villages,name',
+            'name' => 'required',
             'status' => 'required'
         ]);
         $data = $request->only(['name','status']);
@@ -108,7 +108,7 @@ class ScholarshipVillageController extends Controller
     public function update(Request $request, ScholarshipVillage $scholarshipVillage)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_villages,name,'.$scholarshipVillage->id,
+            'name' => 'required',
             'status' => 'required',
         ]);
         $data = $request->only(['name', 'status']);

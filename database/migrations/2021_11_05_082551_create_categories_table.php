@@ -21,7 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->string('color');
             $table->boolean('enabled');
             $table->index('company_id','type');
-            $table->unique(['company_id']);
+            $table->unique(['company_id', 'name']);
             $table->timestamps();
         });
     }

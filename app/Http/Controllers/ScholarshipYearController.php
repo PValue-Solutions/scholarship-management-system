@@ -67,7 +67,7 @@ class ScholarshipYearController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_years,name',
+            'name' => 'required',
             'status' => 'required'
         ]);
         $data = $request->only(['name','status']);
@@ -107,7 +107,7 @@ class ScholarshipYearController extends Controller
     public function update(Request $request, ScholarshipYear $scholarshipYear)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:scholarship_years,name,'.$scholarshipYear->id,
+            'name' => 'required',
             'status' => 'required',
         ]);
         $data = $request->only(['name', 'status']);
