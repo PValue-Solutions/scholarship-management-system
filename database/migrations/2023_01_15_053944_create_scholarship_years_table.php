@@ -19,7 +19,7 @@ class CreateScholarshipYearsTable extends Migration
             $table->string('name');
             $table->boolean('status');
             $table->index('company_id','type');
-            $table->unique(['company_id', 'name']);
+            $table->unique(['company_id']);
             $table->timestamps();
             $table->softDeletes();
         });
