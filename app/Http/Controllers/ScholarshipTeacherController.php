@@ -89,9 +89,21 @@ class ScholarshipTeacherController extends Controller
     {
         $this->validation($request);
         $data = $request->only(['name','email','school_or_college','scholarship_school_id','scholarship_college_id','phone','date_of_birth','gender','blood_group','address','status']);
-        if ($request->picture) {
-            $data['photo'] = $request->picture->store('item-images');
+        // if ($request->picture) {
+        //     $data['photo'] = $request->picture->store('item-images');
+        // }
+
+        $imageUrl = "";
+        if ($request->photo) {
+
+            $picture = $request->photo;
+            $logoNewName = time().$picture->getClientOriginalName();
+            $picture->move('lara/teacher',$logoNewName);
+            $imageUrl = 'lara/teacher/'.$logoNewName;
+
+            $data['photo'] = $imageUrl;
         }
+
         DB::transaction(function () use ($data) {
             ScholarshipTeacher::create($data);
         });
@@ -139,9 +151,20 @@ class ScholarshipTeacherController extends Controller
     {
         $this->validation($request);
         $data = $request->only(['name','email','school_or_college','scholarship_school_id','scholarship_college_id','phone','date_of_birth','gender','blood_group','address','status']);
-        if ($request->picture) {
-            $data['photo'] = $request->picture->store('item-images');
+        // if ($request->picture) {
+        //     $data['photo'] = $request->picture->store('item-images');
+        // }
+
+        if ($request->photo) {
+
+            $picture = $request->photo;
+            $logoNewName = time().$picture->getClientOriginalName();
+            $picture->move('lara/teacher',$logoNewName);
+            $imageUrl = 'lara/teacher/'.$logoNewName;
+
+            $data['photo'] = $imageUrl;
         }
+
         DB::transaction(function () use ($data, $scholarshipTeacher) {
             $scholarshipTeacher->update($data);
         });

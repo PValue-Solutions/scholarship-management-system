@@ -105,7 +105,7 @@
                             @if($teacher->photo == NULL)
                             <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('img/no_image.png') }}" alt="" /></td>
                             @else
-                            <td><img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$teacher->photo) }}" alt="" /></td>
+                            <td><img class="profile-user-img img-fluid img-circle" src="{{ asset($teacher->photo) }}" alt="" /></td>
                             @endif
                             <td>{{ $teacher->name }}</td>
                             <td>{{ $teacher->email }}</td>
