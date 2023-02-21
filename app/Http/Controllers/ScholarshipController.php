@@ -444,6 +444,54 @@ class ScholarshipController extends Controller
                 'status' => $request->status,
             ]);
 
+            $imageUrl = "";
+            if ($request->photo) {
+                $picture = $request->photo;
+                $logoNewName = time().$picture->getClientOriginalName();
+                $picture->move('lara/scholarship',$logoNewName);
+                $imageUrl = 'lara/scholarship/'.$logoNewName;
+            }
+
+            $incomeCertificateUrl = "";
+            if ($request->income_certificate) {
+                $incomeFile = $request->income_certificate;
+                $incomeNewName = time().$incomeFile->getClientOriginalName();
+                $incomeFile->move('lara/scholarship',$incomeNewName);
+                $incomeCertificateUrl = 'lara/scholarship/'.$incomeNewName;
+            }
+
+            $idProofUrl = "";
+            if ($request->id_proof) {
+                $idProof = $request->id_proof;
+                $idNewName = time().$idProof->getClientOriginalName();
+                $idProof->move('lara/scholarship',$idNewName);
+                $idProofUrl = 'lara/scholarship/'.$idNewName;
+            }
+
+            $previousEducationalMarksCardUrl = "";
+            if ($request->previous_educational_marks_card) {
+                $pEduMarkCard = $request->previous_educational_marks_card;
+                $pEduMarkCardNewName = time().$pEduMarkCard->getClientOriginalName();
+                $pEduMarkCard->move('lara/scholarship',$pEduMarkCardNewName);
+                $previousEducationalMarksCardUrl = 'lara/scholarship/'.$pEduMarkCardNewName;
+            }
+
+            $bankPassbookUrl = "";
+            if ($request->bank_passbook) {
+                $bankPassbookFile = $request->bank_passbook;
+                $bankPassNewName = time().$bankPassbookFile->getClientOriginalName();
+                $bankPassbookFile->move('lara/scholarship',$bankPassNewName);
+                $bankPassbookUrl = 'lara/scholarship/'.$bankPassNewName;
+            }
+
+            $originalFeeReceiptUrl = "";
+            if ($request->original_fee_receipt) {
+                $originalFeeReceipt = $request->original_fee_receipt;
+                $oFeeNewName = time().$originalFeeReceipt->getClientOriginalName();
+                $originalFeeReceipt->move('lara/scholarship',$oFeeNewName);
+                $originalFeeReceiptUrl = 'lara/scholarship/'.$oFeeNewName;
+            }
+
             $scholarship = Scholarship::create([
                 'user_id' => Auth::user()->id,
                 'application_no' => $request->application_no,
@@ -473,12 +521,12 @@ class ScholarshipController extends Controller
                 'any_other_scholarship' => $request->any_other_scholarship,
                 'scholarship_bank_detail_id' => $scholarshipBankDetail->id,
                 'scholarship_refunded' => $request->scholarship_refunded,
-                'photo' => $request->photo->store('scholarship'),
-                'income_certificate' => $request->income_certificate->store('scholarship'),
-                'id_proof' => $request->id_proof->store('scholarship'),
-                'previous_educational_marks_card' => $request->previous_educational_marks_card->store('scholarship'),
-                'bank_passbook' => $request->bank_passbook->store('scholarship'),
-                'original_fee_receipt' => $request->original_fee_receipt->store('scholarship'),
+                'photo' => $imageUrl,
+                'income_certificate' => $incomeCertificateUrl,
+                'id_proof' => $idProofUrl,
+                'previous_educational_marks_card' => $previousEducationalMarksCardUrl,
+                'bank_passbook' => $bankPassbookUrl,
+                'original_fee_receipt' => $originalFeeReceiptUrl,
             ]);
             // Update next invoice number
             $this->increaseNextInvoiceNumber($company);
