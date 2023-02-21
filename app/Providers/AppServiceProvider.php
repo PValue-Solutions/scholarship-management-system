@@ -77,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
             $items = [];
             $items_reminder = [];
             $notifications = 0;
+            $companyLogo = "img/company.png";
 
             if (Auth::check()) {
 
@@ -92,11 +93,14 @@ class AppServiceProvider extends ServiceProvider
 
                 $company = Setting::where('company_id', Session::get('company_id'))->where('key', 'general.company_name')->get('value')->first();
 
+                // $companyLogo = "img/company.png";
                 if(isset($company->value)) {
                     $company_full_name = $company->value;
                 } else {
                     $company_full_name = "No Company Imported";
                 }
+
+
 
                 $companies = Auth::user()->companies()->get();
                 foreach ($companies as $company) {
@@ -110,6 +114,9 @@ class AppServiceProvider extends ServiceProvider
                         $str = "";
                     }
                     $companySwitchingInfo[$value->id] = $str.$value->company_name;
+                }
+                if(isset($company->company_logo) && !empty($company->company_logo)) {
+                    $companyLogo = $company->company_logo;
                 }
 
                 $user = Auth::user();
@@ -142,6 +149,7 @@ class AppServiceProvider extends ServiceProvider
                      ->with('companySwitchingInfo', $companySwitchingInfo)
                      ->with('getLang', $getLang)
                      ->with('company_full_name', $company_full_name)
+                     ->with('companyLogo', $companyLogo)
                      ->with('user', $user)
                      ->with('notify_items', $items)
                      ->with('notify_items_reminder', $items_reminder)

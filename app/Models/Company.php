@@ -66,7 +66,7 @@ class Company extends Model
             $value = $setting->getAttribute('value');
 
             if (($key == 'company_logo') && empty($value)) {
-                $value = 'public/img/company.png';
+                $value = 'img/company.png';
             }
 
             $this->setAttribute($key, $value);
@@ -74,7 +74,7 @@ class Company extends Model
 
         // Set default default company logo if empty
         if ($this->getAttribute('company_logo') == '') {
-            $this->setAttribute('company_logo', 'public/img/company.png');
+            $this->setAttribute('company_logo', 'img/company.png');
         }
     }
 

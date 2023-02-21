@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $this->middleware('permission:user-read|user-create|user-update|user-delete', ['only' => ['index']]);
         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-        $this->middleware('permission:user-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-update', ['only' => ['editUser','updateUser']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
         $this->middleware('permission:user-export', ['only' => ['doExport']]);
 
@@ -173,8 +173,8 @@ class UserController extends Controller
 
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/employee',$logoNewName);
-            $logoUrl = 'uploads/employee/'.$logoNewName;
+            $logo->move('lara/employee',$logoNewName);
+            $logoUrl = 'lara/employee/'.$logoNewName;
         }
 
         if($request->role_for == "1") //staff
@@ -234,8 +234,8 @@ class UserController extends Controller
             ]);
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/employee',$logoNewName);
-            $logoUrl = 'uploads/employee/'.$logoNewName;
+            $logo->move('lara/student',$logoNewName);
+            $logoUrl = 'lara/student/'.$logoNewName;
         }
 
         $roles = "Student";
@@ -275,13 +275,15 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function editUser($id)
     {
-        $roleName = $user->getRoleNames();
+        // dd($id);
+        $myUser = User::findOrFail($id);
+        $roleName = $myUser->getRoleNames();
         $roleFor = Role::findByName($roleName['0']);
 
         $cId = array();
-        $selectedCompanies = $user->companies()->select('id')->get();
+        $selectedCompanies = $myUser->companies()->select('id')->get();
         foreach ($selectedCompanies as $companies) {
             $cId[] = $companies->id;
         }
@@ -294,8 +296,8 @@ class UserController extends Controller
         foreach ($companies as $company) {
             $company->setSettings();
         }
-
-        return view('users.edit',compact('user','roleFor','staffRoles', 'userRoles','companies','cIdStd'));
+        // dd($myUser);
+        return view('users.edit',compact('myUser','roleFor','staffRoles', 'userRoles','companies','cIdStd'));
     }
 
     public function editStudent($id)
@@ -322,20 +324,11 @@ class UserController extends Controller
         return view('users.studentEdit',compact('student','roleFor','staffRoles','companies','cIdStd'));
     }
 
-    /**
-     * Methot to custom update
-     *
-     * @access public
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function update(Request $request, User $user)
+    public function updateUser(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:password_confirmation',
             'status' => 'required',
             'role_for' => 'required'
@@ -350,9 +343,10 @@ class UserController extends Controller
 
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/employee',$logoNewName);
-            $logoUrl = 'uploads/employee/'.$logoNewName;
+            $logo->move('lara/employee',$logoNewName);
+            $logoUrl = 'lara/employee/'.$logoNewName;
         }
+        $user = User::findOrFail($id);
         $password = $user->password;
         if($request->role_for == "1") //staff
         {
@@ -422,8 +416,8 @@ class UserController extends Controller
 
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/employee',$logoNewName);
-            $logoUrl = 'uploads/employee/'.$logoNewName;
+            $logo->move('lara/student',$logoNewName);
+            $logoUrl = 'lara/student/'.$logoNewName;
         }
         $student = User::findOrFail($id);
         $password = $student->password;
@@ -469,10 +463,11 @@ class UserController extends Controller
      * @access public
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user)
+    public function destroyUser(Request $request)
     {
         DB::beginTransaction();
         try {
+            $user = User::findOrFail($request->id);
             $user->delete();
             DB::table("model_has_roles")->where('model_id',$user->id)->delete();
             DB::table("user_companies")->where('user_id',$user->id)->delete();

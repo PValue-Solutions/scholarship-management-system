@@ -157,9 +157,24 @@ Route::group(['middleware' => ['auth']], function() {
         'as' => 'student.updateStudent'
     ]);
 
+    Route::get('/users/editUser/{id}',[
+        'uses' => 'App\Http\Controllers\UserController@editUser',
+        'as' => 'users.editUser'
+    ]);
+
+    Route::post('/users/updateUser/{id}',[
+        'uses' => 'App\Http\Controllers\UserController@updateUser',
+        'as' => 'users.updateUser'
+    ]);
+
     Route::delete('/student/destroyStudent',[
         'uses' => 'App\Http\Controllers\UserController@destroyStudent',
         'as' => 'student.destroyStudent'
+    ]);
+
+    Route::delete('/users/destroyUser',[
+        'uses' => 'App\Http\Controllers\UserController@destroyUser',
+        'as' => 'users.destroyUser'
     ]);
 
     Route::resources([

@@ -74,7 +74,10 @@
                                 <th>@lang('Email')</th>
                                 <th>@lang('Created')</th>
                                 <th>@lang('Status')</th>
-                                <th>@lang('Actions')</th>
+                                {{--  <th>@lang('Actions')</th>  --}}
+                                @canany(['company-update', 'company-delete'])
+                                    <th data-orderable="false">@lang('Actions')</th>
+                                @endcanany
                             </tr>
                         </thead>
                         <tbody>

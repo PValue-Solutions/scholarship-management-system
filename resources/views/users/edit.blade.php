@@ -35,9 +35,8 @@
                 <h3>@lang('Edit User')</h3>
             </div>
             <div class="card-body">
-                <form class="form-material form-horizontal" action="{{ route('users.update', $user) }}" method="POST" enctype="multipart/form-data">
+                <form class="form-material form-horizontal" action="{{ route('users.updateUser', ['id' => $myUser->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -46,7 +45,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-signature"></i></span>
                                     </div>
-                                    <input class="form-control ambitious-form-loading @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name',$user->name) }}" type="text" placeholder="@lang('Type Your Name Here')" required>
+                                    <input class="form-control ambitious-form-loading @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name',$myUser->name) }}" type="text" placeholder="@lang('Type Your Name Here')" required>
                                     @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -62,7 +61,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-at"></i></span>
                                     </div>
-                                    <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email', $user->email) }}" type="email" placeholder="@lang('Type Your Email Here')" required>
+                                    <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email', $myUser->email) }}" type="email" placeholder="@lang('Type Your Email Here')" required>
                                     @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -136,7 +135,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                     </div>
-                                    <input class="form-control ambitious-form-loading @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone',$user->phone) }}" type="text" placeholder="@lang('Type Phone Number Here')">
+                                    <input class="form-control ambitious-form-loading @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ old('phone',$myUser->phone) }}" type="text" placeholder="@lang('Type Phone Number Here')">
                                     @error('phone')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -153,8 +152,8 @@
                                         <span class="input-group-text"><i class="fas fa-bell"></i></span>
                                     </div>
                                     <select class="form-control ambitious-form-loading @error('status') is-invalid @enderror" required="required" name="status" id="status">
-                                        <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : ''  }}>@lang('Active')</option>
-                                        <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : ''  }}>@lang('Inactive')</option>
+                                        <option value="1" {{ old('status', $myUser->status) == 1 ? 'selected' : ''  }}>@lang('Active')</option>
+                                        <option value="0" {{ old('status', $myUser->status) == 0 ? 'selected' : ''  }}>@lang('Inactive')</option>
                                     </select>
                                     @error('status')
                                         <div class="invalid-feedback">
@@ -245,7 +244,7 @@
                             <div class="col-md-12">
                                 <div id="edit_input_address" style="min-height: 55px;">
                                 </div>
-                                <input type="hidden" name="address" id="address" value="{{ old('address',$user->address) }}">
+                                <input type="hidden" name="address" id="address" value="{{ old('address',$myUser->address) }}">
                             </div>
                             @if ($errors->has('address'))
                                 {{ Session::flash('error',$errors->first('address')) }}
