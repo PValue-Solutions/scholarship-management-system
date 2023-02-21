@@ -56,8 +56,8 @@ class ProfileController extends Controller
             $this->validate($request,['photo' => 'image|mimes:png']);
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/companies',$logoNewName);
-            $logoUrl = 'uploads/companies/'.$logoNewName;
+            $logo->move('lara/profile',$logoNewName);
+            $logoUrl = 'lara/profile/'.$logoNewName;
         }
         if($logoUrl != "")
         {

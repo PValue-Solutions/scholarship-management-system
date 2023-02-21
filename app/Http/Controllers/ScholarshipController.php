@@ -593,6 +593,7 @@ class ScholarshipController extends Controller
     {
         $request->validate([
             'scholarship_id' => ['required'],
+            'year' => ['required', 'string', 'max:255'],
             'annual_income' => ['required', 'numeric'],
             'father_name' => ['required', 'string', 'max:255'],
             'father_occupation' => ['required', 'string', 'max:255'],
@@ -638,6 +639,7 @@ class ScholarshipController extends Controller
             $company = Company::findOrFail(Session::get('company_id'));
             $company->setSettings();
             $scholarshipInfo = Scholarship::find($id);
+            $scholarshipInfo->year = $request->year;
             $scholarshipInfo->school_year = $request->school_year;
             $scholarshipInfo->school_contact_person = $request->school_contact_person;
             $scholarshipInfo->school_designation = $request->school_designation;
