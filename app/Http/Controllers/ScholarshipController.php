@@ -30,8 +30,8 @@ class ScholarshipController extends Controller
     function __construct()
     {
         $this->middleware('permission:scholarship-read|scholarship-create|scholarship-update|scholarship-delete', ['only' => ['index']]);
-        $this->middleware('permission:scholarship-create', ['only' => ['create','store']]);
-        $this->middleware('permission:scholarship-update', ['only' => ['edit','update']]);
+        $this->middleware('permission:scholarship-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:scholarship-update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:scholarship-delete', ['only' => ['destroy']]);
         $this->middleware('permission:scholarship-export', ['only' => ['doExport']]);
 
@@ -56,7 +56,7 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "All Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     public function pending(Request $request)
@@ -68,7 +68,7 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "Under Verification Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     public function approved(Request $request)
@@ -80,7 +80,7 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "Approved Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     public function payment_in_progress(Request $request)
@@ -92,7 +92,7 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "Payment Processing Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     public function payment_done(Request $request)
@@ -104,7 +104,7 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "Payment Completed Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     public function rejected(Request $request)
@@ -116,26 +116,26 @@ class ScholarshipController extends Controller
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $title = "Rejected Applications";
-        return view('scholarships.index', compact('title','scholarships','villages','schools','colleges'));
+        return view('scholarships.index', compact('title', 'scholarships', 'villages', 'schools', 'colleges'));
     }
 
     private function filterRejected(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -143,27 +143,27 @@ class ScholarshipController extends Controller
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
 
-            $query->where('status', 'like', 'rejected');
+        $query->where('status', 'like', 'rejected');
         return $query;
     }
 
     private function filterPaymentDone(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -171,27 +171,27 @@ class ScholarshipController extends Controller
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
 
-            $query->where('status', 'like', 'payment_done');
+        $query->where('status', 'like', 'payment_done');
         return $query;
     }
 
     private function filterPaymentInProgress(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -199,27 +199,27 @@ class ScholarshipController extends Controller
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
 
-            $query->where('status', 'like', 'payment_in_progress');
+        $query->where('status', 'like', 'payment_in_progress');
         return $query;
     }
 
     private function filterApproved(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -227,27 +227,27 @@ class ScholarshipController extends Controller
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
 
-            $query->where('status', 'like', 'approved');
+        $query->where('status', 'like', 'approved');
         return $query;
     }
 
     private function filterPending(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -255,27 +255,27 @@ class ScholarshipController extends Controller
         if ($request->scholarship_college_id)
             $query->where('scholarship_college_id', 'like', $request->scholarship_college_id);
 
-            $query->where('status', 'like', 'pending');
+        $query->where('status', 'like', 'pending');
         return $query;
     }
 
     private function filter(Request $request)
     {
         $query = Scholarship::with(['studentDetail'])
-        ->whereHas('studentDetail', function ($q) use ($request) {
-            $q->where('company_id', session('company_id'));
-            if ($request->scholarship_village_id)
-                $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
-        })
-        ->where('company_id', session('company_id'))->latest();
+            ->whereHas('studentDetail', function ($q) use ($request) {
+                $q->where('company_id', session('company_id'));
+                if ($request->scholarship_village_id)
+                    $q->where('scholarship_village_id', 'like', $request->scholarship_village_id . '%');
+            })
+            ->where('company_id', session('company_id'))->latest();
         $roleName = Auth::user()->getRoleNames();
-        if($roleName[0] == "Student") {
-            $query->where('scholarships.user_id',Auth::user()->id);
+        if ($roleName[0] == "Student") {
+            $query->where('scholarships.user_id', Auth::user()->id);
         }
         if ($request->application_no)
-            $query->where('application_no', 'like', '%'.$request->application_no.'%');
+            $query->where('application_no', 'like', '%' . $request->application_no . '%');
         if ($request->year)
-            $query->where('year', 'like', '%'.$request->year.'%');
+            $query->where('year', 'like', '%' . $request->year . '%');
         if ($request->school_or_college)
             $query->where('school_or_college', 'like', $request->school_or_college);
         if ($request->scholarship_school_id)
@@ -300,10 +300,10 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.create', compact('number','years','classes','villages','schools','colleges'));
+        return view('scholarships.create', compact('number', 'years', 'classes', 'villages', 'schools', 'colleges'));
     }
 
-        /**
+    /**
      * Generate next invoice number
      *
      * @return string
@@ -337,7 +337,7 @@ class ScholarshipController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'application_no' => ['required','unique:scholarships,application_no', 'string', 'max:255'],
+            'application_no' => ['required', 'unique:scholarships,application_no', 'string', 'max:255'],
             'year' => ['required', 'string', 'max:255'],
             'annual_income' => ['required', 'numeric'],
             'percentage_marks_obtained' => ['required', 'numeric'],
@@ -390,25 +390,24 @@ class ScholarshipController extends Controller
             'original_fee_receipt' => ['required', 'mimes:pdf', 'max:6048'],
         ]);
         if ($request->school_or_college == '1') {
-            $request->validate(['scholarship_school_id' => ['required', 'string','max:255'],]);
+            $request->validate(['scholarship_school_id' => ['required', 'string', 'max:255'],]);
         }
         if ($request->school_or_college == '2') {
-            $request->validate(['scholarship_college_id' => ['required', 'string','max:255'],]);
+            $request->validate(['scholarship_college_id' => ['required', 'string', 'max:255'],]);
         }
         if ($request->marks_obtained_type == 'PUC' || $request->marks_obtained_type == 'Degree') {
-            $request->validate(['marks_subject' => ['required', 'string','max:255'],]);
+            $request->validate(['marks_subject' => ['required', 'string', 'max:255'],]);
         }
         if ($request->further_education_details_school_or_college == '1') {
-            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string','max:255'],]);
+            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string', 'max:255'],]);
         }
         if ($request->further_education_details_school_or_college == '2') {
-            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string','max:255'],]);
+            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string', 'max:255'],]);
         }
 
 
         DB::beginTransaction();
-        try
-        {
+        try {
             $company = Company::findOrFail(Session::get('company_id'));
             $company->setSettings();
             $studentDetail = StudentDetail::create([
@@ -533,7 +532,6 @@ class ScholarshipController extends Controller
             DB::commit();
             Session::flash('successMessage', 1);
             echo json_encode(array("status" => 1));
-
         } catch (Exception $e) {
             DB::rollback();
             Session::flash('errorMessage', 1);
@@ -551,31 +549,31 @@ class ScholarshipController extends Controller
     {
         $scholarship = Scholarship::find($id);
         $cMark = intval($scholarship->percentage_marks_obtained);
-            $aAmount = intval($scholarship->apply_amount);
+        $aAmount = intval($scholarship->apply_amount);
 
-            $eAmount = 0;
+        $eAmount = 0;
 
-            if($cMark > 85 && $cMark <=101){
-                if($aAmount > 20000){
-                    $eAmount = 20000;
-                } else {
-                    $eAmount = $aAmount;
-                }
-            } elseif ($cMark > 75 && $cMark <=85) {
-                if($aAmount > 15000){
-                    $eAmount = 15000;
-                } else {
-                    $eAmount = $aAmount;
-                }
+        if ($cMark > 85 && $cMark <= 101) {
+            if ($aAmount > 20000) {
+                $eAmount = 20000;
             } else {
-                if($aAmount > 10000){
-                    $eAmount = 10000;
-                } else {
-                    $eAmount = $aAmount;
-                }
+                $eAmount = $aAmount;
             }
+        } elseif ($cMark > 75 && $cMark <= 85) {
+            if ($aAmount > 15000) {
+                $eAmount = 15000;
+            } else {
+                $eAmount = $aAmount;
+            }
+        } else {
+            if ($aAmount > 10000) {
+                $eAmount = 10000;
+            } else {
+                $eAmount = $aAmount;
+            }
+        }
         //dd($scholarship);
-        return view('scholarships.show', compact('scholarship','eAmount'));
+        return view('scholarships.show', compact('scholarship', 'eAmount'));
     }
 
     /**
@@ -586,27 +584,27 @@ class ScholarshipController extends Controller
      */
     public function edit($id = 0)
     {
-        if($id != 0){
-            $scholarship = Scholarship::with(['studentDetail', 'scholarshipBankDetail','scholarshipVillage'])->findOrFail($id);
+        if ($id != 0) {
+            $scholarship = Scholarship::with(['studentDetail', 'scholarshipBankDetail', 'scholarshipVillage'])->findOrFail($id);
             $cMark = intval($scholarship->percentage_marks_obtained);
             $aAmount = intval($scholarship->apply_amount);
 
             $eAmount = 0;
 
-            if($cMark > 85 && $cMark <=101){
-                if($aAmount > 20000){
+            if ($cMark > 85 && $cMark <= 101) {
+                if ($aAmount > 20000) {
                     $eAmount = 20000;
                 } else {
                     $eAmount = $aAmount;
                 }
-            } elseif ($cMark > 75 && $cMark <=85) {
-                if($aAmount > 15000){
+            } elseif ($cMark > 75 && $cMark <= 85) {
+                if ($aAmount > 15000) {
                     $eAmount = 15000;
                 } else {
                     $eAmount = $aAmount;
                 }
             } else {
-                if($aAmount > 10000){
+                if ($aAmount > 10000) {
                     $eAmount = 10000;
                 } else {
                     $eAmount = $aAmount;
@@ -624,7 +622,7 @@ class ScholarshipController extends Controller
             $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
             $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
             $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-            return view('scholarships.edit', compact('eAmount','scholarship','number','years','classes','villages','schools','colleges'));
+            return view('scholarships.edit', compact('eAmount', 'scholarship', 'number', 'years', 'classes', 'villages', 'schools', 'colleges'));
         } else {
             return false;
         }
@@ -670,20 +668,19 @@ class ScholarshipController extends Controller
             'payment_date' => ['nullable', 'date'],
         ]);
         if ($request->marks_obtained_type == 'PUC' || $request->marks_obtained_type == 'Degree') {
-            $request->validate(['marks_subject' => ['required', 'string','max:255'],]);
+            $request->validate(['marks_subject' => ['required', 'string', 'max:255'],]);
         }
         if ($request->further_education_details_school_or_college == '1') {
-            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string','max:255'],]);
+            $request->validate(['further_education_details_scholarship_school_id' => ['required', 'string', 'max:255'],]);
         }
         if ($request->further_education_details_school_or_college == '2') {
-            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string','max:255'],]);
+            $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string', 'max:255'],]);
         }
 
         $id = $request->scholarship_id;
 
         DB::beginTransaction();
-        try
-        {
+        try {
             $company = Company::findOrFail(Session::get('company_id'));
             $company->setSettings();
             $scholarshipInfo = Scholarship::find($id);
@@ -699,27 +696,27 @@ class ScholarshipController extends Controller
             $scholarshipInfo->further_education_details_school_or_college = $request->further_education_details_school_or_college;
             $scholarshipInfo->further_education_details_scholarship_college_id = $request->further_education_details_scholarship_college_id;
             $scholarshipInfo->further_education_details_course_joined = $request->further_education_details_course_joined;
-            if($request->s_status) {
+            if ($request->s_status) {
                 $scholarshipInfo->status = $request->s_status;
             }
             $scholarshipInfo->payment_date = $request->payment_date;
             if ($request->photo) {
-                $scholarshipInfo->photo = $request->photo->store('scholarship');
+                $scholarshipInfo->photo = $request->photo->store('public/scholarship');
             }
-            if($request->income_certificate) {
-                $scholarshipInfo->income_certificate = $request->income_certificate->store('scholarship');
+            if ($request->income_certificate) {
+                $scholarshipInfo->income_certificate = $request->income_certificate->store('public/scholarship');
             }
-            if($request->id_proof) {
-                $scholarshipInfo->id_proof = $request->id_proof->store('scholarship');
+            if ($request->id_proof) {
+                $scholarshipInfo->id_proof = $request->id_proof->store('public/scholarship');
             }
-            if($request->previous_educational_marks_card) {
-                $scholarshipInfo->previous_educational_marks_card = $request->previous_educational_marks_card->store('scholarship');
+            if ($request->previous_educational_marks_card) {
+                $scholarshipInfo->previous_educational_marks_card = $request->previous_educational_marks_card->store('public/scholarship');
             }
-            if($request->bank_passbook) {
-                $scholarshipInfo->bank_passbook = $request->bank_passbook->store('scholarship');
+            if ($request->bank_passbook) {
+                $scholarshipInfo->bank_passbook = $request->bank_passbook->store('public/scholarship');
             }
-            if($request->original_fee_receipt) {
-                $scholarshipInfo->original_fee_receipt = $request->original_fee_receipt->store('scholarship');
+            if ($request->original_fee_receipt) {
+                $scholarshipInfo->original_fee_receipt = $request->original_fee_receipt->store('public/scholarship');
             }
             $scholarshipInfo->save();
             $studentDetailInfo = StudentDetail::findOrFail($scholarshipInfo->student_detail_id);
@@ -760,23 +757,24 @@ class ScholarshipController extends Controller
      * @param  \App\Models\Scholarship  $scholarship
      * @return \Illuminate\Http\Response
      */
-    public function download($id){
+    public function download($id)
+    {
         $scholarship = Scholarship::where('id', $id)->first();
         $teacherName = "";
         $fSchoolCollege = $scholarship->further_education_details_school_or_college;
-        if($fSchoolCollege == "1") {
+        if ($fSchoolCollege == "1") {
             $schoolId = $scholarship->further_education_details_scholarship_school_id;
             $schoolTeacher = ScholarshipTeacher::where('scholarship_school_id', $schoolId)->first();
-            if(isset($schoolTeacher->name) && !empty($schoolTeacher->name))
+            if (isset($schoolTeacher->name) && !empty($schoolTeacher->name))
                 $teacherName = $schoolTeacher->name;
         } else {
             $CollegeId = $scholarship->further_education_details_scholarship_college_id;
             $collegeTeacher = ScholarshipTeacher::where('scholarship_college_id', $CollegeId)->first();
-            if(isset($collegeTeacher->name) && !empty($collegeTeacher->name))
+            if (isset($collegeTeacher->name) && !empty($collegeTeacher->name))
                 $teacherName = $collegeTeacher->name;
         }
-       //return view('scholarships.pdf', compact('scholarship'));
-        $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship','teacherName'));
+        //return view('scholarships.pdf', compact('scholarship'));
+        $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship', 'teacherName'));
         return $pdf->stream();
         //dd($pdf->loadHTML(''));
         /* $pdf->getDomPDF()->setHttpContext(
