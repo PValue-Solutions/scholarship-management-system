@@ -57,7 +57,7 @@ $roleName = Auth::user()->getRoleNames();
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{--  <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="year">
                                         {{ __('Year') }} <b class="ambitious-crimson">*</b>
@@ -66,6 +66,24 @@ $roleName = Auth::user()->getRoleNames();
                                     @if ($errors->has('year'))
                                         {{ Session::flash('error',$errors->first('year')) }}
                                     @endif
+                                </div>
+                            </div>  --}}
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="year">
+                                        {{ __('Year') }} <b class="ambitious-crimson">*</b>
+                                    </label>
+                                    <select class="form-control select2" name="year" id="year" required>
+                                        <option value="">Select Year</option>
+                                        @foreach ($years as $key => $value)
+                                            <option value="{{ $value }}" {{ old('year',$scholarship->year) == $value ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('year')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
