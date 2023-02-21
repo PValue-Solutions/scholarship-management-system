@@ -114,8 +114,8 @@ class CompanyController extends Controller
             $this->validate($request,['photo' => 'image|mimes:png,jpg,jpeg']);
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/companies',$logoNewName);
-            $logoUrl = 'uploads/companies/'.$logoNewName;
+            $logo->move('lara/companies',$logoNewName);
+            $logoUrl = 'lara/companies/'.$logoNewName;
         }
 
         $company = Company::create([
@@ -568,8 +568,8 @@ class CompanyController extends Controller
             $this->validate($request,['photo' => 'image|mimes:png,jpg,jpeg']);
             $logo = $request->photo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/companies',$logoNewName);
-            $logoUrl = 'uploads/companies/'.$logoNewName;
+            $logo->move('lara/companies',$logoNewName);
+            $logoUrl = 'lara/companies/'.$logoNewName;
         }
         DB::beginTransaction();
         try {

@@ -35,7 +35,7 @@
         <li class="nav-item dropdown nav-margin">
 
             <a class="dropdown-toggle profile-pic login_profile mr-2" data-toggle="dropdown" href="#">
-                <img src="{{ asset('img/company.png') }}" alt="user-img" width="36" class="img-circle">
+                <img src="{{ asset($companyLogo) }}" alt="user-img" width="36" class="img-circle">
                 <b id="ambitious-user-name-id" class="hidden-xs">{{ \Illuminate\Support\Str::limit($company_full_name, 20, '...') }}</b>
                 <span class="caret"></span>
             </a>

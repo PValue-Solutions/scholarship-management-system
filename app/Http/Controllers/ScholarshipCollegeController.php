@@ -88,9 +88,21 @@ class ScholarshipCollegeController extends Controller
     {
         $this->validation($request);
         $data = $request->only(['name','college_type','website','email','scholarship_village_id','district','description','status']);
+        // if ($request->picture) {
+        //     $data['picture'] = $request->picture->store('item-images');
+        // }
+
+        $imageUrl = "";
         if ($request->picture) {
-            $data['picture'] = $request->picture->store('item-images');
+
+            $picture = $request->picture;
+            $logoNewName = time().$picture->getClientOriginalName();
+            $picture->move('lara/college',$logoNewName);
+            $imageUrl = 'lara/college/'.$logoNewName;
+
+            $data['picture'] = $imageUrl;
         }
+
         DB::transaction(function () use ($data) {
             ScholarshipCollege::create($data);
         });
@@ -133,7 +145,13 @@ class ScholarshipCollegeController extends Controller
         $this->validation($request, $scholarshipCollege->id);
         $data = $request->only(['name','college_type','website','email','scholarship_village_id','district','description','status']);
         if ($request->picture) {
-            $data['picture'] = $request->picture->store('item-images');
+
+            $picture = $request->picture;
+            $logoNewName = time().$picture->getClientOriginalName();
+            $picture->move('lara/college',$logoNewName);
+            $imageUrl = 'lara/college/'.$logoNewName;
+
+            $data['picture'] = $imageUrl;
         }
         DB::transaction(function () use ($data, $scholarshipCollege) {
             $scholarshipCollege->update($data);

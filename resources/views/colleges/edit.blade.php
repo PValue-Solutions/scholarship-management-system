@@ -85,7 +85,7 @@
                                 <label for="website">
                                     @lang('Email')
                                 </label>
-                                <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" value="{{ old('email', $scholarshipCollege->email) }}" id="email" type="email" placeholder="@lang('Type Your Email Here')" required>
+                                <input class="form-control ambitious-form-loading @error('email') is-invalid @enderror" name="email" value="{{ old('email', $scholarshipCollege->email) }}" id="email" type="email" placeholder="@lang('Type Your Email Here')">
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}

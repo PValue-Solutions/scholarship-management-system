@@ -22,7 +22,7 @@
                     @if($scholarshipSchool->picture == NULL)
                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/no_image.png') }}" alt="" />
                     @else
-                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$scholarshipSchool->picture) }}" alt="" />
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset($scholarshipSchool->picture) }}" alt="" />
                     @endif
                 </div>
                 <h3 class="profile-username text-center">{{ $scholarshipSchool->name }}</h3>
