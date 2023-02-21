@@ -61,8 +61,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 ambitious-center"><h4>@lang('Photo') </h4></label>
                             <div class="col-md-9">
-                                @lang('Max Dimension: 200 x 200, Max Size: 100kb, Allowed Format: png')
-                                <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="100K"/><small id="name" class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
+                                @lang('Max Dimension: 200 x 200, Max Size: 500kb, Allowed Format: png')
+                                <input id="photo" class="dropify" name="photo" value="{{ old('photo') }}" type="file" data-allowed-file-extensions="png jpg jpeg" data-max-file-size="500K"/><small id="name" class="form-text text-muted">@lang('Leave Blank For Remain Unchanged')</small>
                             </div>
 
                             @if ($errors->has('photo'))

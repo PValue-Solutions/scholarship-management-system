@@ -58,10 +58,17 @@
                                     <label for="year">
                                         {{ __('Year') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <input id="year" class="form-control" name="year" type="text" value="{{ old('year', date("Y")) }}" required readonly>
-                                    @if ($errors->has('year'))
-                                        {{ Session::flash('error',$errors->first('year')) }}
-                                    @endif
+                                    <select class="form-control select2" name="year" id="year" required>
+                                        <option value="">Select Year</option>
+                                        @foreach ($years as $key => $value)
+                                            <option value="{{ $value }}" {{ old('year') == $value ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('year')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
