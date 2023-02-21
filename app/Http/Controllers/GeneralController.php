@@ -92,10 +92,10 @@ class GeneralController extends Controller
         {
             $logo = $request->company_logo;
             $logoNewName = time().$logo->getClientOriginalName();
-            $logo->move('uploads/companies',$logoNewName);
-            $logo = 'uploads/companies/'.$logoNewName;
+            $logo->move('lara/companies',$logoNewName);
+            $logo = 'lara/companies/'.$logoNewName;
 
-            if ($company->company_logo != 'public/img/company.png') {
+            if ($company->company_logo != 'img/company.png') {
 	            $data = Setting::where('company_id', $id)
 	                ->where('key', 'general.company_logo')
 	                ->update(['value' => $logo]);

@@ -28,13 +28,13 @@ class UserController extends Controller
         $this->middleware('permission:user-read|user-create|user-update|user-delete', ['only' => ['index']]);
         $this->middleware('permission:user-create', ['only' => ['create','store']]);
         $this->middleware('permission:user-update', ['only' => ['editUser','updateUser']]);
-        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroyUser']]);
         $this->middleware('permission:user-export', ['only' => ['doExport']]);
 
         $this->middleware('permission:student-read|student-create|student-update|student-delete', ['only' => ['studentIndex']]);
         $this->middleware('permission:student-create', ['only' => ['createStudent','storeStudent']]);
         $this->middleware('permission:student-update', ['only' => ['editStudent','updateStudent']]);
-        $this->middleware('permission:student-delete', ['only' => ['destroyStudent']]);
+        $this->middleware('permission:student-delete', ['only' => ['destroyUser']]);
         $this->middleware('permission:student-export', ['only' => ['doExportStudent']]);
     }
 
@@ -126,7 +126,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $staffRoles = Role::where('role_for', '1')->pluck('name','name')->all();
+        $staffRoles = Role::where('name','!=', 'Student')->where('role_for', '1')->pluck('name','name')->all();
+        // dd($staffRoles);
         $userRoles = Role::where('role_for', '0')->pluck('name','name')->all();
         $companies = auth()->user()->companies()->get();
         foreach ($companies as $company) {
@@ -289,7 +290,7 @@ class UserController extends Controller
         }
         $cIdStd = implode(",",$cId);
 
-        $staffRoles = Role::where('role_for', '1')->pluck('name','name')->all();
+        $staffRoles = Role::where('name','!=', 'Student')->where('role_for', '1')->pluck('name','name')->all();
         $userRoles = Role::where('role_for', '0')->pluck('name','name')->all();
         $companies = auth()->user()->companies()->get();
 
