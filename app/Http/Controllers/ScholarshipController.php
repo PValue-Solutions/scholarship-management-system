@@ -14,6 +14,7 @@ use App\Models\ScholarshipCollege;
 use App\Models\ScholarshipBankDetail;
 use App\Models\ScholarshipTeacher;
 use App\Models\StudentDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -292,6 +293,9 @@ class ScholarshipController extends Controller
      */
     public function create()
     {
+        $roleName = Auth::user()->getRoleNames();
+        $myRole = $roleName[0];
+        $students = User::role('Student')->where('status', "1")->where('is_email_verified', "1")->orderBy('name')->pluck('name', 'id');
         $company = Company::findOrFail(Session::get('company_id'));
         $company->setSettings();
         $number = $this->getNextInvoiceNumber($company);
@@ -300,7 +304,7 @@ class ScholarshipController extends Controller
         $villages = ScholarshipVillage::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $schools = ScholarshipSchool::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
         $colleges = ScholarshipCollege::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('scholarships.create', compact('number', 'years', 'classes', 'villages', 'schools', 'colleges'));
+        return view('scholarships.create', compact('number', 'years', 'classes', 'villages', 'schools', 'colleges','myRole','students'));
     }
 
     /**
@@ -405,137 +409,276 @@ class ScholarshipController extends Controller
             $request->validate(['further_education_details_scholarship_college_id' => ['required', 'string', 'max:255'],]);
         }
 
+        $roleName = Auth::user()->getRoleNames();
+        $myRole = $roleName[0];
 
-        DB::beginTransaction();
-        try {
-            $company = Company::findOrFail(Session::get('company_id'));
-            $company->setSettings();
-            $studentDetail = StudentDetail::create([
-                'user_id' => Auth::user()->id,
-                'full_name' => $request->full_name,
-                'father_name' => $request->father_name,
-                'father_occupation' => $request->father_occupation,
-                'mother_name' => $request->mother_name,
-                'mother_occupation' => $request->mother_occupation,
-                'house_no' => $request->house_no,
-                'scholarship_village_id' => $request->scholarship_village_id,
-                'street' => $request->street,
-                'post_office' => $request->post_office,
-                'taluk' => $request->taluk,
-                'district' => $request->district,
-                'pincode' => $request->pincode,
-                'state' => $request->state,
-                'contact_no_1' => $request->contact_no_1,
-                'contact_no_2' => $request->contact_no_2,
-                'date_of_birth' => $request->date_of_birth,
-                'age' => $request->age,
-                'gender' => $request->gender,
-                'aadhar_no' => $request->aadhar_no
-            ]);
+        if($myRole == "Student") {
+            DB::beginTransaction();
+            try {
+                $company = Company::findOrFail(Session::get('company_id'));
+                $company->setSettings();
+                $studentDetail = StudentDetail::create([
+                    'user_id' => Auth::user()->id,
+                    'full_name' => $request->full_name,
+                    'father_name' => $request->father_name,
+                    'father_occupation' => $request->father_occupation,
+                    'mother_name' => $request->mother_name,
+                    'mother_occupation' => $request->mother_occupation,
+                    'house_no' => $request->house_no,
+                    'scholarship_village_id' => $request->scholarship_village_id,
+                    'street' => $request->street,
+                    'post_office' => $request->post_office,
+                    'taluk' => $request->taluk,
+                    'district' => $request->district,
+                    'pincode' => $request->pincode,
+                    'state' => $request->state,
+                    'contact_no_1' => $request->contact_no_1,
+                    'contact_no_2' => $request->contact_no_2,
+                    'date_of_birth' => $request->date_of_birth,
+                    'age' => $request->age,
+                    'gender' => $request->gender,
+                    'aadhar_no' => $request->aadhar_no
+                ]);
 
-            $scholarshipBankDetail = ScholarshipBankDetail::create([
-                'user_id' => Auth::user()->id,
-                'bank_name' => $request->bank_name,
-                'branch' => $request->branch,
-                'account_holder_name' => $request->account_holder_name,
-                'account_no' => $request->account_no,
-                'ifsc_code' => $request->ifsc_code,
-                'status' => $request->status,
-            ]);
+                $scholarshipBankDetail = ScholarshipBankDetail::create([
+                    'user_id' => Auth::user()->id,
+                    'bank_name' => $request->bank_name,
+                    'branch' => $request->branch,
+                    'account_holder_name' => $request->account_holder_name,
+                    'account_no' => $request->account_no,
+                    'ifsc_code' => $request->ifsc_code,
+                    'status' => $request->status,
+                ]);
 
-            $imageUrl = "";
-            if ($request->photo) {
-                $picture = $request->photo;
-                $logoNewName = time().$picture->getClientOriginalName();
-                $picture->move('lara/scholarship',$logoNewName);
-                $imageUrl = 'lara/scholarship/'.$logoNewName;
+                $imageUrl = "";
+                if ($request->photo) {
+                    $picture = $request->photo;
+                    $logoNewName = time().$picture->getClientOriginalName();
+                    $picture->move('lara/scholarship',$logoNewName);
+                    $imageUrl = 'lara/scholarship/'.$logoNewName;
+                }
+
+                $incomeCertificateUrl = "";
+                if ($request->income_certificate) {
+                    $incomeFile = $request->income_certificate;
+                    $incomeNewName = time().$incomeFile->getClientOriginalName();
+                    $incomeFile->move('lara/scholarship',$incomeNewName);
+                    $incomeCertificateUrl = 'lara/scholarship/'.$incomeNewName;
+                }
+
+                $idProofUrl = "";
+                if ($request->id_proof) {
+                    $idProof = $request->id_proof;
+                    $idNewName = time().$idProof->getClientOriginalName();
+                    $idProof->move('lara/scholarship',$idNewName);
+                    $idProofUrl = 'lara/scholarship/'.$idNewName;
+                }
+
+                $previousEducationalMarksCardUrl = "";
+                if ($request->previous_educational_marks_card) {
+                    $pEduMarkCard = $request->previous_educational_marks_card;
+                    $pEduMarkCardNewName = time().$pEduMarkCard->getClientOriginalName();
+                    $pEduMarkCard->move('lara/scholarship',$pEduMarkCardNewName);
+                    $previousEducationalMarksCardUrl = 'lara/scholarship/'.$pEduMarkCardNewName;
+                }
+
+                $bankPassbookUrl = "";
+                if ($request->bank_passbook) {
+                    $bankPassbookFile = $request->bank_passbook;
+                    $bankPassNewName = time().$bankPassbookFile->getClientOriginalName();
+                    $bankPassbookFile->move('lara/scholarship',$bankPassNewName);
+                    $bankPassbookUrl = 'lara/scholarship/'.$bankPassNewName;
+                }
+
+                $originalFeeReceiptUrl = "";
+                if ($request->original_fee_receipt) {
+                    $originalFeeReceipt = $request->original_fee_receipt;
+                    $oFeeNewName = time().$originalFeeReceipt->getClientOriginalName();
+                    $originalFeeReceipt->move('lara/scholarship',$oFeeNewName);
+                    $originalFeeReceiptUrl = 'lara/scholarship/'.$oFeeNewName;
+                }
+
+                $scholarship = Scholarship::create([
+                    'user_id' => Auth::user()->id,
+                    'application_no' => $request->application_no,
+                    'year' => $request->year,
+                    'annual_income' => $request->annual_income,
+                    'percentage_marks_obtained' => $request->percentage_marks_obtained,
+                    'student_detail_id' => $studentDetail->id,
+                    'school_or_college' => $request->school_or_college,
+                    'scholarship_school_id' => $request->scholarship_school_id,
+                    'scholarship_college_id' => $request->scholarship_college_id,
+                    'school_year' => $request->school_year,
+                    'school_grade' => $request->school_grade,
+                    'school_contact_person' => $request->school_contact_person,
+                    'school_designation' => $request->school_designation,
+                    'school_contact_number' => $request->school_contact_number,
+                    'marks_obtained_type' => $request->marks_obtained_type,
+                    'marks_subject' => $request->marks_subject,
+                    'marks_obtained' => $request->marks_obtained,
+                    'further_education_details_school_or_college' => $request->further_education_details_school_or_college,
+                    'further_education_details_scholarship_school_id' => $request->further_education_details_scholarship_school_id,
+                    'further_education_details_scholarship_college_id' => $request->further_education_details_scholarship_college_id,
+                    'further_education_details_course_joined' => $request->further_education_details_course_joined,
+                    'fee_amount' => $request->fee_amount,
+                    'apply_amount' => $request->fee_amount,
+                    'date' => $request->date,
+                    'given_information' => $request->given_information,
+                    'any_other_scholarship' => $request->any_other_scholarship,
+                    'scholarship_bank_detail_id' => $scholarshipBankDetail->id,
+                    'scholarship_refunded' => $request->scholarship_refunded,
+                    'photo' => $imageUrl,
+                    'income_certificate' => $incomeCertificateUrl,
+                    'id_proof' => $idProofUrl,
+                    'previous_educational_marks_card' => $previousEducationalMarksCardUrl,
+                    'bank_passbook' => $bankPassbookUrl,
+                    'original_fee_receipt' => $originalFeeReceiptUrl,
+                ]);
+                // Update next invoice number
+                $this->increaseNextInvoiceNumber($company);
+                DB::commit();
+                Session::flash('successMessage', 1);
+                echo json_encode(array("status" => 1));
+            } catch (Exception $e) {
+                DB::rollback();
+                Session::flash('errorMessage', 1);
+                echo json_encode(array("status" => 0));
             }
+        } else {
+            $myStudentId = $request->full_name;
+            $myStudentInfo = User::findOrFail($myStudentId);
 
-            $incomeCertificateUrl = "";
-            if ($request->income_certificate) {
-                $incomeFile = $request->income_certificate;
-                $incomeNewName = time().$incomeFile->getClientOriginalName();
-                $incomeFile->move('lara/scholarship',$incomeNewName);
-                $incomeCertificateUrl = 'lara/scholarship/'.$incomeNewName;
+            DB::beginTransaction();
+            try {
+                $company = Company::findOrFail(Session::get('company_id'));
+                $company->setSettings();
+                $studentDetail = StudentDetail::create([
+                    'user_id' => $myStudentInfo->id,
+                    'full_name' => $myStudentInfo->name,
+                    'father_name' => $request->father_name,
+                    'father_occupation' => $request->father_occupation,
+                    'mother_name' => $request->mother_name,
+                    'mother_occupation' => $request->mother_occupation,
+                    'house_no' => $request->house_no,
+                    'scholarship_village_id' => $request->scholarship_village_id,
+                    'street' => $request->street,
+                    'post_office' => $request->post_office,
+                    'taluk' => $request->taluk,
+                    'district' => $request->district,
+                    'pincode' => $request->pincode,
+                    'state' => $request->state,
+                    'contact_no_1' => $request->contact_no_1,
+                    'contact_no_2' => $request->contact_no_2,
+                    'date_of_birth' => $request->date_of_birth,
+                    'age' => $request->age,
+                    'gender' => $request->gender,
+                    'aadhar_no' => $request->aadhar_no
+                ]);
+
+                $scholarshipBankDetail = ScholarshipBankDetail::create([
+                    'user_id' => $myStudentInfo->id,
+                    'bank_name' => $request->bank_name,
+                    'branch' => $request->branch,
+                    'account_holder_name' => $request->account_holder_name,
+                    'account_no' => $request->account_no,
+                    'ifsc_code' => $request->ifsc_code,
+                    'status' => $request->status,
+                ]);
+
+                $imageUrl = "";
+                if ($request->photo) {
+                    $picture = $request->photo;
+                    $logoNewName = time().$picture->getClientOriginalName();
+                    $picture->move('lara/scholarship',$logoNewName);
+                    $imageUrl = 'lara/scholarship/'.$logoNewName;
+                }
+
+                $incomeCertificateUrl = "";
+                if ($request->income_certificate) {
+                    $incomeFile = $request->income_certificate;
+                    $incomeNewName = time().$incomeFile->getClientOriginalName();
+                    $incomeFile->move('lara/scholarship',$incomeNewName);
+                    $incomeCertificateUrl = 'lara/scholarship/'.$incomeNewName;
+                }
+
+                $idProofUrl = "";
+                if ($request->id_proof) {
+                    $idProof = $request->id_proof;
+                    $idNewName = time().$idProof->getClientOriginalName();
+                    $idProof->move('lara/scholarship',$idNewName);
+                    $idProofUrl = 'lara/scholarship/'.$idNewName;
+                }
+
+                $previousEducationalMarksCardUrl = "";
+                if ($request->previous_educational_marks_card) {
+                    $pEduMarkCard = $request->previous_educational_marks_card;
+                    $pEduMarkCardNewName = time().$pEduMarkCard->getClientOriginalName();
+                    $pEduMarkCard->move('lara/scholarship',$pEduMarkCardNewName);
+                    $previousEducationalMarksCardUrl = 'lara/scholarship/'.$pEduMarkCardNewName;
+                }
+
+                $bankPassbookUrl = "";
+                if ($request->bank_passbook) {
+                    $bankPassbookFile = $request->bank_passbook;
+                    $bankPassNewName = time().$bankPassbookFile->getClientOriginalName();
+                    $bankPassbookFile->move('lara/scholarship',$bankPassNewName);
+                    $bankPassbookUrl = 'lara/scholarship/'.$bankPassNewName;
+                }
+
+                $originalFeeReceiptUrl = "";
+                if ($request->original_fee_receipt) {
+                    $originalFeeReceipt = $request->original_fee_receipt;
+                    $oFeeNewName = time().$originalFeeReceipt->getClientOriginalName();
+                    $originalFeeReceipt->move('lara/scholarship',$oFeeNewName);
+                    $originalFeeReceiptUrl = 'lara/scholarship/'.$oFeeNewName;
+                }
+                $scholarship = Scholarship::create([
+                    'user_id' => $myStudentInfo->id,
+                    'application_no' => $request->application_no,
+                    'year' => $request->year,
+                    'annual_income' => $request->annual_income,
+                    'percentage_marks_obtained' => $request->percentage_marks_obtained,
+                    'student_detail_id' => $studentDetail->id,
+                    'school_or_college' => $request->school_or_college,
+                    'scholarship_school_id' => $request->scholarship_school_id,
+                    'scholarship_college_id' => $request->scholarship_college_id,
+                    'school_year' => $request->school_year,
+                    'school_grade' => $request->school_grade,
+                    'school_contact_person' => $request->school_contact_person,
+                    'school_designation' => $request->school_designation,
+                    'school_contact_number' => $request->school_contact_number,
+                    'marks_obtained_type' => $request->marks_obtained_type,
+                    'marks_subject' => $request->marks_subject,
+                    'marks_obtained' => $request->marks_obtained,
+                    'further_education_details_school_or_college' => $request->further_education_details_school_or_college,
+                    'further_education_details_scholarship_school_id' => $request->further_education_details_scholarship_school_id,
+                    'further_education_details_scholarship_college_id' => $request->further_education_details_scholarship_college_id,
+                    'further_education_details_course_joined' => $request->further_education_details_course_joined,
+                    'fee_amount' => $request->fee_amount,
+                    'apply_amount' => $request->fee_amount,
+                    'date' => $request->date,
+                    'given_information' => $request->given_information,
+                    'any_other_scholarship' => $request->any_other_scholarship,
+                    'scholarship_bank_detail_id' => $scholarshipBankDetail->id,
+                    'scholarship_refunded' => $request->scholarship_refunded,
+                    'photo' => $imageUrl,
+                    'income_certificate' => $incomeCertificateUrl,
+                    'id_proof' => $idProofUrl,
+                    'previous_educational_marks_card' => $previousEducationalMarksCardUrl,
+                    'bank_passbook' => $bankPassbookUrl,
+                    'original_fee_receipt' => $originalFeeReceiptUrl,
+                ]);
+
+                // Update next invoice number
+                $this->increaseNextInvoiceNumber($company);
+                DB::commit();
+                Session::flash('successMessage', 1);
+                echo json_encode(array("status" => 1));
+            } catch (Exception $e) {
+                DB::rollback();
+                Session::flash('errorMessage', 1);
+                echo json_encode(array("status" => 0));
             }
-
-            $idProofUrl = "";
-            if ($request->id_proof) {
-                $idProof = $request->id_proof;
-                $idNewName = time().$idProof->getClientOriginalName();
-                $idProof->move('lara/scholarship',$idNewName);
-                $idProofUrl = 'lara/scholarship/'.$idNewName;
-            }
-
-            $previousEducationalMarksCardUrl = "";
-            if ($request->previous_educational_marks_card) {
-                $pEduMarkCard = $request->previous_educational_marks_card;
-                $pEduMarkCardNewName = time().$pEduMarkCard->getClientOriginalName();
-                $pEduMarkCard->move('lara/scholarship',$pEduMarkCardNewName);
-                $previousEducationalMarksCardUrl = 'lara/scholarship/'.$pEduMarkCardNewName;
-            }
-
-            $bankPassbookUrl = "";
-            if ($request->bank_passbook) {
-                $bankPassbookFile = $request->bank_passbook;
-                $bankPassNewName = time().$bankPassbookFile->getClientOriginalName();
-                $bankPassbookFile->move('lara/scholarship',$bankPassNewName);
-                $bankPassbookUrl = 'lara/scholarship/'.$bankPassNewName;
-            }
-
-            $originalFeeReceiptUrl = "";
-            if ($request->original_fee_receipt) {
-                $originalFeeReceipt = $request->original_fee_receipt;
-                $oFeeNewName = time().$originalFeeReceipt->getClientOriginalName();
-                $originalFeeReceipt->move('lara/scholarship',$oFeeNewName);
-                $originalFeeReceiptUrl = 'lara/scholarship/'.$oFeeNewName;
-            }
-
-            $scholarship = Scholarship::create([
-                'user_id' => Auth::user()->id,
-                'application_no' => $request->application_no,
-                'year' => $request->year,
-                'annual_income' => $request->annual_income,
-                'percentage_marks_obtained' => $request->percentage_marks_obtained,
-                'student_detail_id' => $studentDetail->id,
-                'school_or_college' => $request->school_or_college,
-                'scholarship_school_id' => $request->scholarship_school_id,
-                'scholarship_college_id' => $request->scholarship_college_id,
-                'school_year' => $request->school_year,
-                'school_grade' => $request->school_grade,
-                'school_contact_person' => $request->school_contact_person,
-                'school_designation' => $request->school_designation,
-                'school_contact_number' => $request->school_contact_number,
-                'marks_obtained_type' => $request->marks_obtained_type,
-                'marks_subject' => $request->marks_subject,
-                'marks_obtained' => $request->marks_obtained,
-                'further_education_details_school_or_college' => $request->further_education_details_school_or_college,
-                'further_education_details_scholarship_school_id' => $request->further_education_details_scholarship_school_id,
-                'further_education_details_scholarship_college_id' => $request->further_education_details_scholarship_college_id,
-                'further_education_details_course_joined' => $request->further_education_details_course_joined,
-                'fee_amount' => $request->fee_amount,
-                'apply_amount' => $request->fee_amount,
-                'date' => $request->date,
-                'given_information' => $request->given_information,
-                'any_other_scholarship' => $request->any_other_scholarship,
-                'scholarship_bank_detail_id' => $scholarshipBankDetail->id,
-                'scholarship_refunded' => $request->scholarship_refunded,
-                'photo' => $imageUrl,
-                'income_certificate' => $incomeCertificateUrl,
-                'id_proof' => $idProofUrl,
-                'previous_educational_marks_card' => $previousEducationalMarksCardUrl,
-                'bank_passbook' => $bankPassbookUrl,
-                'original_fee_receipt' => $originalFeeReceiptUrl,
-            ]);
-            // Update next invoice number
-            $this->increaseNextInvoiceNumber($company);
-            DB::commit();
-            Session::flash('successMessage', 1);
-            echo json_encode(array("status" => 1));
-        } catch (Exception $e) {
-            DB::rollback();
-            Session::flash('errorMessage', 1);
-            echo json_encode(array("status" => 0));
         }
     }
 

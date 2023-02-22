@@ -6,6 +6,8 @@
     <script src="{{ asset('plugins/steps/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('plugins/validation/additional-methods.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
 @endsection
 
 @section('one_page_css')
@@ -13,6 +15,7 @@
     <link href="{{ asset('plugins/steps/css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/steps/css/steps.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 @section('content')
 <section class="content-header">
@@ -58,7 +61,7 @@
                                     <label for="year">
                                         {{ __('Year') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="year" id="year" required>
+                                    <select class="form-control" name="year" id="year" required>
                                         <option value="">Select Year</option>
                                         @foreach ($years as $key => $value)
                                             <option value="{{ $value }}" {{ old('year') == $value ? 'selected' : '' }}>{{ $value }}</option>
@@ -100,17 +103,38 @@
                     <h6>{{ __('Personal Details') }}</h6>
                     <section>
                         <div class="row mb-2">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="full_name">
-                                        {{ __('Full Name') }} <b class="ambitious-crimson">*</b>
-                                    </label>
-                                    <input id="full_name" class="form-control @if($errors->has('full_name')) is-invalid @endif" name="full_name" type="text" value="{{ old('full_name') }}" placeholder="Type Your Full Name" required>
-                                    @if ($errors->has('full_name'))
-                                        {{ Session::flash('error',$errors->first('full_name')) }}
-                                    @endif
+                            @if($myRole == "Student")
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="full_name">
+                                            {{ __('Full Name') }} <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input id="full_name" class="form-control @if($errors->has('full_name')) is-invalid @endif" name="full_name" type="text" value="{{ old('full_name') }}" placeholder="Type Your Full Name" required>
+                                        @if ($errors->has('full_name'))
+                                            {{ Session::flash('error',$errors->first('full_name')) }}
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="full_name">
+                                            {{ __('Student') }} <b class="ambitious-crimson">*</b>
+                                        </label>
+
+                                        <select style="width: 100%" class="form-control select2" name="full_name" id="full_name" required>
+                                            <option value="">Select Student</option>
+                                            @foreach ($students as $key => $value)
+                                                <option value="{{ $key }}" {{ old('full_name') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('full_name'))
+                                            {{ Session::flash('error',$errors->first('full_name')) }}
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -177,7 +201,7 @@
                                     <label for="scholarship_village_id">
                                         {{ __('Village') }} <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required>
+                                    <select class="form-control" name="scholarship_village_id" id="scholarship_village_id" required>
                                         <option value="">Select Village</option>
                                         @foreach ($villages as $key => $value)
                                             <option value="{{ $key }}" {{ old('scholarship_village_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -352,7 +376,7 @@
                                     <label for="scholarship_school_id">
                                         @lang('School') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="scholarship_school_id" id="scholarship_school_id">
+                                    <select class="form-control" name="scholarship_school_id" id="scholarship_school_id">
                                         <option value="">Select School</option>
                                         @foreach ($schools as $key => $value)
                                             <option value="{{ $key }}" {{ old('scholarship_school_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -370,7 +394,7 @@
                                     <label for="scholarship_college_id">
                                         @lang('College') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="scholarship_college_id" id="scholarship_college_id">
+                                    <select class="form-control" name="scholarship_college_id" id="scholarship_college_id">
                                         <option value="">Select College</option>
                                         @foreach ($colleges as $key => $value)
                                             <option value="{{ $key }}" {{ old('scholarship_college_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -390,7 +414,7 @@
                                     <label for="school_year">
                                         @lang('Year') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="school_year" id="school_year">
+                                    <select class="form-control" name="school_year" id="school_year">
                                         <option value="">Select Year</option>
                                         @foreach ($years as $key => $value)
                                             <option value="{{ $key }}" {{ old('school_year') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -408,7 +432,7 @@
                                     <label for="school_grade">
                                         @lang('Class') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="school_grade" id="school_grade">
+                                    <select class="form-control" name="school_grade" id="school_grade">
                                         <option value="">Select Class</option>
                                         @foreach ($classes as $key => $value)
                                             <option value="{{ $key }}" {{ old('school_grade') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -523,7 +547,7 @@
                                     <label for="further_education_details_scholarship_school_id">
                                         @lang('Further Education School') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="further_education_details_scholarship_school_id" id="further_education_details_scholarship_school_id">
+                                    <select class="form-control" name="further_education_details_scholarship_school_id" id="further_education_details_scholarship_school_id">
                                         <option value="">Select School</option>
                                         @foreach ($schools as $key => $value)
                                             <option value="{{ $key }}" {{ old('further_education_details_scholarship_school_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -541,7 +565,7 @@
                                     <label for="further_education_details_scholarship_college_id">
                                         @lang('Further Education College') <b class="ambitious-crimson">*</b>
                                     </label>
-                                    <select class="form-control select2" name="further_education_details_scholarship_college_id" id="further_education_details_scholarship_college_id">
+                                    <select class="form-control" name="further_education_details_scholarship_college_id" id="further_education_details_scholarship_college_id">
                                         <option value="">Select College</option>
                                         @foreach ($colleges as $key => $value)
                                             <option value="{{ $key }}" {{ old('further_education_details_scholarship_college_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
@@ -795,6 +819,10 @@
 
     $(document).ready(function() {
         "use strict";
+        $(".select2").select2();
+
+
+
         $('.dropify').dropify();
         $('.dropify-fr').dropify({
             messages: {
@@ -830,6 +858,8 @@
     });
 
     $(document).ready(function() {
+        $('.select3').selectize();
+
         $(".flatpickr").flatpickr({
             enableTime: false
         });
