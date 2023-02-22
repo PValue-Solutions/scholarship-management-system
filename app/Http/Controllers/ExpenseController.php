@@ -157,7 +157,7 @@ class ExpenseController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'school_or_college' => ['required', 'in:1,2'],
             'year' => ['required', 'numeric'],
-            'scholarship_village_id' => ['required', 'numeric'],
+            'scholarship_village_id' => ['required', 'string'],
             'amount' => ['required', 'numeric']
         ]);
 

@@ -532,7 +532,7 @@ class ReportController extends Controller
             return [$item->year => $item];
         });
 
-        // dd($datas);
+        // dd($studentWiseData);
 
         $studentYearData = array();
         foreach($datasYear as $key => $value) {
@@ -544,7 +544,7 @@ class ReportController extends Controller
 
             }
             // $villageYearData[$key]['g_total_student'] = $gTotalYearStudent;
-            $villageYearData[$key]['g_total_amount'] = $gTotalYearAmount;
+            $studentYearData[$key]['g_total_amount'] = $gTotalYearAmount;
         }
 
         if ($request->start_year && $request->end_year) {
@@ -590,8 +590,10 @@ class ReportController extends Controller
             $gTotalAmount = $gTotalAmount + $studentWiseTotalAmount;
         }
 
+        // dd($studentYearData);
+
         $selectYears = ScholarshipYear::where('company_id', session('company_id'))->where('status', 1)->orderBy('name')->pluck('name', 'name');
-        return view('report.student',compact('datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','studentWiseData'));
+        return view('report.student',compact('datas','company','years','totalData','selectYears','colSForHeading','previousYear','thisYear','output','gTotalStudent','gTotalAmount','studentWiseData','studentYearData'));
 
     }
     private function filterSchool(Request $request)
@@ -723,8 +725,7 @@ class ReportController extends Controller
             ->orderBy('scholarships.year','ASC')
             ->where('scholarships.status','payment_done')
             ->join('users', 'scholarships.user_id', '=', 'users.id')
-            ->join('student_details', 'users.id', '=', 'student_details.user_id')
-            ->select('scholarships.year as year','student_details.full_name as name', DB::raw('sum(fee_amount) as total_amount'),DB::raw('count(users.id) as total_student'))
+            ->select('scholarships.year as year','users.name as name', DB::raw('sum(fee_amount) as total_amount'),DB::raw('count(users.id) as total_student'))
             ->groupBy('users.id','year');
             if ($request->start_year && $request->end_year) {
                 $projects->whereBetween('year', [$request->start_year, $request->end_year]);

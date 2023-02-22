@@ -112,8 +112,8 @@
                                 <th>@lang('Grand Total')</th>
                                 @foreach ($output as $value)
                                     @foreach ($value as $yearName => $yearData)
-                                    @if(isset($villageYearData[$yearName]['g_total_amount']) && !empty($villageYearData[$yearName]['g_total_amount']))
-                                        <th>{{ $villageYearData[$yearName]['g_total_amount'] }}</th>
+                                    @if(isset($studentYearData[$yearName]['g_total_amount']) && !empty($studentYearData[$yearName]['g_total_amount']))
+                                        <th>{{ $studentYearData[$yearName]['g_total_amount'] }}</th>
                                     @else
                                         <th>0</th>
                                     @endif
