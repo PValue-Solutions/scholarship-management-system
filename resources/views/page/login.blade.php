@@ -26,6 +26,13 @@
                     @if (session()->has('flash_notification.success'))
                         <div class="alert alert-success" role="alert">{!! session('flash_notification.success') !!}</div>
                     @endif
+                    @if (\Session::has('message'))
+                        <div class="alert alert-info" role="alert">
+                            <ul>
+                                <li>{!! \Session::get('message') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
                     <p class="login-box-msg m-0 p-0">@lang('Sign in to start your session')</p>
                     <br>
                     <form action="{{ route('login') }}" method="post">

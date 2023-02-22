@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\StudentRegister;
 use App\Models\User;
+use App\Models\UserVerify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class StudentRegisterController extends Controller
 {
@@ -58,7 +61,17 @@ class StudentRegisterController extends Controller
         $user->assignRole($roles);
         $user->companies()->attach($companies);
 
-        session()->flash('flash_notification.success', 'Congratulations, Login with your credential ');
+        $token = Str::random(64);
+        UserVerify::create([
+            'user_id' => $user->id, 
+            'token' => $token
+        ]);
+        Mail::send('email.emailVerificationEmail', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
+
+        session()->flash('flash_notification.success', 'Congratulations, Please verify your email address !');
 
 
         return redirect()->route('login');
