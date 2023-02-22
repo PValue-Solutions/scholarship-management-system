@@ -125,14 +125,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="scholarship_village_id">
-                                    @lang('Village') <b class="ambitious-crimson">*</b>
+                                    @lang('Provider Organization') <b class="ambitious-crimson">*</b>
                                 </label>
-                                <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id" required="required">
-                                    <option value="">Select College</option>
-                                    @foreach ($villages as $key => $value)
-                                        <option value="{{ $key }}" {{ old('scholarship_village_id',$expense->scholarship_village_id) == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                                <input class="form-control ambitious-form-loading @error('scholarship_village_id') is-invalid @enderror" name="scholarship_village_id" value="{{ old('scholarship_village_id',$expense->scholarship_village_id) }}" id="scholarship_village_id" type="text" placeholder="{{ __('Type Provider Organization Name Here') }}" required>
                                 @error('scholarship_village_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}

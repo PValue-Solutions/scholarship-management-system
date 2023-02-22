@@ -56,13 +56,8 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>@lang('Village')</label>
-                                        <select class="form-control select2" name="scholarship_village_id" id="scholarship_village_id">
-                                            <option value="">Select Village</option>
-                                            @foreach ($villages as $key => $value)
-                                                <option value="{{ $key }}" {{ old('scholarship_village_id') == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>@lang('Provider Organization')</label>
+                                        <input type="text" name="scholarship_village_id" class="form-control" value="{{ request()->scholarship_village_id }}" placeholder="@lang('Provider Organization Name')">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -101,7 +96,7 @@
                                 <div class="col-sm-6">
                                     <button type="submit" class="btn btn-info">Submit</button>
                                     @if(request()->isFilterActive)
-                                        <a href="{{ route('scholarship.index') }}" class="btn btn-secondary">Clear</a>
+                                        <a href="{{ route('expense.index') }}" class="btn btn-secondary">Clear</a>
                                     @endif
                                 </div>
                             </div>
@@ -115,7 +110,7 @@
                                 <th>@lang('Name')</th>
                                 <th>@lang('Amount')</th>
                                 <th>@lang('Year')</th>
-                                <th>@lang('Village')</th>
+                                <th>@lang('Provider Organization')</th>
                                 <th>@lang('Institution Name')</th>
                                 <th>@lang('Institution Type')</th>
                                 @canany(['expense-update', 'expense-delete'])
@@ -129,7 +124,7 @@
                                 <td>{{ $expense->name }}</td>
                                 <td>{{ $expense->amount }}</td>
                                 <td>{{ $expense->year }}</td>
-                                <td>{{ $expense->scholarshipVillage->name }}</td>
+                                <td>{{ $expense->scholarship_village_id }}</td>
                                 @if( $expense->school_or_college == "1")
                                     <td> {{ $expense->schoolDetail->name }}</td>
                                 @else

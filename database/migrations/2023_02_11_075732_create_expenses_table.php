@@ -22,7 +22,7 @@ class CreateExpensesTable extends Migration
             $table->enum('school_or_college',['1','2'])->default('1');
             $table->bigInteger('scholarship_school_id')->nullable();
             $table->bigInteger('scholarship_college_id')->nullable();
-            $table->bigInteger('scholarship_village_id')->nullable();
+            $table->string('scholarship_village_id')->nullable();
             $table->string('amount')->nullable();
             $table->enum('status',['1','2'])->default('1');
             $table->timestamps();
