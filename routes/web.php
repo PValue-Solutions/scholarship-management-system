@@ -15,6 +15,18 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+Route::get('account/verify/{token}', [App\Http\Controllers\Auth\AuthController::class, 'verifyAccount'])->name('user.verify');
+
+Route::get('/company/companyAccountSwitch', [
+    'uses' => 'App\Http\Controllers\CompanyController@companyAccountSwitch',
+    'as' => 'company.companyAccountSwitch'
+]);
+
+Route::get('/test/index', [
+    'uses' => 'App\Http\Controllers\TestController@index',
+    'as' => 'test.index'
+]);
+
 Route::get('/lang',[
     'uses' => 'App\Http\Controllers\HomeController@lang',
     'as' => 'lang.index'
@@ -49,7 +61,7 @@ Route::resources([
 
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','is_verify_email']], function() {
 
     Route::get('/dashboard/get-chart-data', [
         App\Http\Controllers\DashboardController::class, 'getChartData'

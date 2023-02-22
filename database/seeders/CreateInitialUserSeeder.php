@@ -23,7 +23,7 @@ class CreateInitialUserSeeder extends Seeder
             'phone' => '+91 9188305778',
             'address' => 'Bangalore',
             'status' => '1',
-
+            'is_email_verified' => '1'
         ]);
 
         $role = Role::where('name', 'Super Admin')->first();

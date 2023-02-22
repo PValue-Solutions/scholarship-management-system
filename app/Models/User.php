@@ -41,6 +41,7 @@ class User extends Authenticatable
         'gender',
         'blood_group',
         'status',
+        'is_email_verified',
     ];
 
     /**
