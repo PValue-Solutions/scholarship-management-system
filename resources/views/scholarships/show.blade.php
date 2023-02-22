@@ -53,7 +53,7 @@
                             <td rowspan="5">
                                 <div class="text-right">
                                     {{-- <img width="200" height="200" src="{{asset('img/profile/male.png')}}" class="rounded" alt="prfile"> --}}
-                                    <img width="200" height="200" src="{{ Storage::url($scholarship->photo) }}"
+                                    <img width="200" height="200" src="{{ asset($scholarship->photo) }}"
                                         class="rounded" alt="prfile">
                                 </div>
                             </td>
@@ -266,16 +266,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <p> <a href="{{ asset('storage/' . $scholarship->income_certificate) }}" target="_blank"> 1. Income
+                        <p> <a href="{{ asset($scholarship->income_certificate) }}" target="_blank"> 1. Income
                                 certificate of Parents/ Guardian </a></p>
-                        <p> <a href="{{ asset('storage/' . $scholarship->id_proof) }}" target="_blank">
+                        <p> <a href="{{ asset($scholarship->id_proof) }}" target="_blank">
                                 2. Any Govt. ID proof (Aadhar, Ration card etc.)</a></p>
-                        <p> <a href="{{ asset('storage/' . $scholarship->previous_educational_marks_card) }}"
+                        <p> <a href="{{ asset($scholarship->previous_educational_marks_card) }}"
                                 target="_blank">
                                 3. Previous educational marks card </a></p>
-                        <p> <a href="{{ asset('storage/' . $scholarship->original_fee_receipt) }}" target="_blank">
+                        <p> <a href="{{ asset($scholarship->original_fee_receipt) }}" target="_blank">
                                 4. Original fee receipt </a></p>
-                        <p> <a href="{{ asset('storage/' . $scholarship->bank_passbook) }}" target="_blank">
+                        <p> <a href="{{ asset($scholarship->bank_passbook) }}" target="_blank">
                                 5. Bank passbook copy </a></p>
                     </div>
                 </div>
