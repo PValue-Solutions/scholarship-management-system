@@ -220,14 +220,14 @@ class UserController extends Controller
 
         $token = Str::random(64);
         UserVerify::create([
-            'user_id' => $user->id, 
+            'user_id' => $user->id,
             'token' => $token
         ]);
         Mail::send('email.emailVerificationEmail', ['token' => $token], function($message) use($request){
             $message->to($request->email);
             $message->subject('Email Verification Mail');
         });
-        
+
         return redirect()->route('users.index')->with('success', trans('User Created Successfully'));
     }
 
@@ -271,7 +271,7 @@ class UserController extends Controller
 
         $token = Str::random(64);
         UserVerify::create([
-            'user_id' => $user->id, 
+            'user_id' => $user->id,
             'token' => $token
         ]);
         Mail::send('email.emailVerificationEmail', ['token' => $token], function($message) use($request){
@@ -286,12 +286,12 @@ class UserController extends Controller
     public function verifyAccount($token)
     {
         $verifyUser = UserVerify::where('token', $token)->first();
-  
+
         $message = 'Sorry your email cannot be identified.';
-  
+
         if(!is_null($verifyUser) ){
             $user = $verifyUser->user;
-              
+
             if(!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
@@ -300,7 +300,7 @@ class UserController extends Controller
                 $message = "Your e-mail is already verified. You can now login.";
             }
         }
-  
+
       return redirect()->route('login')->with('message', $message);
     }
 
@@ -520,10 +520,10 @@ class UserController extends Controller
             DB::table("model_has_roles")->where('model_id',$user->id)->delete();
             DB::table("user_companies")->where('user_id',$user->id)->delete();
             DB::commit();
-            return redirect()->route('users.index')->with('success', trans('User Deleted Successfully'));
+            return redirect()->back()->with('success', trans('User Deleted Successfully'));
         } catch (Exception $e) {
             DB::rollback();
-            return redirect()->route('users.index')->with('error',$e);
+            return redirect()->back()->with('error',$e);
         }
     }
 
