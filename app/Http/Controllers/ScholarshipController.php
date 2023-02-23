@@ -301,7 +301,7 @@ class ScholarshipController extends Controller
     {
         $roleName = Auth::user()->getRoleNames();
         $myRole = $roleName[0];
-        $students = User::role('Student')->where('status', "1")->where('is_email_verified', "1")->orderBy('name')->pluck('name', 'id');
+        $students = User::role('Student')->where('status', "1")->orderBy('name')->pluck('name', 'id');
         $company = Company::findOrFail(Session::get('company_id'));
         $company->setSettings();
         $number = $this->getNextInvoiceNumber($company);
