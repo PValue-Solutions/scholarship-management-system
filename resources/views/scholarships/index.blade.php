@@ -57,7 +57,12 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>@lang('Year')</label>
-                                        <input type="text" name="year" class="form-control" value="{{ request()->year }}" placeholder="@lang('Filter With Year')">
+                                        <select class="form-control select2" name="year" id="year">
+                                            <option value="">Select Year</option>
+                                            @foreach ($years as $key => $value)
+                                                <option value="{{ $key }}" {{ old('year', request()->year) == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
