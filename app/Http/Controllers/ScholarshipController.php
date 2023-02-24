@@ -946,6 +946,8 @@ class ScholarshipController extends Controller
             if (isset($collegeTeacher->name) && !empty($collegeTeacher->name))
                 $teacherName = $collegeTeacher->name;
         }
+
+        
         //return view('scholarships.pdf', compact('scholarship'));
         $pdf = Pdf::loadView('scholarships.pdf', compact('scholarship', 'teacherName'));
         return $pdf->stream();
