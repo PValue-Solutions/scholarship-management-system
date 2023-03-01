@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
-        <title>@lang('Log in') | SSMS </title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('logo.jpg') }}">
+        <title>@lang('Log in') | Sansera Foundation </title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
         <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" />
@@ -20,7 +20,7 @@
         <div class="login-box">
             <div class="card card-outline card-primary">
                 <div class="card-header text-center">
-                    <a class="h1"><span class="identColor"><b>S</b></span>SMS</a>
+                    <img src="{{asset('logo.jpg')}}" alt="Sansera Foundation" width="240px;">
                 </div>
                 <div class="card-body">
                     @if (session()->has('flash_notification.success'))
