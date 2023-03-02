@@ -432,8 +432,9 @@
                                 </div>
                             </div>
                         </section>
-                        <h6>{{ __('Studied Details') }}</h6>
+                        <h6>{{ __('Academic Details') }}</h6>
                         <section>
+                            <h5>{{ __('PREVIOUS EDUCATION DETAILS') }}</h5>
                             <div class="row mb-2">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -504,7 +505,7 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="school_year">
                                             @lang('Year') <b class="ambitious-crimson">*</b>
@@ -524,7 +525,20 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="school_grade">
+                                            @lang('Course') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input type="text" class="form-control" name="course" required>
+                                        @error('course')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="school_grade">
                                             @lang('Class') <b class="ambitious-crimson">*</b>
@@ -544,8 +558,157 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="school_grade">
+                                            @lang('Combination') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input type="text" class="form-control" name="combination" required>
+                                        @error('combination')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="total_marks">
+                                            @lang('Total Marks') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input type="text" class="form-control" name="total_marks" required>
+                                        @error('total_marks')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="obtained_marks">
+                                            @lang('Obtained Marks') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input type="text" class="form-control" name="obtained_marks" required>
+                                        @error('obtained_marks')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="percentage">
+                                            @lang('Percentage') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input type="text" class="form-control" name="percentage" required>
+                                        @error('percentage')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
+                            {{-- CURRENT EDUCATION DETAILS --}}
+
+
+                            <h5>{{ __('CURRENT EDUCATION DETAILS') }}</h5>
+                            <div class="row mb-2">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="further_education_details_school_or_college">@lang('Education Institution') <b
+                                                class="ambitious-crimson">*</b></label>
+                                        <select
+                                            class="form-control ambitious-form-loading @error('further_education_details_school_or_college') is-invalid @enderror"
+                                            required="required" name="further_education_details_school_or_college"
+                                            id="further_education_details_school_or_college">
+                                            <option value="1"
+                                                {{ old('further_education_details_school_or_college') === 1 ? 'selected' : '' }}>
+                                                @lang('School')</option>
+                                            <option value="2"
+                                                {{ old('further_education_details_school_or_college') === 2 ? 'selected' : '' }}>
+                                                @lang('College')</option>
+                                        </select>
+                                        @error('further_education_details_school_or_college')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div id="further_education_details_school_block" class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="further_education_details_scholarship_school_id">
+                                            @lang('Education School') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <select class="form-control"
+                                            name="further_education_details_scholarship_school_id"
+                                            id="further_education_details_scholarship_school_id">
+                                            <option value="">Select School</option>
+                                            @foreach ($schools as $key => $value)
+                                                <option value="{{ $key }}"
+                                                    {{ old('further_education_details_scholarship_school_id') == $key ? 'selected' : '' }}>
+                                                    {{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('further_education_details_scholarship_school_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="alert alert-primary" role="alert">
+                                        If your school not found, please contact the administrator.
+                                    </div>
+                                </div>
+                                <div id="further_education_details_college_block" class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="further_education_details_scholarship_college_id">
+                                            @lang('Education College') <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <select class="form-control"
+                                            name="further_education_details_scholarship_college_id"
+                                            id="further_education_details_scholarship_college_id">
+                                            <option value="">Select College</option>
+                                            @foreach ($colleges as $key => $value)
+                                                <option value="{{ $key }}"
+                                                    {{ old('further_education_details_scholarship_college_id') == $key ? 'selected' : '' }}>
+                                                    {{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('further_education_details_scholarship_college_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="alert alert-primary" role="alert">
+                                        If your college not found, please contact the administrator.
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="further_education_details_course_joined">
+                                            {{ __('Course') }} <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <input id="further_education_details_course_joined"
+                                            class="form-control @if ($errors->has('further_education_details_course_joined')) is-invalid @endif"
+                                            name="further_education_details_course_joined" type="text"
+                                            value="{{ old('further_education_details_course_joined') }}"
+                                            placeholder="Type Your Course Joined" required>
+                                        @if ($errors->has('further_education_details_course_joined'))
+                                            {{ Session::flash('error', $errors->first('further_education_details_course_joined')) }}
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mb-2">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -587,108 +750,60 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="marks_obtained">
-                                            {{ __('Last Examination Marks') }} <b class="ambitious-crimson">*</b>
+                                            {{ __('Combination/Specialization') }} <b class="ambitious-crimson">*</b>
                                         </label>
                                         <input id="marks_obtained"
                                             class="form-control @if ($errors->has('marks_obtained')) is-invalid @endif"
                                             name="marks_obtained" type="text" value="{{ old('marks_obtained') }}"
-                                            placeholder="Type Your Marks" required>
+                                            placeholder="Combination/Specialization" required>
                                         @if ($errors->has('marks_obtained'))
                                             {{ Session::flash('error', $errors->first('marks_obtained')) }}
                                         @endif
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                             <div class="row mb-2">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="further_education_details_school_or_college">@lang('Further Education Institution') <b
-                                                class="ambitious-crimson">*</b></label>
-                                        <select
-                                            class="form-control ambitious-form-loading @error('further_education_details_school_or_college') is-invalid @enderror"
-                                            required="required" name="further_education_details_school_or_college"
-                                            id="further_education_details_school_or_college">
-                                            <option value="1"
-                                                {{ old('further_education_details_school_or_college') === 1 ? 'selected' : '' }}>
-                                                @lang('School')</option>
-                                            <option value="2"
-                                                {{ old('further_education_details_school_or_college') === 2 ? 'selected' : '' }}>
-                                                @lang('College')</option>
-                                        </select>
-                                        @error('further_education_details_school_or_college')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <label for="school_contact_person">
+                                            {{ __('Have you previously availed scholarship from Sansera Foundation ?') }}
+                                            <b class="ambitious-crimson">*</b>
+                                        </label>
+                                        <div class="form-check form-check-inline ">
+                                            <input class="form-check-input" type="radio" name="previously_scholarship"
+                                                id="inlineRadio1" value="Yes">
+                                            <label class="form-check-label" for="inlineRadio1">&nbsp; Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="previously_scholarship"
+                                                id="inlineRadio2" value="No">
+                                            <label class="form-check-label" for="inlineRadio2">
+                                                &nbsp; No
+                                            </label>
+                                        </div>
+                                        @if ($errors->has('previously_scholarship'))
+                                            {{ Session::flash('error', $errors->first('previously_scholarship')) }}
+                                        @endif
                                     </div>
                                 </div>
-                                <div id="further_education_details_school_block" class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="further_education_details_scholarship_school_id">
-                                            @lang('Further Education School') <b class="ambitious-crimson">*</b>
+                                        <label for="how_many_years">
+                                            {{ __('If yes, from how many years ?') }}
+
                                         </label>
-                                        <select class="form-control"
-                                            name="further_education_details_scholarship_school_id"
-                                            id="further_education_details_scholarship_school_id">
-                                            <option value="">Select School</option>
-                                            @foreach ($schools as $key => $value)
-                                                <option value="{{ $key }}"
-                                                    {{ old('further_education_details_scholarship_school_id') == $key ? 'selected' : '' }}>
-                                                    {{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('further_education_details_scholarship_school_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="alert alert-primary" role="alert">
-                                        If your school not found, please contact the administrator.
-                                    </div>
-                                </div>
-                                <div id="further_education_details_college_block" class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="further_education_details_scholarship_college_id">
-                                            @lang('Further Education College') <b class="ambitious-crimson">*</b>
-                                        </label>
-                                        <select class="form-control"
-                                            name="further_education_details_scholarship_college_id"
-                                            id="further_education_details_scholarship_college_id">
-                                            <option value="">Select College</option>
-                                            @foreach ($colleges as $key => $value)
-                                                <option value="{{ $key }}"
-                                                    {{ old('further_education_details_scholarship_college_id') == $key ? 'selected' : '' }}>
-                                                    {{ $value }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('further_education_details_scholarship_college_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    <div class="alert alert-primary" role="alert">
-                                        If your college not found, please contact the administrator.
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="further_education_details_course_joined">
-                                            {{ __('Further Education Current Course/Class') }} <b
-                                                class="ambitious-crimson">*</b>
-                                        </label>
-                                        <input id="further_education_details_course_joined"
-                                            class="form-control @if ($errors->has('further_education_details_course_joined')) is-invalid @endif"
-                                            name="further_education_details_course_joined" type="text"
-                                            value="{{ old('further_education_details_course_joined') }}"
-                                            placeholder="Type Your Course Joined" required>
-                                        @if ($errors->has('further_education_details_course_joined'))
-                                            {{ Session::flash('error', $errors->first('further_education_details_course_joined')) }}
+                                        <div class="form-check form-check-inline ">
+                                            <input class="form-control" type="text" name="how_many_years">
+                                        </div>
+                                        @if ($errors->has('how_many_years'))
+                                            {{ Session::flash('error', $errors->first('how_many_years')) }}
                                         @endif
                                     </div>
                                 </div>
                             </div>
+                            <hr>
+
                             <div class="row mb-2">
                                 <div class="col-md-4">
                                     <div class="form-group">

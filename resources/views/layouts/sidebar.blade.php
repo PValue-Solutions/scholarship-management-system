@@ -10,7 +10,7 @@ $roleName = Auth::user()->getRoleNames();
 <aside class="main-sidebar elevation-4 sidebar-light-info">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard')  }}" class="brand-link navbar-info">
-        <img src="{{ asset('img/logo-text.png') }}" alt="{{ $ApplicationSetting->item_name }}" class="brand-image" style="opacity: .8; width :32px; height : 32px">
+        {{-- <img src="{{ asset('img/logo-text.png') }}" alt="{{ $ApplicationSetting->item_name }}" class="brand-image" style="width :150px; "> --}}
         <span class="brand-text font-weight-light">{{ $ApplicationSetting->item_short_name }}</span>
     </a>
 
@@ -100,7 +100,7 @@ $roleName = Auth::user()->getRoleNames();
                                 <li class="nav-item">
                                     <a href="{{ route('scholarship.create') }}" class="nav-link @if($c == 'scholarship' && $m == 'create') active @endif ">
                                         <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>@lang('Apply Application')</p>
+                                        <p>@lang('Apply Now')</p>
                                     </a>
                                 </li>
                             @endcanany

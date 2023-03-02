@@ -60,7 +60,14 @@ class Scholarship extends Model
         'scholarship_bank_detail_id',
         'print_form',
         'status',
-        'payment_date'
+        'payment_date',
+        'course',
+        'combination',
+        'total_marks',
+        'obtained_marks',
+        'percentage',
+        'previously_scholarship',
+        'how_many_years',
     ];
 
     public function user()
