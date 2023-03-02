@@ -164,7 +164,7 @@
 
         <div class="row mt-5">
             <div class="col-sm-12">
-                <h5><strong><u>DETAILS OF STUDIED SCHOOL / COLLEGE :</u><strong></h5>
+                <h5><strong><u>PREVIOUS EDUCATION DETAILS :</u><strong></h5>
             </div>
             @php
                 $scholl_college_data = $scholarship->school_or_college == 1 ? $scholarship->schoolDetail : $scholarship->collegeDetail;
@@ -174,15 +174,15 @@
                     <tbody>
                         @if ($scholarship->school_or_college == 1)
                             <tr>
-                                <td colspan="4">Govt. / Govt. Aided / Private</td>
+                                <td colspan="4">School Name</td>
                                 <td>:</td>
-                                <td colspan="4">{{ $scholl_college_data->school_type }}</td>
+                                <td colspan="4">{{ $scholarship->schoolDetail->name }}</td>
                             </tr>
                         @else
                             <tr>
-                                <td>Govt. / Govt. Aided / Private</td>
+                                <td>College Name</td>
                                 <td>:</td>
-                                <td colspan="7">{{ $scholl_college_data->college_type }}</td>
+                                <td colspan="7">{{ $scholarship->collegeDetail->name }}</td>
                             </tr>
                         @endif
 
@@ -191,54 +191,38 @@
                             <td>: </td>
                             <td>{{ $scholl_college_data->scholarshipVillage->name }}</td>
 
-                            <td> Taluk </td>
-                            <td>: </td>
-                            <td>{{ $scholarship->studentDetail->taluk }}</td>
 
                             <td> District </td>
                             <td>: </td>
                             <td>{{ $scholl_college_data->district }}</td>
                         </tr>
                         <tr>
-                            <td colspan="4">Marks Obtained in last Examination SSLC/PUC/Degree</td>
+                            <td>Course</td>
                             <td> : </td>
-                            <td>{{ $scholarship->marks_obtained }}</td>
+                            <td>{{ $scholarship->course }}</td>
+                            <td>Grade/ Class</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->classDetail->name }}</td>
+
+                            <td>Combination</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->classDetail->combination }}</td>
 
                             <td>Year</td>
                             <td> : </td>
                             <td>{{ $scholarship->year }}</td>
                         </tr>
                         <tr>
-                            <td colspan="4">If PUC / Degree please specify the subject </td>
-                            <td>:</td>
-                            <td colspan="4">{{ $scholarship->marks_obtained_type }}</td>
-                        </tr>
-                        <tr>
-                            <td>Grade/ Class</td>
-                            <td>:</td>
-                            <td colspan="2">{{ $scholarship->classDetail->name }}</td>
+                            <td>Total Marks</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->total_marks }}</td>
+                            <td>Obtained Marks</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->obtained_marks }}</td>
 
-                            <td colspan="2">Percentage</td>
-                            <td>:</td>
-                            <td colspan="2">{{ $scholarship->percentage_marks_obtained }}</td>
-                        </tr>
-
-                        <tr>
-                            <td>Contact Person:</td>
-                            <td>:</td>
-                            <td colspan="2">{{ $scholarship->school_contact_person }}</td>
-                            <td colspan="2">Designation</td>
-                            <td>:</td>
-                            <td colspan="2">{{ $scholarship->school_designation }}</td>
-                        </tr>
-
-                        <tr>
-                            <td>Contact no.</td>
-                            <td>:</td>
-                            <td colspan="2">{{ $scholarship->school_contact_number }}</td>
-                            <td colspan="2">Seal & Signature</td>
-                            <td>:</td>
-                            <td colspan="2"></td>
+                            <td>Percentage</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->percentage }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -248,18 +232,80 @@
 
         <div class="row mt-5">
             <div class="col-sm-12">
-                <h5><strong><u>FURTHER EDUCATION DETAILS :</u><strong></h5>
+                <h5><strong><u>CURRENT EDUCATION DETAILS :</u><strong></h5>
             </div>
             <div class="col-sm-12">
-                <p> Course Joined : {{ $scholarship->further_education_details_course_joined }}</p>
-            </div>
+                <table class="table table-borderless p-0 m-0">
+                    <tbody>
+                        @if ($scholarship->further_education_details_school_or_college == '1')
+                            <tr>
+                                <td>School Name</td>
+                                <td>:</td>
+                                <td colspan="7">{{ $scholarship->furtherEducationschollDetail->name }}</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="3">College Name</td>
+                                <td>:</td>
+                                <td colspan="7">{{ $scholarship->furtherEducationCollegeDetail->name }}</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td> Village </td>
+                            <td>: </td>
+                            <td>{{ $scholl_college_data->scholarshipVillage->name }}</td>
 
-            <div class="col-sm-12">
-                @if ($scholarship->further_education_details_school_or_college == '1')
-                    <p> School /Institute : {{ $scholarship->furtherEducationschollDetail->name }}</p>
-                @else
-                    <p> College /Institute : {{ $scholarship->furtherEducationCollegeDetail->name }}</p>
-                @endif
+                            <td> District </td>
+                            <td>: </td>
+                            <td>{{ $scholl_college_data->district }}</td>
+                        </tr>
+                        <tr>
+                            <td>Course</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->further_education_details_course_joined }}</td>
+                            <td>Class</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->marks_obtained_type }}</td>
+
+                            <td >Combination/Specialization</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->marks_obtained }}</td>
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="3">Contact Person</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->school_contact_person }}</td>
+                            <td colspan="3">Contact Person Designation</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->school_designation }}</td>
+
+                           
+                        </tr>
+                        <tr>
+                            <td colspan="3">Contact Number</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->school_contact_number }}</td>
+
+                            <td colspan="3">College Fees</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->fee_amount }}</td>
+
+                        </tr>
+                        <tr>
+                    
+
+                            <td colspan="3">Have you previously availed
+                                scholarship from Sansera Foundation?</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->previously_scholarship }}</td>
+                            <td colspan="3">If yes, from how many years</td>
+                            <td> : </td>
+                            <td>{{ $scholarship->how_many_years }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

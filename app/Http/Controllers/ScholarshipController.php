@@ -18,6 +18,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+
 //use Pdf;
 
 class ScholarshipController extends Controller
@@ -555,7 +557,7 @@ class ScholarshipController extends Controller
                     'how_many_years' => $request->how_many_years,
 
                 ]);
-               
+
                 // Update next invoice number
                 $this->increaseNextInvoiceNumber($company);
                 DB::commit();
@@ -992,5 +994,19 @@ class ScholarshipController extends Controller
             ])
                 ); */
         return $pdf->download('scholarships.pdf');
+    }
+    public function renewal($id)
+    {
+
+        $duplicateSchoalarship = Scholarship::find($id);
+        $renewalSchoalarship = $duplicateSchoalarship->replicate();
+        $date = Carbon::now(); // get current date and time
+        $year = $date->format('Y'); // get the year as a string in YYYY format
+        $renewalSchoalarship->year =  $year;
+        $renewalSchoalarship->status =  'pending';
+
+        $renewalSchoalarship->save();
+
+        return redirect()->route('scholarship.index')->with('info', trans('Scholarship Renewed Successfully'));
     }
 }

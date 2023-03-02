@@ -27,7 +27,7 @@ Route::get('/test/index', [
     'as' => 'test.index'
 ]);
 
-Route::get('/lang',[
+Route::get('/lang', [
     'uses' => 'App\Http\Controllers\HomeController@lang',
     'as' => 'lang.index'
 ]);
@@ -36,7 +36,7 @@ Route::get('/', function () {
     return redirect('dashboard');
 })->name('login.index');
 
-Route::get('/clear', function() {
+Route::get('/clear', function () {
     $exitCode = Artisan::call('config:clear');
     echo $exitCode;
 });
@@ -45,12 +45,12 @@ Route::get('/clear', function() {
 Auth::routes();
 // Auth::routes(['register' => false]);
 
-Route::get('/install',[
+Route::get('/install', [
     'uses' => 'App\Http\Controllers\InstallController@index',
     'as' => 'install.index'
 ]);
 
-Route::post('/install',[
+Route::post('/install', [
     'uses' => 'App\Http\Controllers\InstallController@install',
     'as' => 'install.install'
 ]);
@@ -61,7 +61,7 @@ Route::resources([
 
 
 
-Route::group(['middleware' => ['auth','is_verify_email']], function() {
+Route::group(['middleware' => ['auth', 'is_verify_email']], function () {
 
     Route::get('/dashboard/get-chart-data', [
         App\Http\Controllers\DashboardController::class, 'getChartData'
@@ -72,119 +72,119 @@ Route::group(['middleware' => ['auth','is_verify_email']], function() {
         'as' => 'company.companyAccountSwitch'
     ]);
 
-    Route::get('/bill/getAddPaymentDetails',[
+    Route::get('/bill/getAddPaymentDetails', [
         'uses' => 'App\Http\Controllers\BillController@getAddPaymentDetails',
         'as' => 'bill.getAddPaymentDetails'
     ]);
 
-    Route::post('/bill/addPaymentStore',[
+    Route::post('/bill/addPaymentStore', [
         'uses' => 'App\Http\Controllers\BillController@addPaymentStore',
         'as' => 'bill.addPaymentStore'
     ]);
 
-    Route::get('/invoice/getAddPaymentDetails',[
+    Route::get('/invoice/getAddPaymentDetails', [
         'uses' => 'App\Http\Controllers\InvoiceController@getAddPaymentDetails',
         'as' => 'invoice.getAddPaymentDetails'
     ]);
 
-    Route::post('/invoice/addPaymentStore',[
+    Route::post('/invoice/addPaymentStore', [
         'uses' => 'App\Http\Controllers\InvoiceController@addPaymentStore',
         'as' => 'invoice.addPaymentStore'
     ]);
 
-    Route::get('/report/year',[
+    Route::get('/report/year', [
         'uses' => 'App\Http\Controllers\ReportController@year',
         'as' => 'report.year'
     ]);
 
-    Route::get('/report/school',[
+    Route::get('/report/school', [
         'uses' => 'App\Http\Controllers\ReportController@school',
         'as' => 'report.school'
     ]);
 
-    Route::get('/report/college',[
+    Route::get('/report/college', [
         'uses' => 'App\Http\Controllers\ReportController@college',
         'as' => 'report.college'
     ]);
 
-    Route::get('/report/village',[
+    Route::get('/report/village', [
         'uses' => 'App\Http\Controllers\ReportController@village',
         'as' => 'report.village'
     ]);
 
-    Route::get('/report/course',[
+    Route::get('/report/course', [
         'uses' => 'App\Http\Controllers\ReportController@course',
         'as' => 'report.course'
     ]);
 
-    Route::get('/report/student',[
+    Route::get('/report/student', [
         'uses' => 'App\Http\Controllers\ReportController@student',
         'as' => 'report.student'
     ]);
 
-    Route::get('/report/expense',[
+    Route::get('/report/expense', [
         'uses' => 'App\Http\Controllers\ReportController@expense',
         'as' => 'report.expense'
     ]);
 
-    Route::get('/report/incomeVsexpense',[
+    Route::get('/report/incomeVsexpense', [
         'uses' => 'App\Http\Controllers\ReportController@incomeVsexpense',
         'as' => 'report.incomeVsexpense'
     ]);
 
-    Route::get('/report/profitAndloss',[
+    Route::get('/report/profitAndloss', [
         'uses' => 'App\Http\Controllers\ReportController@profitAndloss',
         'as' => 'report.profitAndloss'
     ]);
 
-    Route::get('/report/tax',[
+    Route::get('/report/tax', [
         'uses' => 'App\Http\Controllers\ReportController@tax',
         'as' => 'report.tax'
     ]);
 
     Route::get('users/{user}/read-items', 'App\Http\Controllers\UserController@readItemsOutOfStock');
 
-    Route::get('/student/studentIndex',[
+    Route::get('/student/studentIndex', [
         'uses' => 'App\Http\Controllers\UserController@studentIndex',
         'as' => 'student.studentIndex'
     ]);
 
-    Route::get('/student/createStudent',[
+    Route::get('/student/createStudent', [
         'uses' => 'App\Http\Controllers\UserController@createStudent',
         'as' => 'student.createStudent'
     ]);
 
-    Route::post('/student/storeStudent',[
+    Route::post('/student/storeStudent', [
         'uses' => 'App\Http\Controllers\UserController@storeStudent',
         'as' => 'student.storeStudent'
     ]);
 
-    Route::get('/student/editStudent/{id}',[
+    Route::get('/student/editStudent/{id}', [
         'uses' => 'App\Http\Controllers\UserController@editStudent',
         'as' => 'student.editStudent'
     ]);
 
-    Route::post('/student/updateStudent/{id}',[
+    Route::post('/student/updateStudent/{id}', [
         'uses' => 'App\Http\Controllers\UserController@updateStudent',
         'as' => 'student.updateStudent'
     ]);
 
-    Route::get('/users/editUser/{id}',[
+    Route::get('/users/editUser/{id}', [
         'uses' => 'App\Http\Controllers\UserController@editUser',
         'as' => 'users.editUser'
     ]);
 
-    Route::post('/users/updateUser/{id}',[
+    Route::post('/users/updateUser/{id}', [
         'uses' => 'App\Http\Controllers\UserController@updateUser',
         'as' => 'users.updateUser'
     ]);
 
-    Route::delete('/student/destroyStudent',[
+    Route::delete('/student/destroyStudent', [
         'uses' => 'App\Http\Controllers\UserController@destroyStudent',
         'as' => 'student.destroyStudent'
     ]);
 
-    Route::delete('/users/destroyUser',[
+    Route::delete('/users/destroyUser', [
         'uses' => 'App\Http\Controllers\UserController@destroyUser',
         'as' => 'users.destroyUser'
     ]);
@@ -222,69 +222,74 @@ Route::group(['middleware' => ['auth','is_verify_email']], function() {
 
 
 
-    Route::get('/scholarship/index',[
+    Route::get('/scholarship/index', [
         'uses' => 'App\Http\Controllers\ScholarshipController@index',
         'as' => 'scholarship.index'
     ]);
 
-    Route::get('/scholarship/pending',[
+    Route::get('/scholarship/pending', [
         'uses' => 'App\Http\Controllers\ScholarshipController@pending',
         'as' => 'scholarship.pending'
     ]);
 
-    Route::get('/scholarship/approved',[
+    Route::get('/scholarship/approved', [
         'uses' => 'App\Http\Controllers\ScholarshipController@approved',
         'as' => 'scholarship.approved'
     ]);
 
-    Route::get('/scholarship/payment_in_progress',[
+    Route::get('/scholarship/payment_in_progress', [
         'uses' => 'App\Http\Controllers\ScholarshipController@payment_in_progress',
         'as' => 'scholarship.payment_in_progress'
     ]);
 
-    Route::get('/scholarship/payment_done',[
+    Route::get('/scholarship/payment_done', [
         'uses' => 'App\Http\Controllers\ScholarshipController@payment_done',
         'as' => 'scholarship.payment_done'
     ]);
 
-    Route::get('/scholarship/rejected',[
+    Route::get('/scholarship/rejected', [
         'uses' => 'App\Http\Controllers\ScholarshipController@rejected',
         'as' => 'scholarship.rejected'
     ]);
 
-    Route::get('/scholarship/create',[
+    Route::get('/scholarship/create', [
         'uses' => 'App\Http\Controllers\ScholarshipController@create',
         'as' => 'scholarship.create'
     ]);
 
-    Route::post('/scholarship/store',[
+    Route::post('/scholarship/store', [
         'uses' => 'App\Http\Controllers\ScholarshipController@store',
         'as' => 'scholarship.store'
     ]);
 
-    Route::post('/scholarship/update',[
+    Route::post('/scholarship/update', [
         'uses' => 'App\Http\Controllers\ScholarshipController@update',
         'as' => 'scholarship.update'
     ]);
 
-    Route::get('/scholarship/{id}/show',[
+    Route::get('/scholarship/{id}/show', [
         'uses' => 'App\Http\Controllers\ScholarshipController@show',
         'as' => 'scholarship.show'
     ]);
 
-    Route::get('/scholarship/{id}/download',[
+    Route::get('/scholarship/{id}/download', [
         'uses' => 'App\Http\Controllers\ScholarshipController@download',
         'as' => 'scholarship.download'
     ]);
 
-    Route::get('/scholarship/edit/{id}',[
+    Route::get('/scholarship/edit/{id}', [
         'uses' => 'App\Http\Controllers\ScholarshipController@edit',
         'as' => 'scholarship.edit'
     ]);
 
-    Route::delete('/scholarship/{id}/destroy',[
+    Route::delete('/scholarship/{id}/destroy', [
         'uses' => 'App\Http\Controllers\ScholarshipController@destroy',
         'as' => 'scholarship.destroy'
+    ]);
+
+    Route::get('/scholarship/renewal/{id}', [
+        'uses' => 'App\Http\Controllers\ScholarshipController@renewal',
+        'as' => 'scholarship.renewal'
     ]);
 
     Route::get('/getItems', 'App\Http\Controllers\InvoiceController@getItems')->name('invoice.getItems');
@@ -292,94 +297,92 @@ Route::group(['middleware' => ['auth','is_verify_email']], function() {
     //Route::get('/getProduct', 'App\Http\Controllers\ProductController@getProduct')->name('product.getProduct');
 
 
-    Route::post('/invoice/generateItemData',[
+    Route::post('/invoice/generateItemData', [
         'uses' => 'App\Http\Controllers\InvoiceController@generateItemData',
         'as' => 'invoice.generateItemData'
     ]);
 
     Route::get('/c/c', [App\Http\Controllers\CurrencyController::class, 'code'])->name('currency.code');
 
-    Route::get('/profile/setting',[
+    Route::get('/profile/setting', [
         'uses' => 'App\Http\Controllers\ProfileController@setting',
         'as' => 'profile.setting'
     ]);
 
-    Route::post('/profile/updateSetting',[
+    Route::post('/profile/updateSetting', [
         'uses' => 'App\Http\Controllers\ProfileController@updateSetting',
         'as' => 'profile.updateSetting'
     ]);
-    Route::get('/profile/password',[
+    Route::get('/profile/password', [
         'uses' => 'App\Http\Controllers\ProfileController@password',
         'as' => 'profile.password'
     ]);
 
-    Route::post('/profile/updatePassword',[
+    Route::post('/profile/updatePassword', [
         'uses' => 'App\Http\Controllers\ProfileController@updatePassword',
         'as' => 'profile.updatePassword'
     ]);
-    Route::get('/profile/view',[
+    Route::get('/profile/view', [
         'uses' => 'App\Http\Controllers\ProfileController@view',
         'as' => 'profile.view'
     ]);
-
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/dashboard',[
-    'uses' => 'App\Http\Controllers\DashboardController@index',
-    'as' => 'dashboard'
+    Route::get('/dashboard', [
+        'uses' => 'App\Http\Controllers\DashboardController@index',
+        'as' => 'dashboard'
     ]);
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/apsetting',[
-    'uses' => 'App\Http\Controllers\ApplicationSettingController@index',
-    'as' => 'apsetting'
+    Route::get('/apsetting', [
+        'uses' => 'App\Http\Controllers\ApplicationSettingController@index',
+        'as' => 'apsetting'
     ]);
 
-    Route::post('/apsetting/update',[
-    'uses' => 'App\Http\Controllers\ApplicationSettingController@update',
-    'as' => 'apsetting.update'
+    Route::post('/apsetting/update', [
+        'uses' => 'App\Http\Controllers\ApplicationSettingController@update',
+        'as' => 'apsetting.update'
     ]);
 });
 
 // general Setting
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/general',[
-    'uses' => 'App\Http\Controllers\GeneralController@index',
-    'as' => 'general'
+    Route::get('/general', [
+        'uses' => 'App\Http\Controllers\GeneralController@index',
+        'as' => 'general'
     ]);
 
-    Route::post('/general',[
-    'uses' => 'App\Http\Controllers\GeneralController@edit',
-    'as' => 'general'
+    Route::post('/general', [
+        'uses' => 'App\Http\Controllers\GeneralController@edit',
+        'as' => 'general'
     ]);
 
-    Route::post('/general/localisation',[
-    'uses' => 'App\Http\Controllers\GeneralController@localisation',
-    'as' => 'general.localisation'
+    Route::post('/general/localisation', [
+        'uses' => 'App\Http\Controllers\GeneralController@localisation',
+        'as' => 'general.localisation'
     ]);
 
-    Route::post('/general/invoice',[
-    'uses' => 'App\Http\Controllers\GeneralController@invoice',
-    'as' => 'general.invoice'
+    Route::post('/general/invoice', [
+        'uses' => 'App\Http\Controllers\GeneralController@invoice',
+        'as' => 'general.invoice'
     ]);
 
-    Route::post('/general/bill',[
+    Route::post('/general/bill', [
         'uses' => 'App\Http\Controllers\GeneralController@bill',
         'as' => 'general.bill'
     ]);
 
-    Route::post('/general/defaults',[
-    'uses' => 'App\Http\Controllers\GeneralController@defaults',
-    'as' => 'general.defaults'
+    Route::post('/general/defaults', [
+        'uses' => 'App\Http\Controllers\GeneralController@defaults',
+        'as' => 'general.defaults'
     ]);
-
 });
 
-Route::get('/home', function() {
+Route::get('/home', function () {
     return redirect()->to('dashboard');
 });
