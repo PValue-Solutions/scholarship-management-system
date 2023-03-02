@@ -154,7 +154,7 @@
 
         <div class="card mt-3">
             <div class="card-header">
-                <h3 class="card-title">DETAILS OF STUDIED SCHOOL / COLLEGE</h3>
+                <h3 class="card-title">PREVIOUS EDUCATION DETAILS</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -166,15 +166,15 @@
                             <tbody>
                                 @if ($scholarship->school_or_college == 1)
                                     <tr>
-                                        <td>Govt. / Govt. Aided / Private</td>
+                                        <td>School Name</td>
                                         <td>:</td>
-                                        <td colspan="7">{{ $scholl_college_data->school_type }}</td>
+                                        <td colspan="7">{{ $scholarship->schoolDetail->name }}</td>
                                     </tr>
                                 @else
                                     <tr>
-                                        <td>Govt. / Govt. Aided / Private</td>
+                                        <td>College Name</td>
                                         <td>:</td>
-                                        <td colspan="7">{{ $scholl_college_data->college_type }}</td>
+                                        <td colspan="7">{{ $scholarship->collegeDetail->name }}</td>
                                     </tr>
                                 @endif
 
@@ -183,51 +183,37 @@
                                     <td>: </td>
                                     <td>{{ $scholl_college_data->scholarshipVillage->name }}</td>
 
-                                    <td> Taluk </td>
-                                    <td>: </td>
-                                    <td>{{ $scholarship->studentDetail->taluk }}</td>
-
                                     <td> District </td>
                                     <td>: </td>
                                     <td>{{ $scholl_college_data->district }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">Marks Obtained in last Examination SSLC/PUC/Degree</td>
+                                    <td>Course</td>
                                     <td> : </td>
-                                    <td>{{ $scholarship->marks_obtained }}</td>
+                                    <td>{{ $scholarship->course }}</td>
+                                    <td>Grade/ Class</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->classDetail->name }}</td>
+
+                                    <td>Combination</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->classDetail->combination }}</td>
 
                                     <td>Year</td>
                                     <td> : </td>
                                     <td>{{ $scholarship->year }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4">If PUC / Degree please specify the subject </td>
-                                    <td>:</td>
-                                    <td colspan="4">{{ $scholarship->marks_obtained_type }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Grade/ Class</td>
-                                    <td>:</td>
-                                    <td colspan="2">{{ $scholarship->classDetail->name }}</td>
+                                    <td>Total Marks</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->total_marks }}</td>
+                                    <td>Obtained Marks</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->obtained_marks }}</td>
 
-                                    <td colspan="2">Percentage</td>
-                                    <td>:</td>
-                                    <td colspan="2">{{ $scholarship->percentage_marks_obtained }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Contact Person:</td>
-                                    <td>:</td>
-                                    <td colspan="2">{{ $scholarship->school_contact_person }}</td>
-                                    <td colspan="2">Designation</td>
-                                    <td>:</td>
-                                    <td colspan="2">{{ $scholarship->school_designation }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Contact no.</td>
-                                    <td>:</td>
-                                    <td colspan="2">{{ $scholarship->school_contact_number }}</td>
+                                    <td>Percentage</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->percentage }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -239,21 +225,76 @@
 
         <div class="card  mt-3">
             <div class="card-header">
-                <h3 class="card-title">FURTHER EDUCATION DETAILS </h3>
+                <h3 class="card-title">CURRENT EDUCATION DETAILS </h3>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <p> Course Joined : {{ $scholarship->further_education_details_course_joined }}</p>
-                    </div>
+                        <table class="table table-borderless p-0 m-0">
+                            <tbody>
+                                @if ($scholarship->further_education_details_school_or_college == '1')
+                                    <tr>
+                                        <td>School Name</td>
+                                        <td>:</td>
+                                        <td colspan="7">{{ $scholarship->furtherEducationschollDetail->name }}</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td>College Name</td>
+                                        <td>:</td>
+                                        <td colspan="7">{{ $scholarship->furtherEducationCollegeDetail->name }}</td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <td> Village </td>
+                                    <td>: </td>
+                                    <td>{{ $scholl_college_data->scholarshipVillage->name }}</td>
 
-                    <div class="col-sm-12">
-                        @if ($scholarship->further_education_details_school_or_college == '1')
-                            <p> School /Institute : {{ $scholarship->furtherEducationschollDetail->name }}</p>
-                        @else
-                            <p> College /Institute : {{ $scholarship->furtherEducationCollegeDetail->name }}</p>
-                        @endif
+                                    <td> District </td>
+                                    <td>: </td>
+                                    <td>{{ $scholl_college_data->district }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Course</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->further_education_details_course_joined }}</td>
+                                    <td>Class</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->marks_obtained_type }}</td>
 
+                                    <td>Combination/Specialization</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->marks_obtained }}</td>
+
+                                 
+                                </tr>
+                                <tr>
+                                    <td>Contact Person</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->school_contact_person }}</td>
+                                    <td>Contact Person Designation</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->school_designation }}</td>
+
+                                    <td>Contact Number</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->school_contact_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td>College Fees</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->fee_amount }}</td>
+                                    
+                                    <td>Have you previously availed
+                                        scholarship from Sansera Foundation?</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->previously_scholarship }}</td>
+                                    <td>If yes, from how many years</td>
+                                    <td> : </td>
+                                    <td>{{ $scholarship->how_many_years }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -270,8 +311,7 @@
                                 certificate of Parents/ Guardian </a></p>
                         <p> <a href="{{ asset($scholarship->id_proof) }}" target="_blank">
                                 2. Any Govt. ID proof (Aadhar, Ration card etc.)</a></p>
-                        <p> <a href="{{ asset($scholarship->previous_educational_marks_card) }}"
-                                target="_blank">
+                        <p> <a href="{{ asset($scholarship->previous_educational_marks_card) }}" target="_blank">
                                 3. Previous educational marks card </a></p>
                         <p> <a href="{{ asset($scholarship->original_fee_receipt) }}" target="_blank">
                                 4. Original fee receipt </a></p>

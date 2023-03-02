@@ -744,7 +744,7 @@ class ScholarshipController extends Controller
                 $eAmount = $aAmount;
             }
         }
-        //dd($scholarship);
+        // dd($scholarship);
         return view('scholarships.show', compact('scholarship', 'eAmount'));
     }
 
