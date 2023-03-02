@@ -149,7 +149,9 @@
                                 <th>@lang('Village')</th>
                                 <th>@lang('Institution')</th>
                                 <th>@lang('Status')</th>
-                                <th>@lang('Renewal')</th>
+                                @canany(['scholarship-update', 'scholarship-delete'])
+                                    <th>@lang('Renewal')</th>
+                                @endcanany
                                 @canany(['scholarship-read', 'scholarship-update', 'scholarship-delete'])
                                     <th data-orderable="false">@lang('Actions')</th>
                                 @endcanany
@@ -183,7 +185,7 @@
                                             <span class="badge badge-pill badge-danger">@lang('Rejected')</span>
                                         @endif
                                     </td>
-                                    @canany(['scholarship-read', 'scholarship-update', 'scholarship-delete'])
+                                    @canany(['scholarship-update', 'scholarship-delete'])
                                         <td>
                                             @if ($scholarship->year != date('Y'))
                                                 <a href="" class="btn btn-info"

@@ -61,7 +61,7 @@ Route::resources([
 
 
 
-Route::group(['middleware' => ['auth', 'is_verify_email']], function () {
+Route::group(['middleware' => ['is_active', 'auth', 'is_verify_email',]], function () {
 
     Route::get('/dashboard/get-chart-data', [
         App\Http\Controllers\DashboardController::class, 'getChartData'
